@@ -1,4 +1,3 @@
-cat > README.md <<'EOF'
 # Motorland CALE
 
 Simulador de preparación para evaluación teórica.

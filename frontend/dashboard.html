@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ingresar | Simulador Motorland</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-background"></div>
+
+    <main class="auth-layout">
+
+        <section class="auth-side">
+
+            <a href="index.html" class="auth-brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="CEA Motorland"
+                >
+
+            </a>
+
+
+            <div class="auth-side-content">
+
+                <span class="section-kicker">
+                    SIMULADOR MOTORLAND
+                </span>
+
+                <h1>
+                    Continúa donde
+                    lo dejaste.
+                </h1>
+
+                <p>
+                    Ingresa a tu cuenta para continuar con tu preparación
+                    y consultar tus resultados.
+                </p>
+
+
+                <div class="login-highlight">
+
+                    <div class="highlight-number">
+                        03
+                    </div>
+
+                    <div>
+                        <strong>
+                            Intentos disponibles
+                        </strong>
+
+                        <span>
+                            Controlados automáticamente
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="auth-form-section">
+
+            <div class="auth-form-container login-container">
+
+                <div class="mobile-logo">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="CEA Motorland"
+                    >
+
+                </div>
+
+
+                <div class="form-heading">
+
+                    <span class="form-kicker">
+                        BIENVENIDO DE NUEVO
+                    </span>
+
+                    <h2>
+                        Ingresar
+                    </h2>
+
+                    <p>
+                        Accede a tu simulador Motorland.
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm" class="auth-form">
+
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="correo@ejemplo.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="label-with-link">
+
+                            <label for="loginPassword">
+                                Contraseña
+                            </label>
+
+                            <a
+                                href="#"
+                                class="small-link"
+                                id="forgotPassword"
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </a>
+
+                        </div>
+
+
+                        <div class="password-field">
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Tu contraseña"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="loginPassword"
+                            >
+                                Ver
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="loginMessage"
+                        class="form-message"
+                        role="alert"
+                    ></div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-full"
+                    >
+                        Ingresar
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+
+                <div class="form-separator">
+                    <span>o</span>
+                </div>
+
+
+                <div class="register-prompt">
+
+                    <p>
+                        ¿Todavía no tienes una cuenta?
+                    </p>
+
+                    <a
+                        href="registro.html"
+                        class="btn btn-outline btn-full"
+                    >
+                        Crear una cuenta
+                    </a>
+
+                </div>
+
+
+                <div class="form-footer security-note">
+
+                    <span>
+                        🔒 Tus datos son tratados de forma segura.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

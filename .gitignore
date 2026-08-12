@@ -1,0 +1,25 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Node si se incorpora posteriormente
+node_modules/
+dist/
+
+# Python si posteriormente se incorpora backend
+.venv/
+__pycache__/
+*.pyc

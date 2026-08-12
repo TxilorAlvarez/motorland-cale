@@ -8,4 +8,4 @@ const SUPABASE_URL =
     "https://kqnscirhlhvqynaarxxr.supabase.co";
 
 const SUPABASE_ANON_KEY =
-    "sb_anon_...";
+    "sb_publishable_okOR1lgzLj98YJKVsaMIZQ_2RFfbP-y";

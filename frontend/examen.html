@@ -1,74 +1,207 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ingresar | Simulador Motorland</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Simulador | CEA Motorland
+    </title>
+
+    <meta
+        name="description"
+        content="Simulador de preparación teórica CEA Motorland."
+    >
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 </head>
 
-<body class="auth-page">
 
-    <div class="auth-background"></div>
+<body class="exam-page">
 
-    <main class="auth-layout">
 
-        <section class="auth-side">
+<!-- =====================================================
+     HEADER
+====================================================== -->
 
-            <a href="index.html" class="auth-brand">
+<header class="exam-header">
 
-                <img
-                    src="assets/logo.png"
-                    alt="CEA Motorland"
+    <div class="container exam-header-inner">
+
+
+        <a
+            href="dashboard.html"
+            class="brand exam-brand"
+        >
+
+            <img
+                src="assets/logo.png"
+                alt="CEA Motorland"
+                class="brand-logo"
+            >
+
+        </a>
+
+
+        <div class="exam-header-center">
+
+            <span class="exam-header-kicker">
+                Simulador CALE Motorland
+            </span>
+
+            <strong id="examCategory">
+                Cargando categoría...
+            </strong>
+
+        </div>
+
+
+        <div class="exam-header-actions">
+
+            <div class="exam-timer" aria-label="Tiempo restante">
+                <span class="timer-icon">&#9201;</span>
+                <strong id="examTimer">70:00</strong>
+            </div>
+
+            <div class="exam-user">
+
+                <span
+                    class="exam-user-initial"
+                    id="examUserInitial"
                 >
-
-            </a>
-
-
-            <div class="auth-side-content">
-
-                <span class="section-kicker">
-                    SIMULADOR MOTORLAND
+                    E
                 </span>
 
+                <span id="examUserName">
+                    Cargando...
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+            >
+                Salir
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="exam-main">
+
+    <div class="container exam-container">
+
+
+        <!-- =================================================
+             TOP INFORMATION
+        ================================================== -->
+
+        <section class="exam-topbar">
+
+
+            <div class="exam-title">
+
+                <span class="section-kicker">
+                    EVALUACIÓN TEÓRICA
+                </span>
+
+
                 <h1>
-                    Continúa donde
-                    lo dejaste.
+                    Simulador de conocimientos
                 </h1>
 
-                <p>
-                    Ingresa a tu cuenta para continuar con tu preparación
-                    y consultar tus resultados.
+
+                <p id="examInstruction">
+                    Hola,
+                    <strong id="examWelcomeName">
+                        estudiante
+                    </strong>.
+                    Responde cada pregunta seleccionando
+                    una única opción.
                 </p>
 
+            </div>
 
-                <div class="login-highlight">
 
-                    <div class="highlight-number">
-                        03
-                    </div>
+            <div class="exam-status">
 
-                    <div>
-                        <strong>
-                            Intentos disponibles
-                        </strong>
 
-                        <span>
-                            Controlados automáticamente
+                <div class="exam-stat">
+
+                    <span>
+                        Pregunta
+                    </span>
+
+                    <strong>
+
+                        <span id="currentQuestion">
+                            1
                         </span>
-                    </div>
+
+                        <small>
+                            /
+                            <span id="totalQuestions">
+                                0
+                            </span>
+                        </small>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="exam-stat">
+
+                    <span>
+                        Intento
+                    </span>
+
+                    <strong>
+
+                        <span id="currentAttempt">
+                            1
+                        </span>
+
+                        <small>
+                            / 3
+                        </small>
+
+                    </strong>
 
                 </div>
 
@@ -77,156 +210,386 @@
         </section>
 
 
-        <section class="auth-form-section">
 
-            <div class="auth-form-container login-container">
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
 
-                <div class="mobile-logo">
+        <section class="exam-progress-section">
 
-                    <img
-                        src="assets/logo.png"
-                        alt="CEA Motorland"
+
+            <div class="exam-progress-info">
+
+                <span>
+                    Progreso de la evaluación
+                </span>
+
+                <strong id="progressPercent">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="exam-progress">
+
+                <div
+                    class="exam-progress-bar"
+                    id="examProgressBar"
+                    style="width: 0%"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTION CARD
+        ================================================== -->
+
+        <section
+            class="question-section"
+            id="questionSection"
+        >
+
+            <article class="question-card">
+
+
+                <!-- CATEGORY -->
+
+                <div class="question-meta">
+
+                    <span
+                        class="question-category"
+                        id="questionCategory"
                     >
-
-                </div>
-
-
-                <div class="form-heading">
-
-                    <span class="form-kicker">
-                        BIENVENIDO DE NUEVO
+                        Seguridad vial
                     </span>
 
-                    <h2>
-                        Ingresar
-                    </h2>
 
-                    <p>
-                        Accede a tu simulador Motorland.
-                    </p>
+                    <span
+                        class="question-number"
+                        id="questionNumber"
+                    >
+                        Pregunta 01
+                    </span>
 
                 </div>
 
 
-                <form id="loginForm" class="auth-form">
+
+                <!-- QUESTION -->
+
+                <div class="question-content">
+
+                    <h2 id="questionText">
+                        Preparando tu evaluación...
+                    </h2>
 
 
-                    <div class="form-group">
+                    <div
+                        class="question-image-wrapper hidden"
+                        id="questionImageWrapper"
+                    >
 
-                        <label for="loginEmail">
-                            Correo electrónico
-                        </label>
-
-                        <input
-                            type="email"
-                            id="loginEmail"
-                            name="email"
-                            placeholder="correo@ejemplo.com"
-                            autocomplete="email"
-                            required
+                        <img
+                            id="questionImage"
+                            class="question-image"
+                            src=""
+                            alt="Imagen relacionada con la pregunta"
                         >
 
                     </div>
 
-
-                    <div class="form-group">
-
-                        <div class="label-with-link">
-
-                            <label for="loginPassword">
-                                Contraseña
-                            </label>
-
-                            <a
-                                href="#"
-                                class="small-link"
-                                id="forgotPassword"
-                            >
-                                ¿Olvidaste tu contraseña?
-                            </a>
-
-                        </div>
+                </div>
 
 
-                        <div class="password-field">
 
-                            <input
-                                type="password"
-                                id="loginPassword"
-                                name="password"
-                                placeholder="Tu contraseña"
-                                autocomplete="current-password"
-                                required
-                            >
+                <!-- OPTIONS -->
 
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                data-target="loginPassword"
-                            >
-                                Ver
-                            </button>
+                <div
+                    class="question-options"
+                    id="questionOptions"
+                    role="radiogroup"
+                    aria-label="Opciones de respuesta"
+                >
 
-                        </div>
+                    <!--
+                        Las opciones serán generadas
+                        dinámicamente por examen.js.
+                    -->
+
+                </div>
+
+
+
+                <!-- QUESTION FOOTER -->
+
+                <div class="question-footer">
+
+
+                    <div class="question-help">
+
+                        <span class="question-help-icon">
+                            i
+                        </span>
+
+                        <span>
+                            Selecciona una sola respuesta.
+                        </span>
 
                     </div>
 
 
                     <div
-                        id="loginMessage"
-                        class="form-message"
-                        role="alert"
+                        id="answerMessage"
+                        class="answer-message"
+                        role="status"
+                        aria-live="polite"
                     ></div>
 
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary btn-full"
-                    >
-                        Ingresar
-                        <span>→</span>
-                    </button>
-
-                </form>
-
-
-                <div class="form-separator">
-                    <span>o</span>
                 </div>
 
 
-                <div class="register-prompt">
+            </article>
 
-                    <p>
-                        ¿Todavía no tienes una cuenta?
-                    </p>
+        </section>
 
-                    <a
-                        href="registro.html"
-                        class="btn btn-outline btn-full"
-                    >
-                        Crear una cuenta
-                    </a>
 
+
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <section class="exam-navigation">
+
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                id="previousQuestionButton"
+                disabled
+            >
+
+                <span>
+                    ←
+                </span>
+
+                Anterior
+
+            </button>
+
+
+            <div
+                class="question-dots"
+                id="questionDots"
+            >
+                <!-- Generado por examen.js -->
+            </div>
+
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="nextQuestionButton"
+                disabled
+            >
+
+                Siguiente
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINALIZE
+        ================================================== -->
+
+        <section
+            class="exam-submit-section hidden"
+            id="examSubmitSection"
+        >
+
+            <div class="exam-submit-card">
+
+
+                <div class="submit-icon">
+                    ✓
                 </div>
 
 
-                <div class="form-footer security-note">
+                <div>
 
-                    <span>
-                        🔒 Tus datos son tratados de forma segura.
+                    <span class="card-kicker">
+                        EVALUACIÓN COMPLETADA
                     </span>
 
+
+                    <h2>
+                        Has respondido todas las preguntas.
+                    </h2>
+
+
+                    <p>
+                        Revisa tus respuestas antes de finalizar
+                        la evaluación.
+                    </p>
+
                 </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary btn-large"
+                    id="finishExamButton"
+                >
+                    Finalizar evaluación
+                    <span>
+                        →
+                    </span>
+                </button>
+
 
             </div>
 
         </section>
 
-    </main>
 
 
-    <script src="js/auth.js"></script>
+        <!-- =================================================
+             SECURITY / TRACEABILITY
+        ================================================== -->
+
+        <section class="exam-security-note">
+
+
+            <div class="security-note-icon">
+                🔒
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Evaluación registrada
+                </strong>
+
+
+                <p>
+                    Tu progreso y resultado serán asociados
+                    a tu cuenta de estudiante.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     CONFIRMATION MODAL
+====================================================== -->
+
+<div
+    class="modal-overlay hidden"
+    id="finishModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="finishModalTitle"
+>
+
+
+    <div class="modal-card">
+
+
+        <button
+            type="button"
+            class="modal-close"
+            id="closeFinishModal"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-icon">
+            ?
+        </div>
+
+
+        <span class="form-kicker">
+            CONFIRMAR EVALUACIÓN
+        </span>
+
+
+        <h2 id="finishModalTitle">
+            ¿Finalizar este intento?
+        </h2>
+
+
+        <p>
+            Una vez finalizada la evaluación,
+            tus respuestas serán registradas y
+            no podrás modificarlas.
+        </p>
+
+
+        <div class="modal-actions">
+
+
+            <button
+                type="button"
+                class="btn btn-outline"
+                id="cancelFinishButton"
+            >
+                Continuar revisando
+            </button>
+
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="confirmFinishButton"
+            >
+                Finalizar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPABASE
+====================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="js/config.js"></script>
+
+<script src="js/supabase.js"></script>
+
+<script src="js/examen.js"></script>
+
 
 </body>
+
 </html>

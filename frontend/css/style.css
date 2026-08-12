@@ -1064,17 +1064,12 @@ img {
         );
 }
 
-.auth-brand {
-    position: relative;
-    z-index: 2;
-}
-
 .auth-brand img {
     width: 175px;
-
-    filter:
-        brightness(0)
-        invert(1);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter: none;
 }
 
 .auth-side-content {

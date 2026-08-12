@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ingresar | Simulador Motorland</title>
+    <title>Mi panel | Simulador Motorland</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -19,214 +20,413 @@
 
 </head>
 
-<body class="auth-page">
+<body class="dashboard-page">
 
-    <div class="auth-background"></div>
+<header class="dashboard-header">
 
-    <main class="auth-layout">
+    <div class="container dashboard-header-inner">
 
-        <section class="auth-side">
+        <a href="dashboard.html" class="brand">
 
-            <a href="index.html" class="auth-brand">
+            <img
+                src="assets/logo.png"
+                alt="CEA Motorland"
+                class="brand-logo"
+            >
 
-                <img
-                    src="assets/logo.png"
-                    alt="CEA Motorland"
-                >
-
-            </a>
+        </a>
 
 
-            <div class="auth-side-content">
+        <div class="user-menu">
+
+            <div class="user-avatar">
+                <span id="userInitial">E</span>
+            </div>
+
+            <div class="user-info">
+
+                <strong id="userName">
+                    Estudiante
+                </strong>
+
+                <span id="userCategory">
+                    Categoría B1
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                id="logoutButton"
+                class="logout-button"
+            >
+                Salir
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard-main">
+
+    <div class="container">
+
+
+        <!-- =========================================
+             BIENVENIDA
+        ========================================== -->
+
+        <section class="dashboard-welcome">
+
+            <div>
 
                 <span class="section-kicker">
-                    SIMULADOR MOTORLAND
+                    MI SIMULADOR
                 </span>
 
                 <h1>
-                    Continúa donde
-                    lo dejaste.
+                    Hola,
+                    <span id="welcomeName">Estudiante</span>.
                 </h1>
 
                 <p>
-                    Ingresa a tu cuenta para continuar con tu preparación
-                    y consultar tus resultados.
+                    Es momento de poner a prueba tus conocimientos.
                 </p>
 
+            </div>
 
-                <div class="login-highlight">
 
-                    <div class="highlight-number">
-                        03
-                    </div>
+            <div class="category-chip">
 
-                    <div>
-                        <strong>
-                            Intentos disponibles
-                        </strong>
+                <span class="category-dot"></span>
 
-                        <span>
-                            Controlados automáticamente
-                        </span>
-                    </div>
+                <strong id="dashboardCategory">
+                    B1
+                </strong>
 
-                </div>
+                <span>
+                    Activo
+                </span>
 
             </div>
 
         </section>
 
 
-        <section class="auth-form-section">
+        <!-- =========================================
+             TARJETAS PRINCIPALES
+        ========================================== -->
 
-            <div class="auth-form-container login-container">
-
-                <div class="mobile-logo">
-
-                    <img
-                        src="assets/logo.png"
-                        alt="CEA Motorland"
-                    >
-
-                </div>
+        <section class="dashboard-grid">
 
 
-                <div class="form-heading">
+            <!-- SIMULADOR -->
 
-                    <span class="form-kicker">
-                        BIENVENIDO DE NUEVO
+            <article class="main-action-card">
+
+                <div class="action-card-content">
+
+                    <span class="card-kicker">
+                        PREPARACIÓN TEÓRICA
                     </span>
 
                     <h2>
-                        Ingresar
+                        ¿Listo para comenzar
+                        tu simulación?
                     </h2>
 
                     <p>
-                        Accede a tu simulador Motorland.
+                        Responde las preguntas seleccionadas para tu
+                        categoría y conoce tu resultado al finalizar.
                     </p>
 
-                </div>
-
-
-                <form id="loginForm" class="auth-form">
-
-
-                    <div class="form-group">
-
-                        <label for="loginEmail">
-                            Correo electrónico
-                        </label>
-
-                        <input
-                            type="email"
-                            id="loginEmail"
-                            name="email"
-                            placeholder="correo@ejemplo.com"
-                            autocomplete="email"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <div class="label-with-link">
-
-                            <label for="loginPassword">
-                                Contraseña
-                            </label>
-
-                            <a
-                                href="#"
-                                class="small-link"
-                                id="forgotPassword"
-                            >
-                                ¿Olvidaste tu contraseña?
-                            </a>
-
-                        </div>
-
-
-                        <div class="password-field">
-
-                            <input
-                                type="password"
-                                id="loginPassword"
-                                name="password"
-                                placeholder="Tu contraseña"
-                                autocomplete="current-password"
-                                required
-                            >
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                data-target="loginPassword"
-                            >
-                                Ver
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        id="loginMessage"
-                        class="form-message"
-                        role="alert"
-                    ></div>
-
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary btn-full"
-                    >
-                        Ingresar
-                        <span>→</span>
-                    </button>
-
-                </form>
-
-
-                <div class="form-separator">
-                    <span>o</span>
-                </div>
-
-
-                <div class="register-prompt">
-
-                    <p>
-                        ¿Todavía no tienes una cuenta?
-                    </p>
 
                     <a
-                        href="registro.html"
-                        class="btn btn-outline btn-full"
+                        href="examen.html"
+                        class="btn btn-primary btn-large"
+                        id="startExamButton"
                     >
-                        Crear una cuenta
+                        Iniciar simulador
+                        <span>→</span>
                     </a>
 
                 </div>
 
 
-                <div class="form-footer security-note">
+                <div class="action-card-visual">
 
-                    <span>
-                        🔒 Tus datos son tratados de forma segura.
+                    <div class="road-background">
+
+                        <div class="road-line road-line-1"></div>
+                        <div class="road-line road-line-2"></div>
+                        <div class="road-line road-line-3"></div>
+
+                    </div>
+
+
+                    <div class="traffic-light">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- INTENTOS -->
+
+            <article class="attempts-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-kicker">
+                            TUS INTENTOS
+                        </span>
+
+                        <h3>
+                            Disponibilidad
+                        </h3>
+
+                    </div>
+
+                    <div class="attempts-number">
+
+                        <span id="attemptsUsed">
+                            0
+                        </span>
+
+                        <small>
+                            / 3
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="attempt-progress">
+
+                    <div
+                        class="progress-bar"
+                        id="attemptProgress"
+                        style="width: 0%"
+                    ></div>
+
+                </div>
+
+
+                <p id="attemptText">
+                    Tienes 3 intentos disponibles.
+                </p>
+
+            </article>
+
+
+            <!-- RESULTADOS -->
+
+            <article class="stats-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-kicker">
+                            MI PROGRESO
+                        </span>
+
+                        <h3>
+                            Resultados
+                        </h3>
+
+                    </div>
+
+                    <span class="stats-icon">
+                        ↗
                     </span>
+
+                </div>
+
+
+                <div
+                    class="stats-empty"
+                    id="statsEmpty"
+                >
+
+                    <span class="empty-icon">
+                        ○
+                    </span>
+
+                    <p>
+                        Aún no has realizado
+                        ningún intento.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="stats-content hidden"
+                    id="statsContent"
+                >
+
+                    <div class="score-main">
+
+                        <strong id="bestScore">
+                            0%
+                        </strong>
+
+                        <span>
+                            Mejor resultado
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-meta">
+
+                        <div>
+
+                            <strong id="completedAttempts">
+                                0
+                            </strong>
+
+                            <span>
+                                Intentos
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong id="lastResult">
+                                —
+                            </strong>
+
+                            <span>
+                                Último
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================================
+             HISTORIAL
+        ========================================== -->
+
+        <section class="dashboard-history">
+
+            <div class="section-heading compact">
+
+                <div>
+
+                    <span class="section-kicker">
+                        HISTORIAL
+                    </span>
+
+                    <h2>
+                        Tus últimos resultados
+                    </h2>
 
                 </div>
 
             </div>
 
+
+            <div class="history-table-wrapper">
+
+                <table class="history-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Intento</th>
+                            <th>Fecha</th>
+                            <th>Resultado</th>
+                            <th>Puntaje</th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="historyBody">
+
+                        <tr class="empty-row">
+
+                            <td colspan="5">
+
+                                <div>
+
+                                    <span>
+                                        No hay intentos registrados
+                                    </span>
+
+                                    <small>
+                                        Tus resultados aparecerán aquí.
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </section>
 
-    </main>
+
+    </div>
+
+</main>
 
 
-    <script src="js/auth.js"></script>
+<footer class="site-footer dashboard-footer">
+
+    <div class="container footer-inner">
+
+        <span>
+            CEA Motorland · Simulador de preparación
+        </span>
+
+        <span>
+            © 2026
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/config.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/dashboard.js"></script>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ let preguntaActual = 0;
 let attemptId = null;
 let finalizado = false;
 let timerId = null;
+let guardandoRespuesta = false;
 
 // =========================================================
 // INICIO
@@ -162,7 +163,7 @@ async function iniciar() {
             error: questionsError
         } = await supabaseClient
             .from("exam_attempt_questions")
-            .select("question_order,question_id")
+            .select("question_order,question_id,selected_option")
             .eq("attempt_id", attemptId)
             .order("question_order", {
                 ascending: true
@@ -280,7 +281,9 @@ async function iniciar() {
         // ESTADO INICIAL
         // -------------------------------------------------
 
-        respuestas = Array(40).fill(null);
+        respuestas = asignadas.map(
+            row => row.selected_option || null
+        );
 
         preguntaActual = 0;
 
@@ -306,7 +309,22 @@ async function iniciar() {
         // INICIAR TEMPORIZADOR
         // -------------------------------------------------
 
-        iniciarReloj();
+        const {
+            data: attempt,
+            error: attemptError
+        } = await supabaseClient
+            .from("exam_attempts")
+            .select("started_at")
+            .eq("id", attemptId)
+            .single();
+
+        if (attemptError || !attempt) {
+            return mostrarError(
+                "No fue posible recuperar el tiempo de tu evaluación."
+            );
+        }
+
+        iniciarReloj(attempt.started_at);
 
         console.log(
             "Examen cargado correctamente."
@@ -404,6 +422,11 @@ function configurarEventos() {
             "finishExamButton"
         );
 
+    const reviewFinishButton =
+        document.getElementById(
+            "reviewFinishButton"
+        );
+
     const confirmFinishButton =
         document.getElementById(
             "confirmFinishButton"
@@ -471,6 +494,14 @@ function configurarEventos() {
     if (finishButton) {
         finishButton.onclick = () => {
             abrirModal();
+        };
+    }
+
+    if (reviewFinishButton) {
+        reviewFinishButton.onclick = () => {
+            if (respuestas.every(Boolean)) {
+                abrirModal();
+            }
         };
     }
 
@@ -826,7 +857,8 @@ function mostrarImagen(q) {
 async function responder(opcion) {
     if (
         finalizado ||
-        !attemptId
+        !attemptId ||
+        guardandoRespuesta
     ) {
         return;
     }
@@ -845,10 +877,23 @@ async function responder(opcion) {
     // ACTUALIZAR INTERFAZ
     // -------------------------------------------------
 
-    respuestas[indice] =
-        opcion;
+    const respuestaAnterior = respuestas[indice];
+
+    guardandoRespuesta = true;
+
+    respuestas[indice] = opcion;
 
     dibujar(indice);
+
+    const answerMessage =
+        document.getElementById(
+            "answerMessage"
+        );
+
+    if (answerMessage) {
+        answerMessage.textContent =
+            "Guardando respuesta...";
+    }
 
     // -------------------------------------------------
     // GUARDAR EN SUPABASE
@@ -871,6 +916,14 @@ async function responder(opcion) {
     );
 
     if (error) {
+        guardandoRespuesta = false;
+
+        respuestas[indice] = respuestaAnterior;
+
+        if (preguntaActual === indice) {
+            dibujar(indice);
+        }
+
         console.error(
             "Error guardando respuesta:",
             error
@@ -883,6 +936,28 @@ async function responder(opcion) {
 
         return;
     }
+
+    if (answerMessage) {
+        answerMessage.textContent =
+            "Respuesta guardada.";
+    }
+
+    guardandoRespuesta = false;
+
+    window.setTimeout(
+        () => {
+            if (finalizado || indice !== preguntaActual) {
+                return;
+            }
+
+            if (indice < preguntas.length - 1) {
+                dibujar(indice + 1);
+            } else if (respuestas.every(Boolean)) {
+                mostrarFinalizacion();
+            }
+        },
+        280
+    );
 
     console.log(
         `Respuesta guardada: pregunta ${pregunta.question_order} = ${opcion}`
@@ -919,6 +994,16 @@ function actualizarNavegacion() {
 
         nextButton.disabled =
             !respondida;
+    }
+
+    const reviewFinishButton =
+        document.getElementById(
+            "reviewFinishButton"
+        );
+
+    if (reviewFinishButton) {
+        reviewFinishButton.disabled =
+            !respuestas.every(Boolean);
     }
 }
 
@@ -1170,9 +1255,13 @@ async function finalizar(
 // RELOJ
 // =========================================================
 
-function iniciarReloj() {
-    let restante =
-        70 * 60;
+function iniciarReloj(startedAt) {
+    let restante = Math.max(
+        0,
+        70 * 60 - Math.floor(
+            (Date.now() - new Date(startedAt).getTime()) / 1000
+        )
+    );
 
     const el =
         document.getElementById(

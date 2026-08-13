@@ -97,7 +97,15 @@ begin
     if v_user is null then raise exception 'Sesión no válida'; end if;
     select categoria into v_category from profiles where id = v_user;
     if v_category not in ('A2', 'B1', 'C1') then raise exception 'Categoría de perfil no válida'; end if;
-    if exists (select 1 from exam_attempts where user_id = v_user and status = 'in_progress') then raise exception 'Ya existe un intento en curso'; end if;
+    update exam_attempts
+       set status = 'expired', finished_at = now(), duration_seconds = greatest(0, extract(epoch from now() - started_at)::integer)
+     where user_id = v_user and status = 'in_progress' and started_at <= now() - interval '70 minutes';
+    select id into v_attempt
+      from exam_attempts
+     where user_id = v_user and status = 'in_progress'
+     order by started_at desc
+     limit 1;
+    if v_attempt is not null then return v_attempt; end if;
     if (select count(*) from exam_attempts where user_id = v_user and status in ('completed', 'expired')) >= 3 then raise exception 'Se agotaron los intentos disponibles'; end if;
     if (select count(*) from exam_questions where active and category @> array[v_category]) < 40 then raise exception 'No hay 40 preguntas disponibles para la categoría %', v_category; end if;
     insert into exam_attempts (user_id, category, total_questions) values (v_user, v_category, 40) returning id into v_attempt;
@@ -105,7 +113,9 @@ begin
         select q.id, row_number() over (partition by q.module order by random()) as rn
         from exam_questions q where q.active and q.category @> array[v_category]
     ), chosen as (
-        select id from ranked where (module = 'attitudes' and rn <= 12) or (module <> 'attitudes' and rn <= 7)
+        select id from ranked where (module = 'attitudes' and rn <= 12)
+            or (module = 'safe_mobility' and rn <= 10)
+            or (module in ('traffic_rules', 'signage_infrastructure', 'vehicle') and rn <= 6)
     )
     insert into exam_attempt_questions (attempt_id, question_id, question_order)
     select v_attempt, id, row_number() over (order by random()) from chosen;
@@ -141,4 +151,7 @@ begin
     if not found then raise exception 'No se puede finalizar este intento'; end if;
 end $$;
 
+revoke all on function public.start_exam_attempt() from public;
+revoke all on function public.save_exam_answer(uuid, integer, text) from public;
+revoke all on function public.finish_exam_attempt(uuid, boolean) from public;
 grant execute on function public.start_exam_attempt(), public.save_exam_answer(uuid, integer, text), public.finish_exam_attempt(uuid, boolean) to authenticated;

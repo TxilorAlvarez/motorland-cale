@@ -155,3 +155,6 @@ revoke all on function public.start_exam_attempt() from public;
 revoke all on function public.save_exam_answer(uuid, integer, text) from public;
 revoke all on function public.finish_exam_attempt(uuid, boolean) from public;
 grant execute on function public.start_exam_attempt(), public.save_exam_answer(uuid, integer, text), public.finish_exam_attempt(uuid, boolean) to authenticated;
+
+-- Hace disponible inmediatamente las funciones RPC para el cliente de Supabase.
+notify pgrst, 'reload schema';

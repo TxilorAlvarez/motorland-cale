@@ -34,6 +34,8 @@ Ejecuta estos archivos en el SQL Editor, en este orden:
 2. `supabase/examen.sql`
 3. `supabase/examen_bank.sql`
 
+Si el navegador muestra `Could not find the function public.save_exam_answer`, ejecuta adicionalmente `supabase/hotfix_save_exam_answer.sql`. El archivo recrea la función que guarda respuestas y solicita a PostgREST recargar su caché de esquema.
+
 `examen_bank.sql` carga 240 preguntas pedagógicas de preparación: 200 del banco y 40 situacionales. No reproduce ni afirma ser el banco oficial del CALE. Los scripts anteriores `preguntas_a2.sql` y `examen_seed.sql` se conservan como material histórico y no deben ejecutarse junto con el banco consolidado.
 
 Para regenerar el banco desde los PDF extraídos a texto:

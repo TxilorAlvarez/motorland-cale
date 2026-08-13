@@ -1,160 +1,1000 @@
--- Motor de examen. Ejecutar después de schema.sql.
--- Este script migra la tabla antigua creada por versiones previas.
+-- =========================================================
+-- MOTORLAND CALE — MOTOR DEFINITIVO DE EXAMEN
+-- =========================================================
+-- Ejecutar en Supabase SQL Editor.
+-- Este archivo es una MIGRACIÓN NO DESTRUCTIVA:
+-- NO borra respuestas, intentos ni preguntas existentes.
+--
+-- ORDEN:
+--   1) Ejecutar este archivo completo en Supabase.
+--   2) NO ejecutar hotfix_save_exam_answer.sql después.
+--   3) NO es necesario volver a ejecutar examen.sql antiguo.
+--   4) Recargar la página del simulador.
+--
+-- Estructura CALE:
+--   40 preguntas
+--   12 actitudinales
+--   28 conocimientos:
+--      10 movilidad segura y sostenible
+--       6 normas de tránsito
+--       6 señalización e infraestructura
+--       6 vehículo
+--   Tiempo máximo: 70 minutos
+--   Aprobación: >=80% conocimientos Y >=80% actitudes
+-- =========================================================
+
+
+-- =========================================================
+-- 1. TABLA DE PREGUNTAS
+-- =========================================================
 
 create table if not exists public.exam_questions (
     id uuid primary key default gen_random_uuid(),
-    question_type text not null check (question_type in ('attitude', 'knowledge')),
-    module text not null check (module in ('vehicle', 'signage_infrastructure', 'traffic_rules', 'safe_mobility', 'attitudes')),
-    category text[] not null check (cardinality(category) > 0 and category <@ array['A2', 'B1', 'C1']::text[]),
-    difficulty text not null default 'medium' check (difficulty in ('easy', 'medium', 'hard')),
+
+    question_type text not null
+        check (question_type in ('attitude', 'knowledge')),
+
+    module text not null
+        check (
+            module in (
+                'vehicle',
+                'signage_infrastructure',
+                'traffic_rules',
+                'safe_mobility',
+                'attitudes'
+            )
+        ),
+
+    category text[] not null
+        check (
+            cardinality(category) > 0
+            and category <@ array['A2','B1','C1']::text[]
+        ),
+
+    difficulty text not null default 'medium'
+        check (difficulty in ('easy','medium','hard')),
+
     question_text text not null,
-    option_a text not null, option_b text not null, option_c text not null, option_d text not null,
-    correct_option text not null check (correct_option in ('A', 'B', 'C', 'D')),
-    explanation text, legal_source text, legal_article text, legal_reference text,
-    image_url text, active boolean not null default true,
-    created_at timestamptz not null default now(), updated_at timestamptz not null default now(),
+
+    option_a text not null,
+    option_b text not null,
+    option_c text not null,
+    option_d text not null,
+
+    correct_option text not null
+        check (correct_option in ('A','B','C','D')),
+
+    explanation text,
+    legal_source text,
+    legal_article text,
+    legal_reference text,
+    image_url text,
+
+    active boolean not null default true,
+
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now(),
+
     constraint exam_questions_type_module_check check (
-        (question_type = 'attitude' and module = 'attitudes') or
+        (question_type = 'attitude' and module = 'attitudes')
+        or
         (question_type = 'knowledge' and module <> 'attitudes')
     )
 );
 
-create table if not exists public.exam_attempts (id uuid primary key default gen_random_uuid());
-alter table public.exam_attempts add column if not exists user_id uuid references auth.users(id) on delete cascade;
-alter table public.exam_attempts add column if not exists category text;
-alter table public.exam_attempts add column if not exists started_at timestamptz not null default now();
-alter table public.exam_attempts add column if not exists finished_at timestamptz;
-alter table public.exam_attempts add column if not exists duration_seconds integer;
-alter table public.exam_attempts add column if not exists total_questions integer not null default 40;
-alter table public.exam_attempts add column if not exists total_correct integer not null default 0;
-alter table public.exam_attempts add column if not exists total_score numeric(5,2) not null default 0;
-alter table public.exam_attempts add column if not exists passed boolean not null default false;
-alter table public.exam_attempts add column if not exists status text not null default 'in_progress';
-alter table public.exam_attempts add column if not exists created_at timestamptz not null default now();
-do $$ begin
-    if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'exam_attempts' and column_name = 'categoria') then
-        execute 'update public.exam_attempts set category = categoria where category is null';
+
+-- =========================================================
+-- 2. TABLA DE INTENTOS
+-- =========================================================
+
+create table if not exists public.exam_attempts (
+    id uuid primary key default gen_random_uuid()
+);
+
+alter table public.exam_attempts
+    add column if not exists user_id uuid
+        references auth.users(id) on delete cascade;
+
+alter table public.exam_attempts
+    add column if not exists category text;
+
+alter table public.exam_attempts
+    add column if not exists started_at timestamptz
+        not null default now();
+
+alter table public.exam_attempts
+    add column if not exists finished_at timestamptz;
+
+alter table public.exam_attempts
+    add column if not exists duration_seconds integer;
+
+alter table public.exam_attempts
+    add column if not exists total_questions integer
+        not null default 40;
+
+alter table public.exam_attempts
+    add column if not exists attitude_correct integer
+        not null default 0;
+
+alter table public.exam_attempts
+    add column if not exists knowledge_correct integer
+        not null default 0;
+
+alter table public.exam_attempts
+    add column if not exists total_correct integer
+        not null default 0;
+
+alter table public.exam_attempts
+    add column if not exists attitude_score numeric(5,2)
+        not null default 0;
+
+alter table public.exam_attempts
+    add column if not exists knowledge_score numeric(5,2)
+        not null default 0;
+
+alter table public.exam_attempts
+    add column if not exists total_score numeric(5,2)
+        not null default 0;
+
+alter table public.exam_attempts
+    add column if not exists attitude_passed boolean
+        not null default false;
+
+alter table public.exam_attempts
+    add column if not exists knowledge_passed boolean
+        not null default false;
+
+alter table public.exam_attempts
+    add column if not exists passed boolean
+        not null default false;
+
+alter table public.exam_attempts
+    add column if not exists status text
+        not null default 'in_progress';
+
+alter table public.exam_attempts
+    add column if not exists created_at timestamptz
+        not null default now();
+
+
+-- =========================================================
+-- 3. NORMALIZACIÓN DE DATOS ANTIGUOS
+-- =========================================================
+
+do $$
+begin
+    if exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'public'
+          and table_name = 'exam_attempts'
+          and column_name = 'categoria'
+    ) then
+        execute '
+            update public.exam_attempts
+               set category = categoria
+             where category is null
+        ';
     end if;
-    if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'exam_attempts' and column_name = 'score') then
-        execute 'update public.exam_attempts set total_score = coalesce(total_score, score)';
+
+    if exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'public'
+          and table_name = 'exam_attempts'
+          and column_name = 'score'
+    ) then
+        execute '
+            update public.exam_attempts
+               set total_score = coalesce(total_score, score)
+             where total_score = 0
+        ';
     end if;
-end $$;
-alter table public.exam_attempts drop column if exists categoria;
-alter table public.exam_attempts drop column if exists score;
-alter table public.exam_attempts drop column if exists correct_answers;
-alter table public.exam_attempts drop column if exists incorrect_answers;
-alter table public.exam_attempts drop column if exists completed_at;
-alter table public.exam_attempts drop column if exists attitude_correct;
-alter table public.exam_attempts drop column if exists knowledge_correct;
-alter table public.exam_attempts drop column if exists attitude_score;
-alter table public.exam_attempts drop column if exists knowledge_score;
-alter table public.exam_attempts drop column if exists attitude_passed;
-alter table public.exam_attempts drop column if exists knowledge_passed;
-alter table public.exam_attempts drop constraint if exists exam_attempts_category_check;
-alter table public.exam_attempts add constraint exam_attempts_category_check check (category in ('A2', 'B1', 'C1'));
-alter table public.exam_attempts drop constraint if exists exam_attempts_status_check;
-alter table public.exam_attempts add constraint exam_attempts_status_check check (status in ('in_progress', 'completed', 'expired', 'cancelled'));
+end
+$$;
+
+
+-- =========================================================
+-- 4. CONSTRAINTS DE INTENTOS
+-- =========================================================
+
+alter table public.exam_attempts
+    drop constraint if exists exam_attempts_category_check;
+
+alter table public.exam_attempts
+    add constraint exam_attempts_category_check
+    check (category in ('A2','B1','C1'));
+
+alter table public.exam_attempts
+    drop constraint if exists exam_attempts_status_check;
+
+alter table public.exam_attempts
+    add constraint exam_attempts_status_check
+    check (
+        status in (
+            'in_progress',
+            'completed',
+            'expired',
+            'cancelled'
+        )
+    );
+
+
+-- =========================================================
+-- 5. PREGUNTAS ASIGNADAS A CADA INTENTO
+-- =========================================================
 
 create table if not exists public.exam_attempt_questions (
     id uuid primary key default gen_random_uuid(),
-    attempt_id uuid not null references public.exam_attempts(id) on delete cascade,
-    question_id uuid not null references public.exam_questions(id),
-    question_order integer not null check (question_order between 1 and 40),
-    selected_option text check (selected_option is null or selected_option in ('A', 'B', 'C', 'D')),
-    is_correct boolean, answered_at timestamptz, created_at timestamptz not null default now(),
-    unique (attempt_id, question_order), unique (attempt_id, question_id)
+
+    attempt_id uuid not null
+        references public.exam_attempts(id)
+        on delete cascade,
+
+    question_id uuid not null
+        references public.exam_questions(id),
+
+    question_order integer not null
+        check (question_order between 1 and 40),
+
+    selected_option text
+        check (
+            selected_option is null
+            or selected_option in ('A','B','C','D')
+        ),
+
+    is_correct boolean,
+
+    answered_at timestamptz,
+
+    created_at timestamptz not null default now(),
+
+    unique (attempt_id, question_order),
+    unique (attempt_id, question_id)
 );
 
-create index if not exists exam_questions_category_active_idx on public.exam_questions using gin(category);
-create index if not exists exam_attempts_user_created_idx on public.exam_attempts(user_id, created_at desc);
-create index if not exists exam_attempt_questions_attempt_idx on public.exam_attempt_questions(attempt_id);
 
--- Vista pública: nunca entrega correct_option ni explicación antes del cierre.
-create or replace view public.exam_questions_for_students
+-- =========================================================
+-- 6. ÍNDICES
+-- =========================================================
+
+create index if not exists exam_questions_category_active_idx
+    on public.exam_questions using gin(category);
+
+create index if not exists exam_attempts_user_created_idx
+    on public.exam_attempts(user_id, created_at desc);
+
+create index if not exists exam_attempt_questions_attempt_idx
+    on public.exam_attempt_questions(attempt_id);
+
+
+-- =========================================================
+-- 7. VISTA SEGURA PARA ESTUDIANTES
+--    Nunca entrega correct_option mientras se presenta.
+-- =========================================================
+
+drop view if exists public.exam_questions_for_students;
+
+create view public.exam_questions_for_students
 with (security_invoker = true) as
-select id, question_type, module, category, difficulty, question_text, option_a, option_b, option_c, option_d, image_url
-from public.exam_questions where active = true;
+select
+    id,
+    question_type,
+    module,
+    category,
+    difficulty,
+    question_text,
+    option_a,
+    option_b,
+    option_c,
+    option_d,
+    image_url
+from public.exam_questions
+where active = true;
+
+
+-- =========================================================
+-- 8. RLS
+-- =========================================================
 
 alter table public.exam_questions enable row level security;
 alter table public.exam_attempts enable row level security;
 alter table public.exam_attempt_questions enable row level security;
 
-drop policy if exists "students read active questions" on public.exam_questions;
-create policy "students read active questions" on public.exam_questions for select to authenticated using (active);
-drop policy if exists "students read own attempts" on public.exam_attempts;
-create policy "students read own attempts" on public.exam_attempts for select to authenticated using ((select auth.uid()) = user_id);
-drop policy if exists "students read own assigned questions" on public.exam_attempt_questions;
-create policy "students read own assigned questions" on public.exam_attempt_questions for select to authenticated using (exists (select 1 from public.exam_attempts a where a.id = attempt_id and a.user_id = (select auth.uid())));
 
-revoke all on public.exam_questions, public.exam_attempts, public.exam_attempt_questions from authenticated;
-grant select (id, question_type, module, category, difficulty, question_text, option_a, option_b, option_c, option_d, image_url, active) on public.exam_questions to authenticated;
-grant select on public.exam_questions_for_students, public.exam_attempts, public.exam_attempt_questions to authenticated;
+drop policy if exists "students read active questions"
+    on public.exam_questions;
+
+create policy "students read active questions"
+on public.exam_questions
+for select
+to authenticated
+using (active);
+
+
+drop policy if exists "students read own attempts"
+    on public.exam_attempts;
+
+create policy "students read own attempts"
+on public.exam_attempts
+for select
+to authenticated
+using ((select auth.uid()) = user_id);
+
+
+drop policy if exists "students read own assigned questions"
+    on public.exam_attempt_questions;
+
+create policy "students read own assigned questions"
+on public.exam_attempt_questions
+for select
+to authenticated
+using (
+    exists (
+        select 1
+        from public.exam_attempts a
+        where a.id = attempt_id
+          and a.user_id = (select auth.uid())
+    )
+);
+
+
+-- =========================================================
+-- 9. PERMISOS
+-- =========================================================
+
+revoke all
+on public.exam_questions,
+   public.exam_attempts,
+   public.exam_attempt_questions
+from authenticated;
+
+grant select (
+    id,
+    question_type,
+    module,
+    category,
+    difficulty,
+    question_text,
+    option_a,
+    option_b,
+    option_c,
+    option_d,
+    image_url,
+    active
+)
+on public.exam_questions
+to authenticated;
+
+grant select
+on public.exam_questions_for_students,
+   public.exam_attempts,
+   public.exam_attempt_questions
+to authenticated;
+
+
+-- =========================================================
+-- 10. INICIAR / RETOMAR INTENTO
+-- =========================================================
 
 create or replace function public.start_exam_attempt()
-returns uuid language plpgsql security definer set search_path = public as $$
-declare v_user uuid := auth.uid(); v_category text; v_attempt uuid;
+returns uuid
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+    v_user uuid := auth.uid();
+    v_category text;
+    v_attempt uuid;
 begin
-    if v_user is null then raise exception 'Sesión no válida'; end if;
-    select categoria into v_category from profiles where id = v_user;
-    if v_category not in ('A2', 'B1', 'C1') then raise exception 'Categoría de perfil no válida'; end if;
-    update exam_attempts
-       set status = 'expired', finished_at = now(), duration_seconds = greatest(0, extract(epoch from now() - started_at)::integer)
-     where user_id = v_user and status = 'in_progress' and started_at <= now() - interval '70 minutes';
-    select id into v_attempt
-      from exam_attempts
-     where user_id = v_user and status = 'in_progress'
+
+    if v_user is null then
+        raise exception 'Sesión no válida';
+    end if;
+
+
+    select categoria
+      into v_category
+      from public.profiles
+     where id = v_user;
+
+
+    if v_category not in ('A2','B1','C1') then
+        raise exception 'Categoría de perfil no válida';
+    end if;
+
+
+    -- Expirar automáticamente cualquier intento
+    -- que haya superado los 70 minutos.
+    update public.exam_attempts
+       set status = 'expired',
+           finished_at = now(),
+           duration_seconds =
+               greatest(
+                   0,
+                   extract(
+                       epoch from now() - started_at
+                   )::integer
+               )
+     where user_id = v_user
+       and status = 'in_progress'
+       and started_at <= now() - interval '70 minutes';
+
+
+    -- Si existe un intento vigente, se retoma.
+    select id
+      into v_attempt
+      from public.exam_attempts
+     where user_id = v_user
+       and status = 'in_progress'
      order by started_at desc
      limit 1;
-    if v_attempt is not null then return v_attempt; end if;
-    if (select count(*) from exam_attempts where user_id = v_user and status in ('completed', 'expired')) >= 3 then raise exception 'Se agotaron los intentos disponibles'; end if;
-    if (select count(*) from exam_questions where active and category @> array[v_category]) < 40 then raise exception 'No hay 40 preguntas disponibles para la categoría %', v_category; end if;
-    insert into exam_attempts (user_id, category, total_questions) values (v_user, v_category, 40) returning id into v_attempt;
-    with ranked as (
-        select q.id, row_number() over (partition by q.module order by random()) as rn
-        from exam_questions q where q.active and q.category @> array[v_category]
-    ), chosen as (
-        select id from ranked where (module = 'attitudes' and rn <= 12)
-            or (module = 'safe_mobility' and rn <= 10)
-            or (module in ('traffic_rules', 'signage_infrastructure', 'vehicle') and rn <= 6)
-    )
-    insert into exam_attempt_questions (attempt_id, question_id, question_order)
-    select v_attempt, id, row_number() over (order by random()) from chosen;
-    if (select count(*) from exam_attempt_questions where attempt_id = v_attempt) <> 40 then
-        delete from exam_attempts where id = v_attempt;
-        raise exception 'El banco no tiene la distribución temática requerida';
+
+
+    if v_attempt is not null then
+        return v_attempt;
     end if;
+
+
+    -- Máximo 3 intentos finalizados.
+    if (
+        select count(*)
+        from public.exam_attempts
+        where user_id = v_user
+          and status in ('completed','expired')
+    ) >= 3 then
+
+        raise exception 'Se agotaron los intentos disponibles';
+
+    end if;
+
+
+    -- Deben existir al menos 40 preguntas.
+    if (
+        select count(*)
+        from public.exam_questions
+        where active
+          and category @> array[v_category]
+    ) < 40 then
+
+        raise exception
+            'No hay 40 preguntas disponibles para la categoría %',
+            v_category;
+
+    end if;
+
+
+    -- Crear intento.
+    insert into public.exam_attempts (
+        user_id,
+        category,
+        total_questions,
+        started_at,
+        status
+    )
+    values (
+        v_user,
+        v_category,
+        40,
+        now(),
+        'in_progress'
+    )
+    returning id into v_attempt;
+
+
+    -- Selección CALE:
+    -- 12 actitudes
+    -- 10 movilidad
+    --  6 normas
+    --  6 señalización
+    --  6 vehículo
+    --
+    -- IMPORTANTE:
+    -- Se incluye module en ranked.
+    with ranked as (
+        select
+            q.id,
+            q.module,
+            row_number() over (
+                partition by q.module
+                order by random()
+            ) as rn
+        from public.exam_questions q
+        where q.active
+          and q.category @> array[v_category]
+    ),
+    chosen as (
+        select id
+        from ranked
+        where
+            (module = 'attitudes' and rn <= 12)
+            or
+            (module = 'safe_mobility' and rn <= 10)
+            or
+            (module = 'traffic_rules' and rn <= 6)
+            or
+            (module = 'signage_infrastructure' and rn <= 6)
+            or
+            (module = 'vehicle' and rn <= 6)
+    )
+    insert into public.exam_attempt_questions (
+        attempt_id,
+        question_id,
+        question_order
+    )
+    select
+        v_attempt,
+        id,
+        row_number() over (order by random())
+    from chosen;
+
+
+    -- Protección de integridad:
+    -- exactamente 40 preguntas.
+    if (
+        select count(*)
+        from public.exam_attempt_questions
+        where attempt_id = v_attempt
+    ) <> 40 then
+
+        delete
+        from public.exam_attempts
+        where id = v_attempt;
+
+        raise exception
+            'El banco no tiene la distribución temática requerida';
+
+    end if;
+
+
     return v_attempt;
-end $$;
 
-create or replace function public.save_exam_answer(p_attempt uuid, p_order integer, p_option text)
-returns void language plpgsql security definer set search_path = public as $$
+end;
+$$;
+
+
+-- =========================================================
+-- 11. GUARDAR RESPUESTA
+-- =========================================================
+
+create or replace function public.save_exam_answer(
+    p_attempt uuid,
+    p_order integer,
+    p_option text
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
 begin
-    if p_option not in ('A','B','C','D') then raise exception 'Respuesta inválida'; end if;
-    update exam_attempt_questions aq set selected_option = p_option, answered_at = now()
-    from exam_attempts a where aq.attempt_id = a.id and aq.attempt_id = p_attempt and aq.question_order = p_order
-      and a.user_id = auth.uid() and a.status = 'in_progress' and a.started_at > now() - interval '70 minutes';
-    if not found then raise exception 'No se puede actualizar esta respuesta'; end if;
-end $$;
 
-create or replace function public.finish_exam_attempt(p_attempt uuid, p_expired boolean default false)
-returns void language plpgsql security definer set search_path = public as $$
+    if auth.uid() is null then
+        raise exception 'Sesión no válida';
+    end if;
+
+
+    if p_option not in ('A','B','C','D') then
+        raise exception 'Respuesta inválida';
+    end if;
+
+
+    if p_order < 1 or p_order > 40 then
+        raise exception 'Número de pregunta inválido';
+    end if;
+
+
+    update public.exam_attempt_questions aq
+       set selected_option = p_option,
+           answered_at = now()
+      from public.exam_attempts a
+     where aq.attempt_id = a.id
+       and aq.attempt_id = p_attempt
+       and aq.question_order = p_order
+       and a.user_id = auth.uid()
+       and a.status = 'in_progress'
+       and a.started_at > now() - interval '70 minutes';
+
+
+    if not found then
+        raise exception 'No se puede actualizar esta respuesta';
+    end if;
+
+end;
+$$;
+
+
+-- =========================================================
+-- 12. FINALIZAR Y CALIFICAR
+-- =========================================================
+
+create or replace function public.finish_exam_attempt(
+    p_attempt uuid,
+    p_expired boolean default false
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+    v_user uuid := auth.uid();
+
+    v_attitude_correct integer := 0;
+    v_knowledge_correct integer := 0;
+    v_total_correct integer := 0;
+
+    v_attitude_score numeric(5,2) := 0;
+    v_knowledge_score numeric(5,2) := 0;
+    v_total_score numeric(5,2) := 0;
+
+    v_attitude_passed boolean := false;
+    v_knowledge_passed boolean := false;
+    v_passed boolean := false;
+
+    v_total_questions integer := 40;
 begin
-    update exam_attempt_questions aq set is_correct = (aq.selected_option = q.correct_option)
-    from exam_questions q, exam_attempts a where aq.question_id = q.id and a.id = aq.attempt_id
-      and aq.attempt_id = p_attempt and a.user_id = auth.uid() and a.status = 'in_progress';
-    update exam_attempts a set finished_at = now(), duration_seconds = greatest(0, extract(epoch from now() - a.started_at)::integer),
-        total_correct = (select count(*) from exam_attempt_questions where attempt_id = a.id and is_correct),
-        total_score = round(100.0 * (select count(*) from exam_attempt_questions where attempt_id = a.id and is_correct) / a.total_questions, 2),
-        passed = (select count(*) from exam_attempt_questions where attempt_id = a.id and is_correct) * 100 >= a.total_questions * 80,
-        status = case when p_expired or now() >= a.started_at + interval '70 minutes' then 'expired' else 'completed' end
-    where a.id = p_attempt and a.user_id = auth.uid() and a.status = 'in_progress';
-    if not found then raise exception 'No se puede finalizar este intento'; end if;
-end $$;
 
-revoke all on function public.start_exam_attempt() from public;
-revoke all on function public.save_exam_answer(uuid, integer, text) from public;
-revoke all on function public.finish_exam_attempt(uuid, boolean) from public;
-grant execute on function public.start_exam_attempt(), public.save_exam_answer(uuid, integer, text), public.finish_exam_attempt(uuid, boolean) to authenticated;
+    if v_user is null then
+        raise exception 'Sesión no válida';
+    end if;
 
--- Hace disponible inmediatamente las funciones RPC para el cliente de Supabase.
+
+    -- Marcar cada respuesta.
+    update public.exam_attempt_questions aq
+       set is_correct =
+           (
+               aq.selected_option is not null
+               and aq.selected_option = q.correct_option
+           )
+      from public.exam_questions q,
+           public.exam_attempts a
+     where aq.question_id = q.id
+       and a.id = aq.attempt_id
+       and aq.attempt_id = p_attempt
+       and a.user_id = v_user
+       and a.status = 'in_progress';
+
+
+    -- Contar ACTITUDES.
+    select count(*)
+      into v_attitude_correct
+      from public.exam_attempt_questions aq
+      join public.exam_questions q
+        on q.id = aq.question_id
+     where aq.attempt_id = p_attempt
+       and q.question_type = 'attitude'
+       and aq.is_correct = true;
+
+
+    -- Contar CONOCIMIENTOS.
+    select count(*)
+      into v_knowledge_correct
+      from public.exam_attempt_questions aq
+      join public.exam_questions q
+        on q.id = aq.question_id
+     where aq.attempt_id = p_attempt
+       and q.question_type = 'knowledge'
+       and aq.is_correct = true;
+
+
+    v_total_correct :=
+        v_attitude_correct +
+        v_knowledge_correct;
+
+
+    -- 12 actitudinales.
+    v_attitude_score :=
+        round(
+            100.0 * v_attitude_correct / 12.0,
+            2
+        );
+
+
+    -- 28 conocimientos.
+    v_knowledge_score :=
+        round(
+            100.0 * v_knowledge_correct / 28.0,
+            2
+        );
+
+
+    -- 40 total.
+    v_total_score :=
+        round(
+            100.0 * v_total_correct / 40.0,
+            2
+        );
+
+
+    -- REGLA DE APROBACIÓN:
+    -- conocimientos >= 80%
+    -- Y actitudes >= 80%
+    v_attitude_passed :=
+        v_attitude_score >= 80;
+
+    v_knowledge_passed :=
+        v_knowledge_score >= 80;
+
+    v_passed :=
+        v_attitude_passed
+        and v_knowledge_passed;
+
+
+    -- Guardar resultado completo.
+    update public.exam_attempts a
+       set finished_at = now(),
+
+           duration_seconds =
+               greatest(
+                   0,
+                   extract(
+                       epoch from now() - a.started_at
+                   )::integer
+               ),
+
+           total_questions = v_total_questions,
+
+           attitude_correct = v_attitude_correct,
+           knowledge_correct = v_knowledge_correct,
+           total_correct = v_total_correct,
+
+           attitude_score = v_attitude_score,
+           knowledge_score = v_knowledge_score,
+           total_score = v_total_score,
+
+           attitude_passed = v_attitude_passed,
+           knowledge_passed = v_knowledge_passed,
+           passed = v_passed,
+
+           status =
+               case
+                   when p_expired
+                        or now() >= a.started_at + interval '70 minutes'
+                   then 'expired'
+                   else 'completed'
+               end
+
+     where a.id = p_attempt
+       and a.user_id = v_user
+       and a.status = 'in_progress';
+
+
+    if not found then
+        raise exception 'No se puede finalizar este intento';
+    end if;
+
+end;
+$$;
+
+
+-- =========================================================
+-- 13. VISTA DE RESULTADO DEL INTENTO
+-- =========================================================
+-- Esta vista permite al estudiante consultar su propio
+-- resultado después de finalizar.
+-- =========================================================
+
+drop view if exists public.exam_attempt_results;
+
+create view public.exam_attempt_results
+with (security_invoker = true) as
+select
+    a.id as attempt_id,
+    a.user_id,
+    a.category,
+    a.started_at,
+    a.finished_at,
+    a.duration_seconds,
+    a.total_questions,
+
+    a.attitude_correct,
+    12 as attitude_total,
+    a.attitude_score,
+    a.attitude_passed,
+
+    a.knowledge_correct,
+    28 as knowledge_total,
+    a.knowledge_score,
+    a.knowledge_passed,
+
+    a.total_correct,
+    40 as total_question_count,
+    a.total_score,
+    a.passed,
+    a.status,
+    a.created_at
+
+from public.exam_attempts a;
+
+
+grant select
+on public.exam_attempt_results
+to authenticated;
+
+
+-- =========================================================
+-- 14. VISTA DE RESULTADOS POR NÚCLEO TEMÁTICO
+-- =========================================================
+-- Esto NO cambia la regla legal de aprobación.
+-- Sirve para detectar áreas que el estudiante debe reforzar.
+-- =========================================================
+
+drop view if exists public.exam_attempt_module_results;
+
+create view public.exam_attempt_module_results
+with (security_invoker = true) as
+select
+    a.id as attempt_id,
+    a.user_id,
+    a.category,
+    a.status,
+
+    q.module,
+
+    count(*)::integer as total_questions,
+
+    count(*) filter (
+        where aq.is_correct = true
+    )::integer as correct_answers,
+
+    count(*) filter (
+        where aq.is_correct is false
+    )::integer as incorrect_answers,
+
+    round(
+        100.0 *
+        count(*) filter (
+            where aq.is_correct = true
+        )
+        / nullif(count(*),0),
+        2
+    ) as score,
+
+    (
+        round(
+            100.0 *
+            count(*) filter (
+                where aq.is_correct = true
+            )
+            / nullif(count(*),0),
+            2
+        ) >= 80
+    ) as passed
+
+from public.exam_attempts a
+
+join public.exam_attempt_questions aq
+  on aq.attempt_id = a.id
+
+join public.exam_questions q
+  on q.id = aq.question_id
+
+group by
+    a.id,
+    a.user_id,
+    a.category,
+    a.status,
+    q.module;
+
+
+grant select
+on public.exam_attempt_module_results
+to authenticated;
+
+
+-- =========================================================
+-- 15. VISTA DE PREGUNTAS FALLADAS
+-- =========================================================
+-- IMPORTANTE:
+-- correct_option y explicación solamente aparecen después
+-- de que el intento haya terminado.
+-- =========================================================
+
+drop view if exists public.exam_attempt_review;
+
+create view public.exam_attempt_review
+with (security_invoker = true) as
+select
+    a.id as attempt_id,
+    a.user_id,
+    a.category,
+    a.status,
+
+    aq.question_order,
+    aq.question_id,
+
+    q.question_type,
+    q.module,
+    q.question_text,
+
+    q.option_a,
+    q.option_b,
+    q.option_c,
+    q.option_d,
+
+    aq.selected_option,
+    q.correct_option,
+
+    aq.is_correct,
+    aq.answered_at,
+
+    q.explanation,
+    q.legal_source,
+    q.legal_article,
+    q.legal_reference,
+    q.image_url
+
+from public.exam_attempts a
+
+join public.exam_attempt_questions aq
+  on aq.attempt_id = a.id
+
+join public.exam_questions q
+  on q.id = aq.question_id
+
+where a.status in ('completed','expired');
+
+
+grant select
+on public.exam_attempt_review
+to authenticated;
+
+
+-- =========================================================
+-- 16. PERMISOS DE FUNCIONES
+-- =========================================================
+
+revoke all
+on function public.start_exam_attempt()
+from public;
+
+revoke all
+on function public.save_exam_answer(uuid, integer, text)
+from public;
+
+revoke all
+on function public.finish_exam_attempt(uuid, boolean)
+from public;
+
+
+grant execute
+on function public.start_exam_attempt()
+to authenticated;
+
+grant execute
+on function public.save_exam_answer(uuid, integer, text)
+to authenticated;
+
+grant execute
+on function public.finish_exam_attempt(uuid, boolean)
+to authenticated;
+
+
+-- =========================================================
+-- 17. RECARGAR CACHÉ DE POSTGREST
+-- =========================================================
+
 notify pgrst, 'reload schema';
+
+
+-- =========================================================
+-- 18. COMPROBACIÓN FINAL
+-- =========================================================
+
+select
+    n.nspname as schema_name,
+    p.proname as function_name,
+    pg_get_function_identity_arguments(p.oid) as arguments,
+    pg_get_function_result(p.oid) as return_type
+from pg_proc p
+join pg_namespace n
+  on n.oid = p.pronamespace
+where n.nspname = 'public'
+  and p.proname in (
+      'start_exam_attempt',
+      'save_exam_answer',
+      'finish_exam_attempt'
+  )
+order by p.proname;

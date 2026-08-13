@@ -9,4 +9,4 @@ const SUPABASE_URL =
     window.SUPABASE_URL;
 
 const SUPABASE_ANON_KEY =
-    window.SUPABASE_PUBLISHABLE_KEY;
+    window.SUPABASE_PUBLISHABLE_KEY;    

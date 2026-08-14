@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Panel administrativo de resultados del simulador CALE Motorland"
+    >
+
+    <title>Administración | CALE Motorland</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/admin.css"
+    >
+</head>
+
+<body class="admin-page">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="admin-sidebar" id="adminSidebar">
+
+        <div class="admin-sidebar-top">
+
+            <a
+                href="index.html"
+                class="admin-brand"
+            >
+
+                <img
+                    src="../assets/logo.png"
+                    alt="Motorland"
+                >
+
+                <div class="admin-brand-text">
+
+                    <span>PLATAFORMA</span>
+
+                    <strong>CALE</strong>
+
+                </div>
+
+            </a>
+
+            <button
+                type="button"
+                class="sidebar-close"
+                id="sidebarClose"
+                aria-label="Cerrar menú"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="admin-sidebar-section">
+
+            <span class="sidebar-label">
+                PRINCIPAL
+            </span>
+
+            <nav class="admin-nav">
+
+                <a
+                    href="index.html"
+                    class="admin-nav-link active"
+                >
+
+                    <span class="nav-icon">▦</span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="resultados.html"
+                    class="admin-nav-link"
+                >
+
+                    <span class="nav-icon">▤</span>
+
+                    <span>
+                        Resultados
+                    </span>
+
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="admin-sidebar-section">
+
+            <span class="sidebar-label">
+                APRENDICES
+            </span>
+
+            <nav class="admin-nav">
+
+                <a
+                    href="resultados.html"
+                    class="admin-nav-link"
+                >
+
+                    <span class="nav-icon">◉</span>
+
+                    <span>
+                        Estudiantes
+                    </span>
+
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="admin-sidebar-bottom">
+
+            <div class="admin-sidebar-user">
+
+                <div
+                    class="admin-avatar"
+                    id="adminInitial"
+                >
+                    A
+                </div>
+
+                <div class="admin-user-info">
+
+                    <strong id="adminName">
+                        Administrador
+                    </strong>
+
+                    <span>
+                        Administrador CALE
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+            >
+
+                <span>↪</span>
+
+                Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         OVERLAY MOBILE
+         ===================================================== -->
+
+    <div
+        class="admin-overlay"
+        id="adminOverlay"
+    ></div>
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="admin-main">
+
+        <!-- HEADER -->
+
+        <header class="admin-header">
+
+            <div class="admin-header-left">
+
+                <button
+                    type="button"
+                    class="menu-button"
+                    id="sidebarOpen"
+                    aria-label="Abrir menú"
+                >
+                    ☰
+                </button>
+
+                <div>
+
+                    <span class="eyebrow">
+                        CENTRO DE APOYO LOGÍSTICO Y EDUCATIVO
+                    </span>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-header-right">
+
+                <div class="header-status">
+
+                    <span class="status-dot"></span>
+
+                    Sistema operativo
+
+                </div>
+
+                <div class="header-date" id="currentDate">
+                    —
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             CONTENIDO
+             ================================================= -->
+
+        <div class="admin-content">
+
+            <!-- HERO -->
+
+            <section class="dashboard-intro">
+
+                <div>
+
+                    <span class="section-kicker">
+                        VISIÓN GENERAL
+                    </span>
+
+                    <h2>
+                        Rendimiento académico
+                    </h2>
+
+                    <p>
+                        Consulta el comportamiento de los aprendices
+                        frente a los simulacros teóricos CALE.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-filter">
+
+                    <label for="categoryFilter">
+                        Categoría
+                    </label>
+
+                    <select id="categoryFilter">
+
+                        <option value="all">
+                            Todas
+                        </option>
+
+                        <option value="A2">
+                            A2
+                        </option>
+
+                        <option value="B1">
+                            B1
+                        </option>
+
+                        <option value="C1">
+                            C1
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 KPI CARDS
+                 ================================================= -->
+
+            <section
+                class="kpi-grid"
+                aria-label="Indicadores principales"
+            >
+
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span class="kpi-label">
+                            APRENDICES
+                        </span>
+
+                        <span class="kpi-icon">
+                            ◉
+                        </span>
+
+                    </div>
+
+                    <strong
+                        class="kpi-value"
+                        id="totalStudents"
+                    >
+                        —
+                    </strong>
+
+                    <span class="kpi-description">
+                        Usuarios registrados
+                    </span>
+
+                </article>
+
+
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span class="kpi-label">
+                            SIMULACROS
+                        </span>
+
+                        <span class="kpi-icon">
+                            ▤
+                        </span>
+
+                    </div>
+
+                    <strong
+                        class="kpi-value"
+                        id="totalAttempts"
+                    >
+                        —
+                    </strong>
+
+                    <span class="kpi-description">
+                        Evaluaciones realizadas
+                    </span>
+
+                </article>
+
+
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span class="kpi-label">
+                            APROBACIÓN
+                        </span>
+
+                        <span class="kpi-icon success">
+                            ✓
+                        </span>
+
+                    </div>
+
+                    <strong
+                        class="kpi-value"
+                        id="approvalRate"
+                    >
+                        —
+                    </strong>
+
+                    <span class="kpi-description">
+                        Porcentaje de aprobados
+                    </span>
+
+                </article>
+
+
+                <article class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <span class="kpi-label">
+                            PROMEDIO
+                        </span>
+
+                        <span class="kpi-icon">
+                            %
+                        </span>
+
+                    </div>
+
+                    <strong
+                        class="kpi-value"
+                        id="averageScore"
+                    >
+                        —
+                    </strong>
+
+                    <span class="kpi-description">
+                        Resultado general
+                    </span>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 SEGUNDA FILA
+                 ================================================= -->
+
+            <section class="dashboard-grid dashboard-grid-main">
+
+                <!-- DISTRIBUCIÓN -->
+
+                <article class="dashboard-card performance-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                RESULTADOS
+                            </span>
+
+                            <h3>
+                                Distribución de rendimiento
+                            </h3>
+
+                        </div>
+
+                        <span class="card-period">
+                            General
+                        </span>
+
+                    </div>
+
+
+                    <div class="performance-content">
+
+                        <div class="score-ring">
+
+                            <div
+                                class="score-ring-progress"
+                                id="scoreRing"
+                            ></div>
+
+                            <div class="score-ring-center">
+
+                                <strong id="scoreRingValue">
+                                    —
+                                </strong>
+
+                                <span>
+                                    aprobación
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="performance-legend">
+
+                            <div class="legend-row">
+
+                                <span class="legend-label">
+
+                                    <i class="legend-dot approved"></i>
+
+                                    Aprobados
+
+                                </span>
+
+                                <strong id="approvedCount">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="legend-row">
+
+                                <span class="legend-label">
+
+                                    <i class="legend-dot failed"></i>
+
+                                    Reprobados
+
+                                </span>
+
+                                <strong id="failedCount">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="legend-row">
+
+                                <span class="legend-label">
+
+                                    <i class="legend-dot pending"></i>
+
+                                    En proceso
+
+                                </span>
+
+                                <strong id="pendingCount">
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ACTIVIDAD -->
+
+                <article class="dashboard-card activity-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                ACTIVIDAD
+                            </span>
+
+                            <h3>
+                                Simulacros realizados
+                            </h3>
+
+                        </div>
+
+                        <span class="card-period">
+                            Últimos registros
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="activity-chart"
+                        id="activityChart"
+                    >
+
+                        <div class="chart-placeholder">
+
+                            <span>
+                                Cargando datos...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 RENDIMIENTO POR CATEGORÍA
+                 ================================================= -->
+
+            <section class="dashboard-card module-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-kicker">
+                            DESEMPEÑO
+                        </span>
+
+                        <h3>
+                            Rendimiento por componente
+                        </h3>
+
+                        <p class="card-description">
+                            Porcentaje promedio de respuestas correctas
+                            por área de formación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="module-grid">
+
+                    <!-- ACTITUDES -->
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Actitudes y comportamiento vial
+                                </span>
+
+                                <span class="module-meta">
+                                    Formación actitudinal
+                                </span>
+
+                            </div>
+
+                            <strong id="attitudeScore">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="attitudeBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MOVILIDAD -->
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Movilidad segura y sostenible
+                                </span>
+
+                                <span class="module-meta">
+                                    Seguridad vial
+                                </span>
+
+                            </div>
+
+                            <strong id="mobilityScore">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="mobilityBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NORMAS -->
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Normativa de tránsito
+                                </span>
+
+                                <span class="module-meta">
+                                    Reglas y regulación
+                                </span>
+
+                            </div>
+
+                            <strong id="trafficScore">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="trafficBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SEÑALIZACIÓN -->
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Señalización e infraestructura
+                                </span>
+
+                                <span class="module-meta">
+                                    Señales y vía
+                                </span>
+
+                            </div>
+
+                            <strong id="signageScore">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="signageBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VEHÍCULO -->
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Vehículo y generalidades
+                                </span>
+
+                                <span class="module-meta">
+                                    Conocimiento del vehículo
+                                </span>
+
+                            </div>
+
+                            <strong id="vehicleScore">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="vehicleBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ALERTAS
+                 ================================================= -->
+
+            <section class="dashboard-grid dashboard-grid-bottom">
+
+                <article class="dashboard-card alerts-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                ATENCIÓN PEDAGÓGICA
+                            </span>
+
+                            <h3>
+                                Áreas que requieren refuerzo
+                            </h3>
+
+                        </div>
+
+                        <span class="alert-counter" id="alertCount">
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="alerts-list"
+                        id="alertsList"
+                    >
+
+                        <div class="empty-state">
+
+                            <span class="empty-icon">
+                                ✓
+                            </span>
+
+                            <p>
+                                Analizando resultados...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="dashboard-card recent-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                ACTIVIDAD RECIENTE
+                            </span>
+
+                            <h3>
+                                Últimos resultados
+                            </h3>
+
+                        </div>
+
+                        <a
+                            href="resultados.html"
+                            class="card-link"
+                        >
+                            Ver todos →
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        class="recent-results"
+                        id="recentResults"
+                    >
+
+                        <div class="empty-state">
+
+                            <p>
+                                Cargando resultados...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 INFORMACIÓN DEL SISTEMA
+                 ================================================= -->
+
+            <section class="dashboard-footer-info">
+
+                <div>
+
+                    <strong>
+                        Simulador teórico CALE
+                    </strong>
+
+                    <span>
+                        Plataforma académica Motorland
+                    </span>
+
+                </div>
+
+
+                <div class="system-indicator">
+
+                    <span class="status-dot"></span>
+
+                    Datos sincronizados con Supabase
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script
+        type="module"
+        src="../js/admin/auth.js"
+    ></script>
+
+    <script
+        type="module"
+        src="../js/admin/dashboard.js"
+    ></script>
+
+</body>
+</html>

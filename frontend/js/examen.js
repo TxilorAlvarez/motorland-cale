@@ -1258,7 +1258,7 @@ async function finalizar(
 function iniciarReloj(startedAt) {
     let restante = Math.max(
         0,
-        70 * 60 - Math.floor(
+        40 * 60 - Math.floor(
             (Date.now() - new Date(startedAt).getTime()) / 1000
         )
     );

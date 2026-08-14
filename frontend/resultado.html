@@ -1,3 +1,28 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Resultado | Simulador Motorland</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
-<body class="dashboard-page"><header class="dashboard-header"><div class="container dashboard-header-inner"><a href="dashboard.html" class="brand"><img src="assets/logo.png" alt="CEA Motorland" class="brand-logo"></a><a href="dashboard.html" class="logout-button">Panel</a></div></header><main class="result-main"><div class="container result-container"><section class="result-heading"><span class="section-kicker">RESULTADO DEL SIMULADOR</span><h1 id="resultTitle">Cargando resultado...</h1><p id="resultSubtitle"></p></section><section class="result-card"><div class="result-status"><span class="result-check">&#10003;</span><span id="resultState">EVALUACIÓN FINALIZADA</span></div><div class="result-score"><span class="score-label">PUNTAJE OBTENIDO</span><strong id="resultScore">--%</strong><span class="result-state" id="resultPassed">--</span></div><div class="result-details"><div class="result-detail"><span>CATEGORÍA</span><strong id="resultCategory">--</strong></div><div class="result-detail"><span>CORRECTAS</span><strong id="resultCorrect">--</strong></div><div class="result-detail"><span>FECHA</span><strong id="resultDate">--</strong></div><div class="result-detail"><span>DURACIÓN</span><strong id="resultDuration">--</strong></div></div><div class="result-feedback" id="resultFeedback"></div></section></div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/config.js"></script><script src="js/supabase.js"></script><script src="js/resultado.js"></script></body></html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado | Simulador Motorland</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+    <header class="dashboard-header"><div class="container dashboard-header-inner"><a href="dashboard.html" class="brand"><img src="assets/logo.png" alt="CEA Motorland" class="brand-logo"></a><a href="dashboard.html" class="logout-button">Panel</a></div></header>
+    <main class="result-main"><div class="container result-container">
+        <section class="result-heading"><span class="section-kicker">RESULTADO DEL SIMULADOR</span><h1 id="resultTitle">Cargando resultado...</h1><p id="resultSubtitle"></p></section>
+        <section class="result-card">
+            <div class="result-status"><span class="result-check">&#10003;</span><span id="resultState">EVALUACIÓN FINALIZADA</span></div>
+            <div class="result-score"><span class="score-label">PUNTAJE OBTENIDO</span><strong id="resultScore">--%</strong><span class="result-state" id="resultPassed">--</span></div>
+            <div class="result-details"><div class="result-detail"><span>CATEGORÍA</span><strong id="resultCategory">--</strong></div><div class="result-detail"><span>CORRECTAS</span><strong id="resultCorrect">--</strong></div><div class="result-detail"><span>FECHA</span><strong id="resultDate">--</strong></div><div class="result-detail"><span>DURACIÓN</span><strong id="resultDuration">--</strong></div></div>
+            <div class="result-feedback"><div class="feedback-header"><span class="section-kicker">REPORTE POR COMPONENTE</span><h2>Tu desempeño por tema</h2><p id="resultFeedback">Cargando el detalle de tu evaluación...</p></div><div class="score-bars" id="moduleScores" aria-live="polite"></div></div>
+        </section>
+        <section class="review-section"><div class="review-heading"><span class="section-kicker">REVISIÓN DE RESPUESTAS</span><h2>Aprende de cada respuesta por reforzar</h2><p id="reviewSummary">Cargando revisión...</p></div><div id="incorrectAnswers" class="review-list" aria-live="polite"></div></section>
+        <aside class="motorland-cta"><span class="section-kicker">SIGUE AVANZANDO CON MOTORLAND</span><h2>Prepárate con el acompañamiento de nuestros profesionales.</h2><p>Refuerza los temas que necesitas y llega al examen teórico con más seguridad.</p><a href="dashboard.html" class="btn btn-primary">Volver a mi panel</a></aside>
+    </div></main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script><script src="js/supabase.js"></script><script src="js/resultado.js"></script>
+</body>
+</html>

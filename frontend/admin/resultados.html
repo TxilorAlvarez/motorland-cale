@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Resultados de aprendices - CALE Motorland"
+    >
+
+    <title>Resultados | CALE Motorland</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/admin.css"
+    >
+
+</head>
+
+<body class="admin-page">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+    >
+
+        <div class="admin-sidebar-top">
+
+            <a
+                href="index.html"
+                class="admin-brand"
+            >
+
+                <img
+                    src="../assets/logo.png"
+                    alt="Motorland"
+                >
+
+                <div class="admin-brand-text">
+
+                    <span>PLATAFORMA</span>
+
+                    <strong>CALE</strong>
+
+                </div>
+
+            </a>
+
+
+            <button
+                type="button"
+                class="sidebar-close"
+                id="sidebarClose"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="admin-sidebar-section">
+
+            <span class="sidebar-label">
+                PRINCIPAL
+            </span>
+
+            <nav class="admin-nav">
+
+                <a
+                    href="index.html"
+                    class="admin-nav-link"
+                >
+
+                    <span class="nav-icon">▦</span>
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    href="resultados.html"
+                    class="admin-nav-link active"
+                >
+
+                    <span class="nav-icon">▤</span>
+
+                    Resultados
+
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="admin-sidebar-section">
+
+            <span class="sidebar-label">
+                APRENDICES
+            </span>
+
+            <nav class="admin-nav">
+
+                <a
+                    href="resultados.html"
+                    class="admin-nav-link"
+                >
+
+                    <span class="nav-icon">◉</span>
+
+                    Estudiantes
+
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="admin-sidebar-bottom">
+
+            <div class="admin-sidebar-user">
+
+                <div
+                    class="admin-avatar"
+                    id="adminInitial"
+                >
+                    A
+                </div>
+
+                <div class="admin-user-info">
+
+                    <strong id="adminName">
+                        Administrador
+                    </strong>
+
+                    <span>
+                        Administrador CALE
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+            >
+
+                <span>↪</span>
+
+                Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div
+        class="admin-overlay"
+        id="adminOverlay"
+    ></div>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+        <header class="admin-header">
+
+            <div class="admin-header-left">
+
+                <button
+                    type="button"
+                    class="menu-button"
+                    id="sidebarOpen"
+                >
+                    ☰
+                </button>
+
+                <div>
+
+                    <span class="eyebrow">
+                        GESTIÓN ACADÉMICA
+                    </span>
+
+                    <h1>
+                        Resultados
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-header-right">
+
+                <div class="header-status">
+
+                    <span class="status-dot"></span>
+
+                    Sistema operativo
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="admin-content">
+
+            <!-- INTRO -->
+
+            <section class="dashboard-intro">
+
+                <div>
+
+                    <span class="section-kicker">
+                        SEGUIMIENTO
+                    </span>
+
+                    <h2>
+                        Resultados de aprendices
+                    </h2>
+
+                    <p>
+                        Consulta y analiza los resultados de los
+                        simulacros realizados.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- FILTERS -->
+
+            <section class="results-toolbar">
+
+                <div class="search-box">
+
+                    <span>
+                        ⌕
+                    </span>
+
+                    <input
+                        type="search"
+                        id="searchResults"
+                        placeholder="Buscar por nombre, documento o matrícula..."
+                    >
+
+                </div>
+
+
+                <div class="results-filters">
+
+                    <select id="resultCategory">
+
+                        <option value="all">
+                            Todas las categorías
+                        </option>
+
+                        <option value="A2">
+                            A2
+                        </option>
+
+                        <option value="B1">
+                            B1
+                        </option>
+
+                        <option value="C1">
+                            C1
+                        </option>
+
+                    </select>
+
+
+                    <select id="resultStatus">
+
+                        <option value="all">
+                            Todos los estados
+                        </option>
+
+                        <option value="approved">
+                            Aprobados
+                        </option>
+
+                        <option value="failed">
+                            Reprobados
+                        </option>
+
+                        <option value="in_progress">
+                            En proceso
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="refreshResults"
+                    >
+                        Actualizar
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUMMARY -->
+
+            <section class="mini-kpi-grid">
+
+                <article class="mini-kpi">
+
+                    <span>
+                        RESULTADOS
+                    </span>
+
+                    <strong id="resultsTotal">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="mini-kpi">
+
+                    <span>
+                        APROBADOS
+                    </span>
+
+                    <strong
+                        class="text-success"
+                        id="resultsApproved"
+                    >
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="mini-kpi">
+
+                    <span>
+                        REPROBADOS
+                    </span>
+
+                    <strong
+                        class="text-danger"
+                        id="resultsFailed"
+                    >
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="mini-kpi">
+
+                    <span>
+                        PROMEDIO
+                    </span>
+
+                    <strong id="resultsAverage">
+                        —
+                    </strong>
+
+                </article>
+
+            </section>
+
+
+            <!-- TABLE -->
+
+            <section class="dashboard-card table-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-kicker">
+                            HISTORIAL
+                        </span>
+
+                        <h3>
+                            Simulacros realizados
+                        </h3>
+
+                    </div>
+
+                    <span
+                        class="table-count"
+                        id="tableCount"
+                    >
+                        0 resultados
+                    </span>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table class="results-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    APRENDIZ
+                                </th>
+
+                                <th>
+                                    DOCUMENTO / MATRÍCULA
+                                </th>
+
+                                <th>
+                                    CATEGORÍA
+                                </th>
+
+                                <th>
+                                    FECHA
+                                </th>
+
+                                <th>
+                                    CORRECTAS
+                                </th>
+
+                                <th>
+                                    INCORRECTAS
+                                </th>
+
+                                <th>
+                                    PUNTAJE
+                                </th>
+
+                                <th>
+                                    TIEMPO
+                                </th>
+
+                                <th>
+                                    ESTADO
+                                </th>
+
+                                <th>
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="resultsTableBody">
+
+                            <tr>
+
+                                <td colspan="10">
+
+                                    <div class="table-loading">
+
+                                        Cargando resultados...
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="table-pagination">
+
+                    <button
+                        type="button"
+                        id="previousPage"
+                        disabled
+                    >
+                        ← Anterior
+                    </button>
+
+
+                    <span id="paginationInfo">
+                        Página 1
+                    </span>
+
+
+                    <button
+                        type="button"
+                        id="nextPage"
+                        disabled
+                    >
+                        Siguiente →
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script
+        type="module"
+        src="../js/admin/auth.js"
+    ></script>
+
+    <script
+        type="module"
+        src="../js/admin/resultados.js"
+    ></script>
+
+</body>
+</html>

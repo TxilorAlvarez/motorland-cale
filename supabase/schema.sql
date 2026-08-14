@@ -26,6 +26,9 @@ create table if not exists public.profiles (
     categoria text not null
         check (categoria in ('A2', 'B1', 'C1')),
 
+    role text not null default 'student'
+        check (role in ('student', 'admin', 'superadmin')),
+
     correo text not null,
 
     telefono text,
@@ -38,6 +41,10 @@ create table if not exists public.profiles (
 
     updated_at timestamptz not null default now()
 );
+
+alter table public.profiles
+    add column if not exists role text not null default 'student'
+        check (role in ('student', 'admin', 'superadmin'));
 
 
 -- =========================================================
@@ -167,6 +174,25 @@ execute procedure public.handle_new_user();
 alter table public.profiles
 enable row level security;
 
+-- La autorización administrativa depende de Supabase, nunca del frontend.
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+    select exists (
+        select 1
+        from public.profiles
+        where id = auth.uid()
+          and role in ('admin', 'superadmin')
+    );
+$$;
+
+revoke all on function public.is_admin() from public;
+grant execute on function public.is_admin() to authenticated;
+
 
 -- =========================================================
 -- POLÍTICA DE LECTURA
@@ -176,8 +202,11 @@ enable row level security;
 drop policy if exists "Users can view own profile"
 on public.profiles;
 
+drop policy if exists "Users can view own or admin profile"
+on public.profiles;
 
-create policy "Users can view own profile"
+
+create policy "Users can view own or admin profile"
 
 on public.profiles
 
@@ -187,6 +216,7 @@ to authenticated
 
 using (
     (select auth.uid()) = id
+    or public.is_admin()
 );
 
 
@@ -220,11 +250,13 @@ with check (
 -- PERMISOS
 -- =========================================================
 
-grant select, update
+revoke update on public.profiles from authenticated;
 
-on public.profiles
+grant select on public.profiles to authenticated;
 
-to authenticated;
+-- Ningún usuario autenticado puede escalar su rol desde el navegador.
+grant update (nombres, apellidos, correo, telefono)
+on public.profiles to authenticated;
 
 
 -- =========================================================

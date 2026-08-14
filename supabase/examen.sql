@@ -19,7 +19,7 @@
 --       6 normas de tránsito
 --       6 señalización e infraestructura
 --       6 vehículo
---   Tiempo máximo: 70 minutos
+--   Tiempo máximo: 40 minutos
 --   Aprobación: >=80% conocimientos Y >=80% actitudes
 -- =========================================================
 
@@ -319,7 +319,10 @@ create policy "students read own attempts"
 on public.exam_attempts
 for select
 to authenticated
-using ((select auth.uid()) = user_id);
+using (
+    (select auth.uid()) = user_id
+    or public.is_admin()
+);
 
 
 drop policy if exists "students read own assigned questions"
@@ -336,6 +339,7 @@ using (
         where a.id = attempt_id
           and a.user_id = (select auth.uid())
     )
+    or public.is_admin()
 );
 
 
@@ -406,7 +410,7 @@ begin
 
 
     -- Expirar automáticamente cualquier intento
-    -- que haya superado los 70 minutos.
+    -- que haya superado los 40 minutos.
     update public.exam_attempts
        set status = 'expired',
            finished_at = now(),
@@ -419,7 +423,7 @@ begin
                )
      where user_id = v_user
        and status = 'in_progress'
-       and started_at <= now() - interval '70 minutes';
+       and started_at <= now() - interval '40 minutes';
 
 
     -- Si existe un intento vigente, se retoma.
@@ -594,7 +598,7 @@ begin
        and aq.question_order = p_order
        and a.user_id = auth.uid()
        and a.status = 'in_progress'
-       and a.started_at > now() - interval '70 minutes';
+       and a.started_at > now() - interval '40 minutes';
 
 
     if not found then
@@ -751,7 +755,7 @@ begin
            status =
                case
                    when p_expired
-                        or now() >= a.started_at + interval '70 minutes'
+                        or now() >= a.started_at + interval '40 minutes'
                    then 'expired'
                    else 'completed'
                end
@@ -970,6 +974,70 @@ to authenticated;
 grant execute
 on function public.finish_exam_attempt(uuid, boolean)
 to authenticated;
+
+-- Consultas exclusivas del panel administrativo. SECURITY DEFINER no basta:
+-- cada función valida el rol almacenado en profiles antes de devolver datos.
+create or replace function public.admin_dashboard_data(p_category text default null)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_category text := nullif(upper(trim(p_category)), '');
+begin
+    if not public.is_admin() then raise exception 'No autorizado' using errcode = '42501'; end if;
+    return jsonb_build_object(
+        'summary', (select jsonb_build_object(
+            'students', (select count(*) from public.profiles where role = 'student'),
+            'attempts', count(*), 'approved', count(*) filter (where passed),
+            'failed', count(*) filter (where finished_at is not null and not passed),
+            'pending', count(*) filter (where status = 'in_progress'),
+            'average_score', coalesce(round(avg(total_score) filter (where finished_at is not null), 1), 0),
+            'average_duration_seconds', coalesce(round(avg(duration_seconds) filter (where finished_at is not null), 0), 0)
+        ) from public.exam_attempts where v_category is null or category = v_category),
+        'modules', (select coalesce(jsonb_agg(row_to_json(x)), '[]'::jsonb) from (
+            select q.module, round(100.0 * count(*) filter (where aq.is_correct) / nullif(count(*), 0), 1) as score
+            from public.exam_attempt_questions aq join public.exam_attempts a on a.id = aq.attempt_id join public.exam_questions q on q.id = aq.question_id
+            where a.finished_at is not null and (v_category is null or a.category = v_category) group by q.module order by q.module
+        ) x),
+        'recent', (select coalesce(jsonb_agg(row_to_json(x)), '[]'::jsonb) from (
+            select a.id, a.category, a.total_score, a.total_correct, a.total_questions, a.duration_seconds, a.finished_at, a.passed,
+                trim(concat(p.nombres, ' ', p.apellidos)) as student_name
+            from public.exam_attempts a join public.profiles p on p.id = a.user_id
+            where a.finished_at is not null and (v_category is null or a.category = v_category) order by a.finished_at desc limit 8
+        ) x)
+    );
+end; $$;
+
+create or replace function public.admin_results_page(p_page integer default 1, p_page_size integer default 25, p_category text default null, p_status text default null, p_search text default null)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_page integer := greatest(coalesce(p_page, 1), 1); v_size integer := least(greatest(coalesce(p_page_size, 25), 1), 50); v_category text := nullif(upper(trim(p_category)), ''); v_status text := nullif(lower(trim(p_status)), ''); v_search text := nullif(trim(p_search), '');
+begin
+    if not public.is_admin() then raise exception 'No autorizado' using errcode = '42501'; end if;
+    return (with filtered as (
+        select a.id, a.user_id, a.category, a.total_score, a.total_correct, a.total_questions, a.duration_seconds, a.finished_at, a.created_at, a.passed, a.status,
+            p.nombres, p.apellidos, p.documento, p.matricula, p.correo
+        from public.exam_attempts a join public.profiles p on p.id = a.user_id
+        where a.finished_at is not null and (v_category is null or a.category = v_category)
+          and (v_status is null or (v_status = 'approved' and a.passed) or (v_status = 'failed' and not a.passed))
+          and (v_search is null or concat_ws(' ', p.nombres, p.apellidos, p.documento, p.matricula, p.correo) ilike '%' || v_search || '%')
+    ) select jsonb_build_object('total', count(*), 'approved', count(*) filter (where passed), 'failed', count(*) filter (where not passed), 'average_score', coalesce(round(avg(total_score), 1), 0),
+        'items', coalesce((select jsonb_agg(row_to_json(page_data)) from (select * from filtered order by finished_at desc offset (v_page - 1) * v_size limit v_size) page_data), '[]'::jsonb)) from filtered);
+end; $$;
+
+create or replace function public.admin_attempt_detail(p_attempt uuid)
+returns jsonb language plpgsql security definer set search_path = public as $$
+begin
+    if not public.is_admin() then raise exception 'No autorizado' using errcode = '42501'; end if;
+    return (with target as (
+        select a.*, p.nombres, p.apellidos, p.documento, p.matricula, p.correo, p.telefono from public.exam_attempts a join public.profiles p on p.id = a.user_id where a.id = p_attempt
+    ) select jsonb_build_object('attempt', (select row_to_json(target) from target),
+        'modules', coalesce((select jsonb_agg(row_to_json(x)) from (select q.module, count(*) as total_questions, count(*) filter (where aq.is_correct) as correct_answers, round(100.0 * count(*) filter (where aq.is_correct) / nullif(count(*), 0), 1) as score from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt group by q.module order by q.module) x), '[]'::jsonb),
+        'incorrect_answers', coalesce((select jsonb_agg(row_to_json(x) order by question_order) from (select aq.question_order, aq.selected_option, q.module, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d, q.correct_option, q.explanation, q.legal_source, q.legal_article, q.legal_reference from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt and aq.is_correct is false) x), '[]'::jsonb)) from target);
+end; $$;
+
+revoke all on function public.admin_dashboard_data(text) from public;
+revoke all on function public.admin_results_page(integer, integer, text, text, text) from public;
+revoke all on function public.admin_attempt_detail(uuid) from public;
+grant execute on function public.admin_dashboard_data(text) to authenticated;
+grant execute on function public.admin_results_page(integer, integer, text, text, text) to authenticated;
+grant execute on function public.admin_attempt_detail(uuid) to authenticated;
 
 
 -- =========================================================

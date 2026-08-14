@@ -23,7 +23,7 @@ Simulador de preparación para evaluación teórica.
 - Historial de intentos
 - Trazabilidad
 - Reanudación del intento en curso, incluso al recargar la página
-- Límite de 70 minutos y cierre automático
+- Límite de 40 minutos y cierre automático
 - Distribución CALE: 12 actitudes, 10 movilidad segura y 6 por cada módulo restante
 
 ## Puesta en marcha con Supabase
@@ -51,3 +51,16 @@ node tools/generate_exam_bank.mjs /tmp/banco.txt /tmp/situacionales.txt supabase
 ```text
 frontend/    Aplicación web
 supabase/    Base de datos y configuración
+```
+
+## Administrador
+
+El mismo inicio de sesión dirige según `profiles.role`: `student` al panel del aprendiz y `admin`/`superadmin` al panel administrativo. La autorización se comprueba en Supabase y las consultas administrativas son RPC protegidas; no hay credenciales ni roles en el frontend.
+
+Para crear el primer administrador: crea su usuario en **Authentication → Users** de Supabase, copia el UUID y, después de ejecutar `schema.sql`, usa en SQL Editor:
+
+```sql
+update public.profiles set role = 'admin' where id = 'UUID_DEL_USUARIO';
+```
+
+No existe registro público de administradores. Ejecuta `schema.sql`, luego `examen.sql` y por último `examen_bank.sql` al desplegar una base nueva; en una base existente vuelve a ejecutar los dos primeros para aplicar los roles, las políticas y las RPC administrativas.

@@ -384,11 +384,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
+                const { data: profile } = await window.supabaseClient
+                    .from("profiles")
+                    .select("role")
+                    .eq("id", data.user.id)
+                    .maybeSingle();
+
                 setTimeout(() => {
-
-                    window.location.href =
-                        "dashboard.html";
-
+                    window.location.href = ["admin", "superadmin"].includes(profile?.role)
+                        ? "admin/index.html"
+                        : "dashboard.html";
                 }, 700);
 
 

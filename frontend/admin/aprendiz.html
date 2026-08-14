@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Perfil académico del aprendiz - CALE Motorland"
+    >
+
+    <title>Aprendiz | CALE Motorland</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/admin.css"
+    >
+
+</head>
+
+<body class="admin-page">
+
+    <!-- SIDEBAR -->
+
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+    >
+
+        <div class="admin-sidebar-top">
+
+            <a
+                href="index.html"
+                class="admin-brand"
+            >
+
+                <img
+                    src="../assets/logo.png"
+                    alt="Motorland"
+                >
+
+                <div class="admin-brand-text">
+
+                    <span>PLATAFORMA</span>
+
+                    <strong>CALE</strong>
+
+                </div>
+
+            </a>
+
+
+            <button
+                type="button"
+                class="sidebar-close"
+                id="sidebarClose"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="admin-sidebar-section">
+
+            <span class="sidebar-label">
+                PRINCIPAL
+            </span>
+
+            <nav class="admin-nav">
+
+                <a
+                    href="index.html"
+                    class="admin-nav-link"
+                >
+
+                    <span class="nav-icon">▦</span>
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    href="resultados.html"
+                    class="admin-nav-link active"
+                >
+
+                    <span class="nav-icon">▤</span>
+
+                    Resultados
+
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="admin-sidebar-section">
+
+            <span class="sidebar-label">
+                APRENDICES
+            </span>
+
+            <nav class="admin-nav">
+
+                <a
+                    href="resultados.html"
+                    class="admin-nav-link active"
+                >
+
+                    <span class="nav-icon">◉</span>
+
+                    Estudiantes
+
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="admin-sidebar-bottom">
+
+            <div class="admin-sidebar-user">
+
+                <div
+                    class="admin-avatar"
+                    id="adminInitial"
+                >
+                    A
+                </div>
+
+                <div class="admin-user-info">
+
+                    <strong id="adminName">
+                        Administrador
+                    </strong>
+
+                    <span>
+                        Administrador CALE
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+            >
+
+                <span>↪</span>
+
+                Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div
+        class="admin-overlay"
+        id="adminOverlay"
+    ></div>
+
+
+    <!-- MAIN -->
+
+    <main class="admin-main">
+
+        <header class="admin-header">
+
+            <div class="admin-header-left">
+
+                <button
+                    type="button"
+                    class="menu-button"
+                    id="sidebarOpen"
+                >
+                    ☰
+                </button>
+
+                <div>
+
+                    <span class="eyebrow">
+                        FICHA ACADÉMICA
+                    </span>
+
+                    <h1>
+                        Aprendiz
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-header-right">
+
+                <a
+                    href="resultados.html"
+                    class="back-link"
+                >
+                    ← Volver a resultados
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <div class="admin-content">
+
+            <!-- STUDENT HERO -->
+
+            <section class="student-profile-card">
+
+                <div class="student-profile-main">
+
+                    <div
+                        class="student-large-avatar"
+                        id="studentInitial"
+                    >
+                        —
+                    </div>
+
+
+                    <div>
+
+                        <span class="section-kicker">
+                            APRENDIZ
+                        </span>
+
+                        <h2 id="studentName">
+                            Cargando...
+                        </h2>
+
+                        <p id="studentDetails">
+                            —
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="student-status">
+
+                    <span class="status-label">
+                        ESTADO ACADÉMICO
+                    </span>
+
+                    <strong
+                        id="studentStatus"
+                        class="status-badge"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- STUDENT INFORMATION -->
+
+            <section class="student-info-grid">
+
+                <article class="info-card">
+
+                    <span>
+                        DOCUMENTO
+                    </span>
+
+                    <strong id="studentDocument">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span>
+                        MATRÍCULA
+                    </span>
+
+                    <strong id="studentEnrollment">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span>
+                        CATEGORÍA
+                    </span>
+
+                    <strong id="studentCategory">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span>
+                        SIMULACROS
+                    </span>
+
+                    <strong id="studentAttempts">
+                        —
+                    </strong>
+
+                </article>
+
+            </section>
+
+
+            <!-- PERFORMANCE -->
+
+            <section class="dashboard-grid dashboard-grid-main">
+
+                <article class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                RENDIMIENTO
+                            </span>
+
+                            <h3>
+                                Resultado más reciente
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="student-score-layout">
+
+                        <div class="student-score-ring">
+
+                            <div
+                                class="student-score-ring-fill"
+                                id="studentScoreRing"
+                            ></div>
+
+                            <div class="student-score-center">
+
+                                <strong id="studentScore">
+                                    —
+                                </strong>
+
+                                <span>
+                                    puntaje
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="student-score-details">
+
+                            <div>
+
+                                <span>
+                                    Correctas
+                                </span>
+
+                                <strong id="studentCorrect">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Incorrectas
+                                </span>
+
+                                <strong id="studentIncorrect">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Tiempo
+                                </span>
+
+                                <strong id="studentTime">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Fecha
+                                </span>
+
+                                <strong id="studentLastDate">
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- EVOLUCIÓN -->
+
+                <article class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                EVOLUCIÓN
+                            </span>
+
+                            <h3>
+                                Historial de desempeño
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="student-history-chart"
+                        id="studentHistoryChart"
+                    >
+
+                        <div class="chart-placeholder">
+
+                            <span>
+                                Cargando historial...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- MODULE PERFORMANCE -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-kicker">
+                            DIAGNÓSTICO
+                        </span>
+
+                        <h3>
+                            Rendimiento por área
+                        </h3>
+
+                        <p class="card-description">
+                            Identificación de las áreas que requieren
+                            refuerzo académico.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="module-grid">
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Actitudes y comportamiento vial
+                                </span>
+
+                            </div>
+
+                            <strong id="studentAttitude">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="studentAttitudeBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Movilidad segura y sostenible
+                                </span>
+
+                            </div>
+
+                            <strong id="studentMobility">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="studentMobilityBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Normativa de tránsito
+                                </span>
+
+                            </div>
+
+                            <strong id="studentTraffic">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="studentTrafficBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Señalización e infraestructura
+                                </span>
+
+                            </div>
+
+                            <strong id="studentSignage">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="studentSignageBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="module-item">
+
+                        <div class="module-heading">
+
+                            <div>
+
+                                <span class="module-name">
+                                    Vehículo y generalidades
+                                </span>
+
+                            </div>
+
+                            <strong id="studentVehicle">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="module-progress">
+
+                            <div
+                                class="module-progress-fill"
+                                id="studentVehicleBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- WEAK AREAS -->
+
+            <section class="dashboard-grid dashboard-grid-bottom">
+
+                <article class="dashboard-card alerts-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                PLAN DE MEJORA
+                            </span>
+
+                            <h3>
+                                Áreas para reforzar
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="alerts-list"
+                        id="studentRecommendations"
+                    >
+
+                        <div class="empty-state">
+
+                            <p>
+                                Analizando desempeño...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                RESPUESTAS
+                            </span>
+
+                            <h3>
+                                Preguntas falladas
+                            </h3>
+
+                        </div>
+
+                        <span
+                            class="alert-counter"
+                            id="wrongAnswerCount"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="wrong-answers-list"
+                        id="wrongAnswersList"
+                    >
+
+                        <div class="empty-state">
+
+                            <p>
+                                Cargando respuestas...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script
+        type="module"
+        src="../js/admin/auth.js"
+    ></script>
+
+    <script
+        type="module"
+        src="../js/admin/aprendiz.js"
+    ></script>
+
+</body>
+</html>

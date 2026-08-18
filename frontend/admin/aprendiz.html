@@ -62,7 +62,7 @@
 
                 <div class="admin-brand-text">
 
-                    <span>PLATAFORMA</span>
+                    <span>Simulador A.P.A</span>
 
                     <strong>CALE</strong>
 
@@ -195,6 +195,8 @@
 
     <main class="admin-main">
 
+        <div id="adminError" class="admin-alert hidden" role="alert" aria-live="assertive"></div>
+
         <header class="admin-header">
 
             <div class="admin-header-left">
@@ -223,6 +225,8 @@
 
 
             <div class="admin-header-right">
+
+            <button id="downloadPdfButton" class="menu-button" title="Descargar ficha PDF">⤓</button>
 
                 <a
                     href="resultados.html"
@@ -372,11 +376,11 @@
 
                     <div class="student-score-layout">
 
-                        <div class="student-score-ring">
+                        <div class="student-score-ring" id="studentScoreRing">
 
                             <div
                                 class="student-score-ring-fill"
-                                id="studentScoreRing"
+                                id="studentScoreRingFill"
                             ></div>
 
                             <div class="student-score-center">
@@ -734,7 +738,7 @@
                             </span>
 
                             <h3>
-                                Preguntas falladas
+                                Respuestas erroneas
                             </h3>
 
                         </div>

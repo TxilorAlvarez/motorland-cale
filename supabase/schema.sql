@@ -94,15 +94,30 @@ begin
 
         new.id,
 
-        new.raw_user_meta_data ->> 'documento',
+        coalesce(
+            nullif(new.raw_user_meta_data ->> 'documento', ''),
+            'ADMIN-' || new.id::text
+        ),
 
-        new.raw_user_meta_data ->> 'matricula',
+        coalesce(
+            nullif(new.raw_user_meta_data ->> 'matricula', ''),
+            'ADMIN-' || new.id::text
+        ),
 
-        new.raw_user_meta_data ->> 'nombre',
+        coalesce(
+            nullif(new.raw_user_meta_data ->> 'nombre', ''),
+            'Administrador'
+        ),
 
-        new.raw_user_meta_data ->> 'apellido',
+        coalesce(
+            nullif(new.raw_user_meta_data ->> 'apellido', ''),
+            'Motorland'
+        ),
 
-        new.raw_user_meta_data ->> 'categoria',
+        coalesce(
+            nullif(new.raw_user_meta_data ->> 'categoria', ''),
+            'B1'
+        ),
 
         new.email,
 

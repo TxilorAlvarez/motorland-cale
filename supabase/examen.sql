@@ -305,11 +305,11 @@ alter table public.exam_attempt_questions enable row level security;
 drop policy if exists "students read active questions"
     on public.exam_questions;
 
-create policy "students read active questions"
-on public.exam_questions
-for select
-to authenticated
-using (active);
+    create policy "students read active questions"
+    on public.exam_questions
+    for select
+    to authenticated
+    using (active);
 
 
 drop policy if exists "students read own attempts"
@@ -1029,7 +1029,9 @@ begin
         select a.*, p.nombres, p.apellidos, p.documento, p.matricula, p.correo, p.telefono from public.exam_attempts a join public.profiles p on p.id = a.user_id where a.id = p_attempt
     ) select jsonb_build_object('attempt', (select row_to_json(target) from target),
         'modules', coalesce((select jsonb_agg(row_to_json(x)) from (select q.module, count(*) as total_questions, count(*) filter (where aq.is_correct) as correct_answers, round(100.0 * count(*) filter (where aq.is_correct) / nullif(count(*), 0), 1) as score from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt group by q.module order by q.module) x), '[]'::jsonb),
-        'incorrect_answers', coalesce((select jsonb_agg(row_to_json(x) order by question_order) from (select aq.question_order, aq.selected_option, q.module, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d, q.correct_option, q.explanation, q.legal_source, q.legal_article, q.legal_reference from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt and aq.is_correct is false) x), '[]'::jsonb)) from target);
+        'incorrect_answers', coalesce((select jsonb_agg(row_to_json(x) order by question_order) from (select aq.question_order, aq.selected_option, q.module, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d, q.correct_option, q.explanation, q.legal_source, q.legal_article, q.legal_reference from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt and aq.is_correct is false) x), '[]'::jsonb),
+        'history', coalesce((select jsonb_agg(row_to_json(h) order by h.finished_at desc) from (select id, total_score, total_correct, total_questions, finished_at, passed, created_at from public.exam_attempts where user_id = (select user_id from target) and finished_at is not null order by finished_at desc limit 10) h), '[]'::jsonb)
+    ) from target);
 end; $$;
 
 revoke all on function public.admin_dashboard_data(text) from public;

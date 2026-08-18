@@ -22,16 +22,73 @@ async function cargarResultados() {
         p_status: status === "all" || status === "in_progress" ? null : status || null,
         p_search: document.getElementById("searchResults")?.value.trim() || null
     });
+    // Diagnostic logs to detect structure regressions
+    console.log('[ADMIN RESULTS] RPC response:', data, 'error:', error);
     if (error) throw error;
-    setText("resultsTotal", data.total || 0); setText("resultsApproved", data.approved || 0); setText("resultsFailed", data.failed || 0); setText("resultsAverage", `${Number(data.average_score || 0).toFixed(1)}%`); setText("tableCount", `${data.total || 0} resultados`);
-    document.getElementById("paginationInfo").textContent = `${page} / ${Math.max(1, Math.ceil((data.total || 0) / PAGE_SIZE))}`;
-    document.getElementById("previousPage").disabled = page <= 1; document.getElementById("nextPage").disabled = page >= Math.ceil((data.total || 0) / PAGE_SIZE);
+    // Normalize payload: supabase may return jsonb object directly or an array containing it
+    const payload = Array.isArray(data) && data.length ? data[0] : data || {};
+    console.log('[ADMIN RESULTS] Normalized payload keys:', Object.keys(payload));
+    setText("resultsTotal", payload.total || 0); setText("resultsApproved", payload.approved || 0); setText("resultsFailed", payload.failed || 0); setText("resultsAverage", `${Number(payload.average_score || 0).toFixed(1)}%`); setText("tableCount", `${payload.total || 0} resultados`);
+    document.getElementById("paginationInfo").textContent = `${page} / ${Math.max(1, Math.ceil((payload.total || 0) / PAGE_SIZE))}`;
+    document.getElementById("previousPage").disabled = page <= 1; document.getElementById("nextPage").disabled = page >= Math.ceil((payload.total || 0) / PAGE_SIZE);
     const body = document.getElementById("resultsTableBody"); body.replaceChildren();
-    if (!data.items?.length) return body.append(emptyRow("No hay simulacros registrados."));
-    data.items.forEach(item => body.append(row(item)));
+    if (!payload.items?.length) return body.append(emptyRow("No hay simulacros registrados."));
+    payload.items.forEach(item => body.append(row(item)));
 }
 
-function row(item) { const tr = document.createElement("tr"); const name = `${item.nombres || ""} ${item.apellidos || ""}`.trim() || "Aprendiz"; const values = [name, item.documento || item.matricula || "--", item.category, formatDate(item.finished_at), `${item.total_correct}/${item.total_questions}`, `${Math.max(0, item.total_questions - item.total_correct)}`, `${Number(item.total_score).toFixed(1)}%`, formatTime(item.duration_seconds), item.passed ? "Aprobado" : "Reprobado"]; values.forEach(value => { const td = document.createElement("td"); td.textContent = value; tr.append(td); }); const action = document.createElement("a"); action.className = "view-button"; action.href = `aprendiz.html?id=${encodeURIComponent(item.id)}`; action.textContent = "Ver resultado"; const td = document.createElement("td"); td.append(action); tr.append(td); return tr; }
+function row(item) {
+    const tr = document.createElement("tr");
+    const name = `${item.nombres || ""} ${item.apellidos || ""}`.trim() || "Aprendiz";
+
+    const tdName = document.createElement('td');
+    tdName.textContent = name;
+    tr.append(tdName);
+
+    const tdDoc = document.createElement('td');
+    tdDoc.textContent = item.documento || item.matricula || "--";
+    tr.append(tdDoc);
+
+    const tdCat = document.createElement('td');
+    tdCat.textContent = item.category || "--";
+    tr.append(tdCat);
+
+    const tdDate = document.createElement('td');
+    tdDate.textContent = formatDate(item.finished_at);
+    tr.append(tdDate);
+
+    const tdCorrect = document.createElement('td');
+    tdCorrect.textContent = `${item.total_correct}/${item.total_questions}`;
+    tr.append(tdCorrect);
+
+    const tdIncorrect = document.createElement('td');
+    tdIncorrect.textContent = `${Math.max(0, item.total_questions - item.total_correct)}`;
+    tr.append(tdIncorrect);
+
+    // Score with color coding
+    const scoreNum = Number(item.total_score || 0);
+    const tdScore = document.createElement('td');
+    tdScore.textContent = `${scoreNum.toFixed(1)}%`;
+    const cls = scoreNum >= 80 ? 'approved' : scoreNum >= 20 ? 'warning' : 'failed';
+    tdScore.className = `result-score ${cls}`;
+    tr.append(tdScore);
+
+    const tdTime = document.createElement('td');
+    tdTime.textContent = formatTime(item.duration_seconds);
+    tr.append(tdTime);
+
+    const tdStatus = document.createElement('td');
+    tdStatus.textContent = item.passed ? 'Aprobado' : 'Reprobado';
+    tr.append(tdStatus);
+
+    const action = document.createElement("a");
+    action.className = "view-button";
+    action.href = `aprendiz.html?id=${encodeURIComponent(item.id)}`;
+    action.textContent = "Ver resultado";
+    const td = document.createElement("td");
+    td.append(action);
+    tr.append(td);
+    return tr;
+}
 function emptyRow(text) { const tr = document.createElement("tr"), td = document.createElement("td"); td.colSpan = 10; td.className = "table-loading"; td.textContent = text; tr.append(td); return tr; }
 function mostrarCarga() { const body = document.getElementById("resultsTableBody"); if (body) { body.replaceChildren(emptyRow("Cargando resultados...")); } }
 async function esperarAdmin() { for (let i = 0; i < 50 && !window.adminSession; i++) await new Promise(resolve => setTimeout(resolve, 100)); if (!window.adminSession) throw new Error("Acceso administrativo no validado."); }

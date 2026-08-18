@@ -498,6 +498,28 @@ img {
     margin-left:
         var(--sidebar-width);
 
+    position: relative;
+
+}
+
+.admin-alert {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    z-index: 20;
+    max-width: 500px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(214, 69, 69, 0.2);
+    background: rgba(252, 238, 238, 0.96);
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 600;
+    box-shadow: var(--shadow-soft);
+}
+
+.hidden {
+    display: none !important;
 }
 
 
@@ -1073,27 +1095,21 @@ img {
 
 
 .score-ring {
-
+    --score: 0%;
+    --score-color: var(--motorland-yellow);
     position: relative;
-
     width: 150px;
-
     height: 150px;
-
     display: grid;
-
     place-items: center;
-
     border-radius: 50%;
-
-    background:
-        conic-gradient(
-            var(--motorland-yellow) 0deg,
-            var(--motorland-yellow) 0deg,
-            var(--gray-100) 0deg,
-            var(--gray-100) 360deg
-        );
-
+    /* Use --score and --score-color so JS can update both percentage and color */
+    background: conic-gradient(
+        var(--score-color) 0%,
+        var(--score-color) var(--score, 0%),
+        var(--gray-100) var(--score, 0%),
+        var(--gray-100) 100%
+    );
 }
 
 
@@ -1578,6 +1594,13 @@ img {
 .result-score.failed {
 
     color: var(--red);
+
+}
+
+
+.result-score.warning {
+
+    color: var(--amber);
 
 }
 
@@ -2380,24 +2403,27 @@ img {
 
 .student-score-ring {
 
-    position: relative;
+   --score: 0%;
+   --score-color: var(--motorland-yellow);
+   position: relative;
 
-    width: 145px;
+   width: 145px;
 
-    height: 145px;
+   height: 145px;
 
-    display: grid;
+   display: grid;
 
-    place-items: center;
+   place-items: center;
 
-    border-radius: 50%;
+   border-radius: 50%;
 
-    background:
-        conic-gradient(
-            var(--motorland-yellow),
-            var(--motorland-yellow),
-            var(--gray-100)
-        );
+   /* use --score-color and --score for consistency with .score-ring */
+   background: conic-gradient(
+       var(--score-color) 0%,
+       var(--score-color) var(--score, 0%),
+       var(--gray-100) var(--score, 0%),
+       var(--gray-100) 100%
+   );
 
 }
 

@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Attach download button handler after admin session validated
         const dlBtn = document.getElementById('downloadPdfButton');
         if (dlBtn) dlBtn.addEventListener('click', () => downloadAttemptPdf());
+        const emailBtn = document.getElementById('emailPdfButton');
+        if (emailBtn) emailBtn.addEventListener('click', () => emailAttemptPdf(id));
         // Diagnostic logs to validate returned shape (kept concise)
         console.log('[ADMIN ATTEMPT] RPC response:', data);
 
@@ -123,6 +125,41 @@ function downloadAttemptPdf() {
     }
 }
 
+async function emailAttemptPdf(attemptId) {
+    const button = document.getElementById('emailPdfButton');
+    const recipient = window._currentAttempt?.correo;
+
+    if (!recipient) {
+        alert('El aprendiz no tiene un correo registrado para enviar el resultado.');
+        return;
+    }
+
+    const confirmed = window.confirm(`Se enviará el PDF del resultado a ${recipient}. ¿Deseas continuar?`);
+    if (!confirmed) return;
+
+    const originalLabel = button?.textContent;
+    if (button) {
+        button.disabled = true;
+        button.textContent = 'Enviando…';
+    }
+
+    try {
+        const { data, error } = await supabaseClient.functions.invoke('email-attempt-pdf', {
+            body: { attemptId }
+        });
+        if (error) throw error;
+        alert(data?.message || `El PDF fue enviado a ${recipient}.`);
+    } catch (error) {
+        console.error('Error enviando PDF del resultado:', error);
+        alert('No fue posible enviar el PDF. Verifica la configuración del servicio de correo e inténtalo de nuevo.');
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.textContent = originalLabel || '✉ Enviar PDF';
+        }
+    }
+}
+
 function escapeHtml(s) {
     if (!s) return '';
     return String(s).replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;', '>':'&gt;', '"':'&quot;'}[c]));
@@ -198,38 +235,25 @@ function renderHistory(history) {
         return;
     }
 
-    // Build bars for up to last 10 attempts
-    const items = list.slice(0, 10);
+    // Mostrar de izquierda a derecha desde el más antiguo hasta el actual.
+    const items = list.slice(0, 10).reverse();
+    let html = '<div class="history-vertical-chart">';
 
-    let html = '<div class="history-bars" style="display:flex; flex-direction:column; gap:10px;">';
-
-    // We want to show progression and indicate improvement (+) or desmejora (-)
     for (let i = 0; i < items.length; i++) {
         const it = items[i];
         const score = Number(it.total_score || 0);
-        const prev = items[i + 1] ? Number(items[i + 1].total_score || 0) : null; // next is older
-        let change = null;
-        if (prev !== null) {
-            const diff = Number((score - prev).toFixed(1));
-            if (diff > 0) change = { sign: '+', diff };
-            else if (diff < 0) change = { sign: '-', diff: Math.abs(diff) };
-            else change = { sign: '=', diff: 0 };
-        }
-
-        // Color thresholds: <20 red, 20-79 yellow, >=80 green
         const color = score >= 80 ? '#10b981' : score >= 20 ? '#f59e0b' : '#ef4444';
-
-        const label = i === 0 ? 'Intento actual' : `Intento ${i + 1}`;
+        const label = i === items.length - 1 ? 'Intento actual' : `Intento ${i + 1}`;
         const date = it.finished_at ? new Date(it.finished_at).toLocaleDateString('es-CO') : (it.created_at ? new Date(it.created_at).toLocaleDateString('es-CO') : '—');
 
         html += `
-            <div class="history-bar-item" style="display:flex; flex-direction:column;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-size:13px; color:#374151; font-weight:600;">${label} · ${date}</div>
-                    <div style="font-size:13px; font-weight:800; color:${color};">${score.toFixed(1)}% ${change ? (change.sign === '+' ? `▲ ${change.diff}%` : change.sign === '-' ? `▼ ${change.diff}%` : '') : ''}</div>
+            <div class="history-vertical-item" style="--score:${Math.max(0, Math.min(score, 100))}%; --bar-color:${color};">
+                <div class="history-vertical-bar-wrap">
+                    <div class="history-vertical-bar" title="${score.toFixed(1)}%"></div>
                 </div>
-                <div style="background: #f3f4f6; height: 12px; border-radius: 6px; overflow: hidden; margin-top:6px;">
-                    <div style="width: ${score}%; background: linear-gradient(90deg, ${color} 0%, ${color} 100%); height:100%;"></div>
+                <div>
+                    <div class="history-vertical-score">${score.toFixed(1)}%</div>
+                    <div class="history-vertical-label">${label}<br>${date}</div>
                 </div>
             </div>
         `;

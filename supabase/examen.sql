@@ -82,6 +82,33 @@ create table if not exists public.exam_questions (
     )
 );
 
+-- La columna category es text[] para poder incluir preguntas aplicables a más
+-- de una categoría. Este índice se crea aquí (la tabla aún no existe al correr
+-- schema.sql en una instalación nueva).
+create index if not exists idx_exam_questions_category
+    on public.exam_questions using gin (category);
+
+-- El banco clasifica las preguntas por módulo. Este trigger mantiene el tipo
+-- coherente con esa clasificación al importar o actualizar contenido.
+create or replace function public.set_exam_question_type()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+begin
+    new.question_type := case
+        when new.module = 'attitudes' then 'attitude'
+        else 'knowledge'
+    end;
+    return new;
+end;
+$$;
+
+drop trigger if exists set_exam_question_type on public.exam_questions;
+create trigger set_exam_question_type
+before insert or update of module on public.exam_questions
+for each row execute function public.set_exam_question_type();
+
 
 -- =========================================================
 -- 2. TABLA DE INTENTOS
@@ -409,21 +436,27 @@ begin
     end if;
 
 
-    -- Expirar automáticamente cualquier intento
-    -- que haya superado los 40 minutos.
-    update public.exam_attempts
-       set status = 'expired',
+    -- Cerrar intentos vencidos. Un intento que nunca recibió una respuesta es
+    -- abandonado/cancelado y no consume uno de los tres cupos; uno que sí tuvo
+    -- actividad queda como expirado y conserva su trazabilidad.
+    update public.exam_attempts a
+       set status = case
+               when exists (
+                   select 1
+                   from public.exam_attempt_questions aq
+                   where aq.attempt_id = a.id
+                     and aq.selected_option is not null
+               ) then 'expired'
+               else 'cancelled'
+           end,
            finished_at = now(),
-           duration_seconds =
-               greatest(
-                   0,
-                   extract(
-                       epoch from now() - started_at
-                   )::integer
-               )
-     where user_id = v_user
-       and status = 'in_progress'
-       and started_at <= now() - interval '40 minutes';
+           duration_seconds = greatest(
+               0,
+               extract(epoch from now() - a.started_at)::integer
+           )
+     where a.user_id = v_user
+       and a.status = 'in_progress'
+       and a.started_at <= now() - interval '40 minutes';
 
 
     -- Si existe un intento vigente, se retoma.
@@ -985,22 +1018,23 @@ begin
     return jsonb_build_object(
         'summary', (select jsonb_build_object(
             'students', (select count(*) from public.profiles where role = 'student'),
-            'attempts', count(*), 'approved', count(*) filter (where passed),
-            'failed', count(*) filter (where finished_at is not null and not passed),
+            'attempts', count(*) filter (where status = 'completed'),
+            'approved', count(*) filter (where status = 'completed' and passed),
+            'failed', count(*) filter (where status = 'completed' and not passed),
             'pending', count(*) filter (where status = 'in_progress'),
-            'average_score', coalesce(round(avg(total_score) filter (where finished_at is not null), 1), 0),
-            'average_duration_seconds', coalesce(round(avg(duration_seconds) filter (where finished_at is not null), 0), 0)
+            'average_score', coalesce(round(avg(total_score) filter (where status = 'completed'), 1), 0),
+            'average_duration_seconds', coalesce(round(avg(duration_seconds) filter (where status = 'completed'), 0), 0)
         ) from public.exam_attempts where v_category is null or category = v_category),
         'modules', (select coalesce(jsonb_agg(row_to_json(x)), '[]'::jsonb) from (
             select q.module, round(100.0 * count(*) filter (where aq.is_correct) / nullif(count(*), 0), 1) as score
             from public.exam_attempt_questions aq join public.exam_attempts a on a.id = aq.attempt_id join public.exam_questions q on q.id = aq.question_id
-            where a.finished_at is not null and (v_category is null or a.category = v_category) group by q.module order by q.module
+            where a.status = 'completed' and (v_category is null or a.category = v_category) group by q.module order by q.module
         ) x),
         'recent', (select coalesce(jsonb_agg(row_to_json(x)), '[]'::jsonb) from (
             select a.id, a.category, a.total_score, a.total_correct, a.total_questions, a.duration_seconds, a.finished_at, a.passed,
                 trim(concat(p.nombres, ' ', p.apellidos)) as student_name
             from public.exam_attempts a join public.profiles p on p.id = a.user_id
-            where a.finished_at is not null and (v_category is null or a.category = v_category) order by a.finished_at desc limit 8
+            where a.status = 'completed' and (v_category is null or a.category = v_category) order by a.finished_at desc limit 8
         ) x)
     );
 end; $$;
@@ -1014,7 +1048,7 @@ begin
         select a.id, a.user_id, a.category, a.total_score, a.total_correct, a.total_questions, a.duration_seconds, a.finished_at, a.created_at, a.passed, a.status,
             p.nombres, p.apellidos, p.documento, p.matricula, p.correo
         from public.exam_attempts a join public.profiles p on p.id = a.user_id
-        where a.finished_at is not null and (v_category is null or a.category = v_category)
+        where a.status = 'completed' and (v_category is null or a.category = v_category)
           and (v_status is null or (v_status = 'approved' and a.passed) or (v_status = 'failed' and not a.passed))
           and (v_search is null or concat_ws(' ', p.nombres, p.apellidos, p.documento, p.matricula, p.correo) ilike '%' || v_search || '%')
     ) select jsonb_build_object('total', count(*), 'approved', count(*) filter (where passed), 'failed', count(*) filter (where not passed), 'average_score', coalesce(round(avg(total_score), 1), 0),
@@ -1026,11 +1060,61 @@ returns jsonb language plpgsql security definer set search_path = public as $$
 begin
     if not public.is_admin() then raise exception 'No autorizado' using errcode = '42501'; end if;
     return (with target as (
-        select a.*, p.nombres, p.apellidos, p.documento, p.matricula, p.correo, p.telefono from public.exam_attempts a join public.profiles p on p.id = a.user_id where a.id = p_attempt
-    ) select jsonb_build_object('attempt', (select row_to_json(target) from target),
-        'modules', coalesce((select jsonb_agg(row_to_json(x)) from (select q.module, count(*) as total_questions, count(*) filter (where aq.is_correct) as correct_answers, round(100.0 * count(*) filter (where aq.is_correct) / nullif(count(*), 0), 1) as score from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt group by q.module order by q.module) x), '[]'::jsonb),
-        'incorrect_answers', coalesce((select jsonb_agg(row_to_json(x) order by question_order) from (select aq.question_order, aq.selected_option, q.module, q.question_text, q.option_a, q.option_b, q.option_c, q.option_d, q.correct_option, q.explanation, q.legal_source, q.legal_article, q.legal_reference from public.exam_attempt_questions aq join public.exam_questions q on q.id = aq.question_id where aq.attempt_id = p_attempt and aq.is_correct is false) x), '[]'::jsonb),
-        'history', coalesce((select jsonb_agg(row_to_json(h) order by h.finished_at desc) from (select id, total_score, total_correct, total_questions, finished_at, passed, created_at from public.exam_attempts where user_id = (select user_id from target) and finished_at is not null order by finished_at desc limit 10) h), '[]'::jsonb)
+        select a.*, p.nombres, p.apellidos, p.documento, p.matricula, p.correo, p.telefono 
+        from public.exam_attempts a 
+        join public.profiles p on p.id = a.user_id 
+        where a.id = p_attempt
+          and a.status = 'completed'
+    ) select jsonb_build_object(
+        'attempt', (select row_to_json(target) from target),
+        'modules', coalesce((
+            select jsonb_agg(row_to_json(x)) 
+            from (
+                select q.module, 
+                       count(*) as total_questions, 
+                       count(*) filter (where aq.is_correct) as correct_answers, 
+                       round(100.0 * count(*) filter (where aq.is_correct) / nullif(count(*), 0), 1) as score 
+                from public.exam_attempt_questions aq 
+                join public.exam_questions q on q.id = aq.question_id 
+                where aq.attempt_id = p_attempt 
+                group by q.module 
+                order by q.module
+            ) x
+        ), '[]'::jsonb),
+        'incorrect_answers', coalesce((
+            select jsonb_agg(row_to_json(x) order by question_order) 
+            from (
+                select aq.question_order, 
+                       aq.selected_option, 
+                       q.module, 
+                       q.question_text, 
+                       q.option_a, 
+                       q.option_b, 
+                       q.option_c, 
+                       q.option_d, 
+                       q.correct_option, 
+                       q.explanation, 
+                       q.legal_source, 
+                       q.legal_article, 
+                       q.legal_reference,
+                       q.image_url
+                from public.exam_attempt_questions aq 
+                join public.exam_questions q on q.id = aq.question_id 
+                where aq.attempt_id = p_attempt 
+                  and aq.is_correct is false
+            ) x
+        ), '[]'::jsonb),
+        'history', coalesce((
+            select jsonb_agg(row_to_json(h) order by h.finished_at desc) 
+            from (
+                select id, total_score, total_correct, total_questions, finished_at, passed, created_at 
+                from public.exam_attempts 
+                where user_id = (select user_id from target) 
+                  and status = 'completed'
+                order by finished_at desc 
+                limit 10
+            ) h
+        ), '[]'::jsonb)
     ) from target);
 end; $$;
 

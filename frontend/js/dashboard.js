@@ -388,7 +388,7 @@ async function cargarIntentos(
             created_at
         `)
             .eq("user_id", userId)
-            .in("status", ["completed", "expired"])
+            .eq("status", "completed")
         .order(
             "created_at",
             {
@@ -801,7 +801,7 @@ async function puedeRealizarIntento(
             "user_id",
             userId
         )
-        .in("status", ["completed", "expired"]);
+        .eq("status", "completed");
 
 
     if (error) {

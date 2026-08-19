@@ -36,7 +36,7 @@ Ejecuta estos archivos en el SQL Editor, en este orden:
 
 Si el navegador muestra `Could not find the function public.save_exam_answer`, ejecuta adicionalmente `supabase/hotfix_save_exam_answer.sql`. El archivo recrea la función que guarda respuestas y solicita a PostgREST recargar su caché de esquema.
 
-`examen_bank.sql` carga 240 preguntas pedagógicas de preparación: 200 del banco y 40 situacionales. No reproduce ni afirma ser el banco oficial del CALE. Los scripts anteriores `preguntas_a2.sql` y `examen_seed.sql` se conservan como material histórico y no deben ejecutarse junto con el banco consolidado.
+`examen_bank.sql` carga 210 preguntas pedagógicas de preparación. No reproduce ni afirma ser el banco oficial del CALE. Los scripts anteriores `preguntas_a2.sql` y `examen_seed.sql` se conservan como material histórico y no deben ejecutarse junto con el banco consolidado.
 
 Para regenerar el banco desde los PDF extraídos a texto:
 
@@ -64,3 +64,22 @@ update public.profiles set role = 'admin' where id = 'UUID_DEL_USUARIO';
 ```
 
 No existe registro público de administradores. Ejecuta `schema.sql`, luego `examen.sql` y por último `examen_bank.sql` al desplegar una base nueva; en una base existente vuelve a ejecutar los dos primeros para aplicar los roles, las políticas y las RPC administrativas.
+
+## Envío del resultado por correo
+
+El botón **Enviar PDF** de la ficha del aprendiz invoca la Edge Function
+`email-attempt-pdf`. La función valida que quien la solicita sea administrador,
+genera el PDF en el servidor y lo envía al correo almacenado en `profiles.correo`.
+Nunca expone la clave del proveedor de correo en el navegador.
+
+Antes de habilitarlo, configura los secretos y despliega la función:
+
+```bash
+supabase secrets set RESEND_API_KEY=... RESULTS_EMAIL_FROM='CEA Motorland <resultados@tu-dominio.com>'
+supabase functions deploy email-attempt-pdf
+```
+
+Después de ejecutar los scripts SQL, corre `supabase/verify_exam_content.sql` en
+el SQL Editor. Solo publica el banco cuando esa verificación devuelva al menos
+12 preguntas de actitudes, 10 de movilidad segura y 6 de cada módulo restante
+por categoría, y ninguna ruta de imagen fuera de `/assets/images/`.

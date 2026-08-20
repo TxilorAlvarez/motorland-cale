@@ -828,8 +828,7 @@ function mostrarImagen(q) {
             q.image_url
         ).trim() !== ""
     ) {
-        image.src =
-            q.image_url;
+        image.src = resolverRutaImagen(q.image_url);
 
         image.alt =
             "Imagen relacionada con la pregunta";
@@ -848,6 +847,16 @@ function mostrarImagen(q) {
             "hidden"
         );
     }
+}
+
+function resolverRutaImagen(imageUrl) {
+    const value = String(imageUrl || '').trim();
+    if (/^https?:\/\//i.test(value) || value.startsWith('data:')) return value;
+    // Admite registros antiguos (/images/...) y los normaliza a la ubicación
+    // pública actual: frontend/assets/images.
+    return value
+        .replace(/^\/?(?:assets\/)?images\//i, 'assets/images/')
+        .replace(/^\//, '');
 }
 
 // =========================================================

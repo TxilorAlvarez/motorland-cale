@@ -67,7 +67,14 @@ async function buildPdf(detail: any) {
   if (!incorrect.length) line("No se registraron respuestas incorrectas.");
   for (const answer of incorrect) {
     paragraph(`${answer.question_order}. ${answer.question_text || "Pregunta"}`, { bold: true });
-    line(`Respuesta marcada: ${answer.selected_option || "Sin responder"} · Correcta: ${answer.correct_option || "—"}`);
+    const selected = answer.selected_option
+      ? `${answer.selected_option}. ${answer[`option_${String(answer.selected_option).toLowerCase()}`] || ""}`
+      : "Sin responder";
+    const correct = answer.correct_option
+      ? `${answer.correct_option}. ${answer[`option_${String(answer.correct_option).toLowerCase()}`] || ""}`
+      : "—";
+    paragraph(`Respuesta marcada: ${selected}`);
+    paragraph(`Corrección: ${correct}`, { bold: true });
     if (answer.explanation) paragraph(`Explicación: ${answer.explanation}`);
     y -= 4;
   }
@@ -118,9 +125,9 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: sender,
         to: [detail.attempt.correo],
-        subject: "Resultado del simulador CALE Motorland",
-        html: `<p>Hola ${[detail.attempt.nombres, detail.attempt.apellidos].filter(Boolean).join(" ") || ""},</p><p>Adjuntamos el detalle en PDF de tu resultado del simulador CALE.</p>`,
-        attachments: [{ filename: "resultado-simulador-cale.pdf", content: bytesToBase64(pdf) }],
+        subject: "Resumen de correcciones · Simulador CALE Motorland",
+        html: `<p>Hola ${[detail.attempt.nombres, detail.attempt.apellidos].filter(Boolean).join(" ") || ""},</p><p>Adjuntamos el resumen de tus respuestas incorrectas, las correcciones y sus explicaciones.</p>`,
+        attachments: [{ filename: "resumen-correcciones-cale.pdf", content: bytesToBase64(pdf) }],
       }),
     });
     if (!result.ok) throw new Error("El proveedor de correo rechazó el envío");

@@ -82,43 +82,47 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Create a printable view of the current attempt and open print dialog
+// Genera y descarga el mismo resumen de correcciones que se envía por correo.
 function downloadAttemptPdf() {
     try {
-        const title = document.getElementById('studentName')?.textContent || 'Ficha aprendiz';
-        const doc = window.open('', '_blank', 'noopener');
-        if (!doc) { alert('No fue posible abrir la ventana para imprimir. Revisa la configuración del navegador.'); return; }
-
-        const styleLink = '<link rel="stylesheet" href="../css/admin.css">';
-        const content = `
-            <div class="admin-content" style="padding:24px; max-width:800px; margin:0 auto;">
-                <h1 style="font-size:20px;">Ficha del aprendiz — ${escapeHtml(title)}</h1>
-                <hr />
-                <section>
-                    <h2>Datos</h2>
-                    <p><strong>Nombre:</strong> ${escapeHtml(document.getElementById('studentName')?.textContent || '')}</p>
-                    <p><strong>Documento:</strong> ${escapeHtml(document.getElementById('studentDocument')?.textContent || '')}</p>
-                    <p><strong>Matrícula:</strong> ${escapeHtml(document.getElementById('studentEnrollment')?.textContent || '')}</p>
-                    <p><strong>Categoría:</strong> ${escapeHtml(document.getElementById('studentCategory')?.textContent || '')}</p>
-                    <p><strong>Intentos:</strong> ${escapeHtml(document.getElementById('studentAttempts')?.textContent || '')}</p>
-                    <p><strong>Puntaje:</strong> ${escapeHtml(document.getElementById('studentScore')?.textContent || '')}</p>
-                    <p><strong>Estado:</strong> ${escapeHtml(document.getElementById('studentStatus')?.textContent || '')}</p>
-                </section>
-                <section>
-                    <h2>Evolución</h2>
-                    ${document.getElementById('studentHistoryChart')?.innerHTML || '<p>No hay historial.</p>'}
-                </section>
-                <section>
-                    <h2>Respuestas incorrectas</h2>
-                    ${document.getElementById('wrongAnswersList')?.innerHTML || '<p>No se registraron respuestas incorrectas.</p>'}
-                </section>
-            </div>
-        `;
-
-        doc.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title>${styleLink}</head><body>${content}</body></html>`);
-        doc.document.close();
-        // Give the new window some time to load styles
-        setTimeout(() => { try { doc.focus(); doc.print(); } catch (e) { console.error('print error', e); alert('Error al imprimir: ' + e.message); } }, 500);
+        const Pdf = window.jspdf?.jsPDF;
+        const detail = window._attemptDetail;
+        if (!Pdf || !detail?.attempt) throw new Error('La biblioteca para generar PDF no está disponible.');
+        const pdf = new Pdf({ unit: 'mm', format: 'a4' });
+        const margin = 16;
+        const width = 178;
+        let y = 18;
+        const page = () => { pdf.addPage(); y = 18; };
+        const write = (text, { bold = false, size = 10 } = {}) => {
+            pdf.setFont('helvetica', bold ? 'bold' : 'normal');
+            pdf.setFontSize(size);
+            const lines = pdf.splitTextToSize(String(text || '—'), width);
+            if (y + lines.length * (size * 0.48) > 278) page();
+            pdf.text(lines, margin, y);
+            y += lines.length * (size * 0.48) + 3;
+        };
+        const a = detail.attempt;
+        const fullName = `${a.nombres || ''} ${a.apellidos || ''}`.trim() || 'Aprendiz';
+        pdf.setTextColor(18, 82, 130);
+        write('CEA Motorland · Resumen de correcciones', { bold: true, size: 16 });
+        pdf.setTextColor(30, 41, 59);
+        write(`Aprendiz: ${fullName}`, { bold: true });
+        write(`Documento: ${a.documento || '—'} · Categoría: ${a.category || '—'}`);
+        write(`Resultado: ${Number(a.total_score || 0).toFixed(1)}% · ${a.total_correct || 0}/${a.total_questions || 40} correctas`);
+        y += 3;
+        write('Respuestas incorrectas y correcciones', { bold: true, size: 13 });
+        const wrong = detail.incorrect_answers || [];
+        if (!wrong.length) write('No se registraron respuestas incorrectas.');
+        wrong.forEach(item => {
+            const selected = option(item, item.selected_option);
+            const correct = option(item, item.correct_option);
+            write(`Pregunta ${String(item.question_order || '').padStart(2, '0')}: ${item.question_text || ''}`, { bold: true });
+            write(`Respuesta marcada: ${selected}`);
+            write(`Corrección: ${correct}`, { bold: true });
+            if (item.explanation) write(`Explicación: ${item.explanation}`);
+            y += 2;
+        });
+        pdf.save(`resumen-correcciones-${fullName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.pdf`);
     } catch (error) {
         console.error('Error generando PDF:', error);
         alert('No fue posible generar el PDF. Revisa la consola para más detalle.');
@@ -151,7 +155,14 @@ async function emailAttemptPdf(attemptId) {
         alert(data?.message || `El PDF fue enviado a ${recipient}.`);
     } catch (error) {
         console.error('Error enviando PDF del resultado:', error);
-        alert('No fue posible enviar el PDF. Verifica la configuración del servicio de correo e inténtalo de nuevo.');
+        let detail = error?.message || 'Error desconocido';
+        if (error?.context?.json) {
+            try {
+                const body = await error.context.json();
+                detail = body?.error || detail;
+            } catch (_) { /* La respuesta no tiene JSON legible. */ }
+        }
+        alert(`No fue posible enviar el PDF: ${detail}`);
     } finally {
         if (button) {
             button.disabled = false;
@@ -170,6 +181,7 @@ window._currentAttempt = null;
 function renderDetail(data) {
     try {
         window._currentAttempt = data.attempt;
+        window._attemptDetail = data;
         const a = data.attempt || {};
         const name = `${a.nombres || ""} ${a.apellidos || ""}`.trim() || "Aprendiz";
         const total = Number(a.total_questions || 40);

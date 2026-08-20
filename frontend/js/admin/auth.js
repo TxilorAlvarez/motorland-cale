@@ -44,6 +44,7 @@ async function inicializarAdminAuth() {
 
         await validarAdministrador(session);
         configurarLogoutAdmin();
+        configurarSidebarAdmin();
 
     } catch (error) {
         console.error(
@@ -118,6 +119,41 @@ function configurarLogoutAdmin() {
         );
 
     });
+}
+
+function configurarSidebarAdmin() {
+    const sidebar = document.getElementById("adminSidebar");
+    const openButton = document.getElementById("sidebarOpen");
+    const closeButton = document.getElementById("sidebarClose");
+    if (!sidebar || !openButton) return;
+
+    let overlay = document.getElementById("adminSidebarOverlay");
+    if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "adminSidebarOverlay";
+        overlay.className = "admin-overlay hidden";
+        document.body.appendChild(overlay);
+    }
+
+    const close = () => {
+        sidebar.classList.remove("open");
+        overlay.classList.add("hidden");
+        openButton.setAttribute("aria-expanded", "false");
+    };
+    const open = () => {
+        sidebar.classList.add("open");
+        overlay.classList.remove("hidden");
+        openButton.setAttribute("aria-expanded", "true");
+    };
+
+    openButton.setAttribute("aria-controls", "adminSidebar");
+    openButton.setAttribute("aria-expanded", "false");
+    openButton.addEventListener("click", open);
+    closeButton?.addEventListener("click", close);
+    overlay.addEventListener("click", close);
+    sidebar.querySelectorAll("a").forEach(link => link.addEventListener("click", close));
+    window.addEventListener("keydown", event => { if (event.key === "Escape") close(); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 850) close(); });
 }
 
 

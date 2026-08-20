@@ -531,7 +531,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 86',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/b1_cambio_luces.png'
+  '/assets/images/illustrations/b1_cambio_luces.jpeg'
 ),
 
 -- 32. [B1] Mantenimiento Preventivo de Llantas
@@ -548,7 +548,7 @@ VALUES
   'Código Nacional de Tránsito / Normas NTC',
   'Artículo 50',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/profundidad_llantas.png'
+  '/assets/images/illustrations/profundidad_llantas.jpg'
 ),
 
 -- 33. [C1] Transporte de Pasajeros de Pie
@@ -599,7 +599,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 2 - Señal SR-02',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SR-02.png'
+  '/assets/images/signals/SR-02.jpg'
 ),
 
 -- 36. [GENERAL] Distancia al Adelantar Ciclistas (Ley Julián Esteban)
@@ -616,7 +616,7 @@ VALUES
   'Ley Julián Esteban',
   'Artículo 60 Parágrafo',
   'Ley 2251 de 2022 / Ley 769 de 2002',
-  '/assets/images/illustrations/distancia_ciclista_1.5m.png'
+  '/assets/images/illustrations/distancia_ciclista_1.5m.jpg'
 ),
 
 -- 37. [A2] Puntos Ciegos de Vehículos Pesados
@@ -633,7 +633,7 @@ VALUES
   'Guía de Movilidad Segura para Motociclistas',
   'Sección Puntos Ciegos',
   'ANSV',
-  '/assets/images/illustrations/a2_puntos_ciegos_camion.png'
+  '/assets/images/illustrations/a2_puntos_ciegos_camion.jpeg'
 ),
 
 -- 38. [A2] Frenado en Curva

@@ -650,7 +650,7 @@ VALUES
   'Manual de Conducción Preventiva para Motociclistas',
   'Técnicas de Trazado de Curvas',
   'ANSV',
-  '/assets/images/illustrations/a2_frenado_curva.png'
+  '/assets/images/illustrations/a2_frenado_curva.jpeg'
 ),
 
 -- 39. [B1] Uso de Luces Exploradoras
@@ -718,7 +718,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 52 (Modificado)',
   'Ley 769 de 2002 / Ley 2294 de 2023',
-  '/assets/images/illustrations/c1_revision_tecnicomecanica.png'
+  '/assets/images/illustrations/c1_revision_tecnicomecanica.jpeg'
 ),
 
 -- 43. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria de Prohibición de Giro
@@ -752,7 +752,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 4 - Demarcaciones Viales',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/demarcacion_malla_amarilla.png'
+  '/assets/images/signals/demarcacion_malla_amarilla.jpeg'
 ),
 
 -- 45. [A2] Visor del Casco en Conducción Nocturna o Lluvia
@@ -769,7 +769,7 @@ VALUES
   'Reglamento Técnico de Cascos',
   'Artículo 3',
   'Resolución 1080 de 2019 / Res. 20203040023385',
-  '/assets/images/illustrations/a2_visor_transparente_noche.png'
+  '/assets/images/illustrations/a2_visor_transparente_noche.jpeg'
 ),
 
 -- 46. [A2] Sistema de Escape y Emisión de Ruidos
@@ -803,7 +803,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 68',
   'Ley 769 de 2002',
-  '/assets/images/signals/prohibicion_adelantar_puente.png'
+  '/assets/images/illustrations/prohibicion_adelantar_puente.jpeg'
 ),
 
 -- 48. [B1] Uso de Luces Estacionarias (Parqueo)
@@ -878,17 +878,17 @@ VALUES
 (
   array['A2', 'B1', 'C1', 'GENERAL'],
   'signage_infrastructure',
-  '¿Qué servicio indica la señal informativa con fondo azul y el ícono de una cruz blanca o roja sobre un fondo cuadrado (SI-05)?',
+  '¿Qué servicio indica la señal informativa con fondo azul y el ícono de una cruz blanca o roja sobre un fondo cuadrado (SI-16)?',
   'Un puesto de control policial.',
   'Un centro de atención médica o puesto de primeros auxilios cercano.',
   'Una iglesia o centro religioso.',
   'Una droguería veterinaria.',
   'B',
-  'Las señales de servicios generales SI-05 informan la presencia de un centro asistencial de salud para emergencias médicas sobre la ruta.',
+  'Las señales de servicios generales SI-16 informan la presencia de un centro asistencial de salud para emergencias médicas sobre la ruta.',
   'Manual de Señalización Vial',
   'Capítulo 2 - Señales Informativas',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SI-05.png'
+  '/assets/images/signals/SI-16.jpg'
 ),
 
 -- 53. [A2] Técnica de Mirada en Conducción de Motocicletas
@@ -922,7 +922,7 @@ VALUES
   'Manual de Mantenimiento Preventivo de Motocicletas',
   'Sistemas de Transmisión Secundaria',
   'ANSV',
-  '/assets/images/illustrations/a2_tension_cadena.png'
+  '/assets/images/illustrations/a2_tension_cadena.jpeg'
 ),
 
 -- 55. [B1] Uso Correcto del Apoyacabezas (Asientos)
@@ -939,7 +939,7 @@ VALUES
   'Manual de Referencia para la Conducción de Vehículos',
   'Sistemas de Seguridad Pasiva',
   'ANSV',
-  '/assets/images/illustrations/b1_apoyacabezas_latigazo.png'
+  '/assets/images/illustrations/b1_apoyacabezas_latigazo.jpeg'
 ),
 
 -- 56. [B1] Encendido del Motor y Emisiones
@@ -956,7 +956,7 @@ VALUES
   'Manual de Mecánica Básica y Seguridad',
   'Gases de Combustión',
   'ANSV',
-  NULL
+  '/assets/images/illustrations/b1_encendido_motor_emisiones.jpg'
 ),
 
 -- 57. [C1] Tarjeta de Operación de Servicio Público
@@ -1007,7 +1007,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 2 - Señal SR-30',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SR-30_50.png'
+  '/assets/images/signals/SR-30_50.jpg'
 ),
 
 -- 60. [SEÑALIZACIÓN - GENERAL] Demarcación de Flechas de Dirección
@@ -1024,7 +1024,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 4 - Demarcaciones Viales',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/demarcacion_flecha_carril.png'
+  '/assets/images/signals/demarcacion_flecha_carril.jpeg'
 ),
 
 -- 61. [A2] Uso del Calzado Adecuado para Motociclistas
@@ -1058,7 +1058,7 @@ VALUES
   'Manual de Conducción Preventiva para Motociclistas',
   'Maniobras de Emergencia',
   'ANSV',
-  NULL
+  '/assets/images/illustrations/a2_reaccion_aceite.jpg'
 ),
 
 -- 63. [B1] Espejos Retrovisores y Ajuste Correcto
@@ -1075,7 +1075,7 @@ VALUES
   'Manual de Referencia para la Conducción de Vehículos',
   'Ajuste Ergonomía y Visibilidad',
   'ANSV',
-  '/assets/images/illustrations/b1_ajuste_espejos.png'
+  '/assets/images/illustrations/b1_ajuste_espejos.jpeg'
 ),
 
 -- 64. [B1] Cambio de Llanta Pinchada en Vía Pública
@@ -1092,7 +1092,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 30',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/b1_posicion_triangulos_emergencia.png'
+  '/assets/images/illustrations/b1_posicion_triangulos_emergencia.jpeg'
 ),
 
 -- 65. [C1] Extintor de Incendios en Servicio Público
@@ -1109,7 +1109,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 30',
   'Ley 769 de 2002 / Normas NTC',
-  '/assets/images/illustrations/extintor_manometro.png'
+  '/assets/images/illustrations/extintor_manometro.jpeg'
 ),
 
 -- 66. [C1] Estado de los Neumáticos en Servicio Público
@@ -1133,17 +1133,17 @@ VALUES
 (
   array['A2', 'B1', 'C1', 'GENERAL'],
   'signage_infrastructure',
-  '¿Qué restricción impone una señal circular reglamentaria que muestra dos triángulos apuntando verticalmente hacia un número como "4.1 m" (SR-28)?',
+  '¿Qué restricción impone una señal circular reglamentaria que muestra dos triángulos apuntando verticalmente hacia un número como "4.1 m" (SR-32)?',
   'Velocidad máxima de 4.1 km/h.',
   'Altura máxima permitida para los vehículos que pretendan transitar o ingresar por esa vía o estructura (puente/túnel).',
   'Ancho máximo de la calzada en metros.',
   'Distancia entre ejes del camión.',
   'B',
-  'La señal SR-28 limita el gálibo o altura de los vehículos para evitar impactos violentos contra el techo de túneles, puentes peatones o cables de alta tensión.',
+  'La señal SR-32 limita el gálibo o altura de los vehículos para evitar impactos violentos contra el techo de túneles, puentes peatones o cables de alta tensión.',
   'Manual de Señalización Vial',
-  'Capítulo 2 - Señal SR-28',
+  'Capítulo 2 - Señal SR-32',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SR-28.png'
+  '/assets/images/signals/SR-32.jpeg'
 ),
 
 -- 68. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Resalto o Reductor de Velocidad
@@ -1177,7 +1177,7 @@ VALUES
   'Guía de Conducción en Condiciones Adversas',
   'Conducción con Lluvia',
   'ANSV',
-  '/assets/images/illustrations/a2_derrape_trasero.png'
+  '/assets/images/illustrations/a2_derrape_trasero.jpeg'
 ),
 
 -- 70. [GENERAL] Vías de Un Solo Sentido y Giros
@@ -1194,17 +1194,8 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 67',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/posicion_giro_izquierda.png'
+  '/assets/images/illustrations/posicion_giro_izquierda.jpg'
 );
-
--- =============================================================================
--- BANCO DE PREGUNTAS MOTORLAND - BLOQUE 4 (71 - 100)
--- ESTRUCTURA ACTUALIZADA CON COLUMNA 'category' Y NORMATIVA VIGENTE
--- =============================================================================
-
-INSERT INTO public.exam_questions 
-(category, module, question_text, option_a, option_b, option_c, option_d, correct_option, explanation, legal_source, legal_article, legal_reference, image_url)
-VALUES
 
 -- 71. [GENERAL] Límite de Velocidad en Zonas Escolares y Residenciales (Ley 2251)
 (
@@ -1220,7 +1211,7 @@ VALUES
   'Ley Julián Esteban',
   'Artículo 106 (Modificado)',
   'Ley 2251 de 2022 / Ley 769 de 2002',
-  '/assets/images/signals/SR-30_30.png'
+  '/assets/images/signals/SR-30_30.jpeg'
 ),
 
 -- 72. [A2] Horario Obligatorio para Prendas Reflectivas en Motocicletas
@@ -1237,7 +1228,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 94',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/a2_chaleco_reflectivo_horario.png'
+  '/assets/images/illustrations/a2_chaleco_reflectivo_horario.jpeg'
 ),
 
 -- 73. [A2] Reparto Eficiente de Frenado en Motocicleta
@@ -1254,7 +1245,7 @@ VALUES
   'Guía de Movilidad Segura para Motociclistas',
   'Técnicas de Frenado Eficiente',
   'ANSV',
-  '/assets/images/illustrations/a2_distribucion_frenado.png'
+  '/assets/images/illustrations/a2_distribucion_frenado.jpeg'
 ),
 
 -- 74. [B1] Uso de Cintas Reflectivas en Vehículos (Resolución 20223040045295)
@@ -1271,7 +1262,7 @@ VALUES
   'Manual de Señalización Vial / Reglamentación Vehicular',
   'Sección Cintas Retrorreflectivas',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/illustrations/b1_cintas_reflectivas.png'
+  '/assets/images/illustrations/b1_cintas_reflectivas.jpg'
 ),
 
 -- 75. [B1] Reacción ante Aquaplaning (Hidroplaneo)
@@ -1288,7 +1279,7 @@ VALUES
   'Manual de Referencia para la Conducción de Vehículos',
   'Conducción en Superficies Deslizantes',
   'ANSV',
-  '/assets/images/illustrations/b1_aquaplaning_reaccion.png'
+  '/assets/images/illustrations/b1_aquaplaning_reaccion.jpg'
 ),
 
 -- 76. [C1] Documento FUEC para Transporte Especial
@@ -1322,7 +1313,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 70',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/prelacion_interseccion_derecha.png'
+  '/assets/images/illustrations/prelacion_interseccion_derecha.jpeg'
 ),
 
 -- 78. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria de Prohibido Parquear y Detenerse
@@ -1339,7 +1330,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 2 - Señales SR-28 y SR-28A',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SR-28A_x_roja.png'
+  '/assets/images/signals/SR-28A_x_roja..jpg'
 ),
 
 -- 79. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Zona Escolar
@@ -1356,7 +1347,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 3 - Señal SP-47',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SP-47.png'
+  '/assets/images/signals/SP-47.jpg'
 ),
 
 -- 80. [A2] Conducción con Pasajero (Parrillero)
@@ -1373,7 +1364,7 @@ VALUES
   'Guía de Movilidad Segura para Motociclistas',
   'Conducción con Acompañante',
   'ANSV',
-  '/assets/images/illustrations/a2_pasajero_efecto_frenado.png'
+  '/assets/images/illustrations/a2_pasajero_efecto_frenado.jpeg'
 ),
 
 -- 81. [A2] Circulación por Carriles Exclusivos (Metro / TransMilenio)
@@ -1407,7 +1398,7 @@ VALUES
   'Manual de Referencia para la Conducción de Vehículos',
   'Sistemas de Seguridad Pasiva',
   'ANSV',
-  '/assets/images/illustrations/b1_cinturon_posicion_correcta.png'
+  '/assets/images/illustrations/b1_cinturon_posicion_correcta.jpeg'
 ),
 
 -- 83. [B1] Conducción bajo Niebla Densa
@@ -1424,7 +1415,7 @@ VALUES
   'Manual de Conducción Preventiva',
   'Condiciones Atmosféricas Adversas',
   'ANSV',
-  '/assets/images/illustrations/b1_luces_niebla_efecto.png'
+  '/assets/images/illustrations/b1_luces_niebla_efecto.jpeg'
 ),
 
 -- 84. [C1] Kit o Equipo de Carretera Obligatorio
@@ -1441,7 +1432,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 30',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/equipo_carretera_completo.png'
+  '/assets/images/illustrations/equipo_carretera_completo.jpg'
 ),
 
 -- 85. [C1] Puertas del Vehículo durante la Marcha
@@ -1492,7 +1483,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 4 - Demarcaciones Viales',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/demarcacion_doble_linea_amarilla.png'
+  '/assets/images/signals/demarcacion_doble_linea_amarilla.jpeg'
 ),
 
 -- 88. [A2] Uso de Elementos Reflectivos en las Llantas/Ruedas
@@ -1526,7 +1517,7 @@ VALUES
   'Reglamento Técnico de Cascos',
   'Accesorios de Visibilidad',
   'Resolución 1080 de 2019',
-  '/assets/images/illustrations/a2_pinlock_antiempanante.png'
+  '/assets/images/illustrations/a2_pinlock_antiempanante.jpeg'
 ),
 
 -- 90. [B1] Luces Bajas Obligatorias en Carretera
@@ -1560,7 +1551,7 @@ VALUES
   'Manual de Conducción Preventiva',
   'Factores Humanos en la Conducción',
   'ANSV',
-  '/assets/images/illustrations/fatiga_conductor_reaccion.png'
+  '/assets/images/illustrations/fatiga_conductor_reaccion.jpeg'
 ),
 
 -- 92. [C1] Transporte de Carga Sobresaliente en Microbuses
@@ -1601,17 +1592,17 @@ VALUES
 (
   array['A2', 'B1', 'C1', 'GENERAL'],
   'signage_infrastructure',
-  '¿Qué indica la señal preventiva de código SP-13 (líneas que se estrechan en un costado)?',
+  '¿Qué indica la señal preventiva de código SP-28 (líneas que se estrechan en un costado)?',
   'Un aumento en el número de carriles disponibles.',
   'La reducción del ancho de la calzada por el costado señalado, requiriendo reubicarse en el carril libre.',
   'El ingreso a una zona de parqueo obligatorio.',
   'La presencia de un puente peatonal elevado.',
   'B',
-  'La señal SP-13 previene al conductor sobre la pérdida de un carril o el angostamiento de la calzada para realizar la incorporación con la debida antelación.',
+  'La señal SP-28 previene al conductor sobre la pérdida de un carril o el angostamiento de la calzada para realizar la incorporación con la debida antelación.',
   'Manual de Señalización Vial',
-  'Capítulo 3 - Señal SP-13',
+  'Capítulo 3 - Señal SP-28',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SP-13.png'
+  '/assets/images/signals/SP-28.png'
 ),
 
 -- 95. [SEÑALIZACIÓN - GENERAL] Demarcación de Borde de Calzada (Línea Blanca Continua)
@@ -1645,7 +1636,7 @@ VALUES
   'Guía de Conducción Técnica y Preventiva',
   'Superación de Obstáculos',
   'ANSV',
-  '/assets/images/illustrations/a2_postura_posapies_obstaculo.png'
+  '/assets/images/illustrations/a2_postura_posapies_obstaculo.jpeg'
 ),
 
 -- 97. [B1] Presión de Aire en Neumáticos y Ahorro de Combustible
@@ -1662,7 +1653,7 @@ VALUES
   'Manual de Mecánica Básica y Mantenimiento',
   'Cuidado de Neumáticos',
   'ANSV',
-  '/assets/images/illustrations/b1_presion_llantas_deformacion.png'
+  '/assets/images/illustrations/b1_presion_llantas_deformacion.jpg'
 ),
 
 -- 98. [C1] Planilla de Viaje Ocasional
@@ -1679,14 +1670,14 @@ VALUES
   'Estatuto Nacional de Transporte',
   'Decreto 1079 de 2015',
   'Ministerio de Transporte',
-  '/assets/images/illustrations/c1_planilla_viaje_ocasional.png'
+  '/assets/images/illustrations/c1_planilla_viaje_ocasional.JPG'
 ),
 
 -- 99. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Pendiente Pronunciada
 (
   array['A2', 'B1', 'C1', 'GENERAL'],
   'signage_infrastructure',
-  '¿Qué precaución exige la señal preventiva con la silueta de un camión descendiendo por una inclinación (SP-26)?',
+  '¿Qué precaución exige la señal preventiva con la silueta de un camión descendiendo por una inclinación (SP-27)?',
   'Acelerar para aprovechar el impulso de la Bajada.',
   'Engranar un cambio bajo en la caja de velocidades para frenar con el motor y evitar el sobrecalentamiento de los frenos de servicio.',
   'Apagar el motor para ahorrar combustible durante el descenso.',
@@ -1694,9 +1685,9 @@ VALUES
   'B',
   'Ante descendimientos pronunciados, se debe utilizar la compresión del motor (freno de motor) para mantener el control sin fatigar o hervir el líquido de frenos.',
   'Manual de Señalización Vial',
-  'Capítulo 3 - Señal SP-26',
+  'Capítulo 3 - Señal SP-27',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SP-26.png'
+  '/assets/images/signals/SP-27.png'
 ),
 
 -- 100. [GENERAL] Uso de Dispositivos Móviles al Conducir
@@ -1713,7 +1704,7 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 131 Infracción C.38',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/manos_libres_conduccion.png'
+  '/assets/images/illustrations/manos_libres_conduccion.jpeg'
 ),
 
 -- 101. [GENERAL] Distancia de Frenado y Reacción
@@ -1781,7 +1772,7 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 2 - Señal SR-01',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SR-01.png'
+  '/assets/images/signals/SR-01.jpg'
 ),
 
 -- 105. [GENERAL] Uso Obligatorio de Luces

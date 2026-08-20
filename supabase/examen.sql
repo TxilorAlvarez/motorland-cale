@@ -68,6 +68,9 @@ create table if not exists public.exam_questions (
     legal_source text,
     legal_article text,
     legal_reference text,
+    fundament_type text,
+    technical_source text,
+    source_note text,
     image_url text,
 
     active boolean not null default true,
@@ -961,6 +964,9 @@ select
     q.legal_source,
     q.legal_article,
     q.legal_reference,
+    q.fundament_type,
+    q.technical_source,
+    q.source_note,
     q.image_url
 
 from public.exam_attempts a
@@ -1097,6 +1103,9 @@ begin
                        q.legal_source, 
                        q.legal_article, 
                        q.legal_reference,
+                       q.fundament_type,
+                       q.technical_source,
+                       q.source_note,
                        q.image_url
                 from public.exam_attempt_questions aq 
                 join public.exam_questions q on q.id = aq.question_id 

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         supabaseClient.from("exam_attempts").select("category,started_at,finished_at,duration_seconds,total_questions,total_correct,total_score,passed,status").eq("id", id).single(),
         supabaseClient.from("profiles").select("nombres").eq("id", session.user.id).single(),
         supabaseClient.from("exam_attempt_module_results").select("module,total_questions,correct_answers,score").eq("attempt_id", id),
-        supabaseClient.from("exam_attempt_review").select("question_order,module,selected_option,correct_option,is_correct,option_a,option_b,option_c,option_d,explanation,legal_source,legal_article,legal_reference").eq("attempt_id", id).eq("is_correct", false).order("question_order")
+        supabaseClient.from("exam_attempt_review").select("question_order,module,selected_option,correct_option,is_correct,option_a,option_b,option_c,option_d,explanation,legal_source,legal_article,legal_reference,fundament_type,technical_source,source_note").eq("attempt_id", id).eq("is_correct", false).order("question_order")
     ]);
 
     if (error || !intento) return location.replace("dashboard.html");
@@ -80,7 +80,7 @@ function renderReview(answers, error) {
 
 function createReviewCard(answer) {
     const moduleName = nombreModulo(answer.module);
-    const source = [answer.legal_source, answer.legal_article, answer.legal_reference].filter(Boolean).join(" · ") || "Material pedagógico de Motorland";
+    const source = sourceFor(answer);
     const card = createElement("article", "review-card");
     card.append(
         createElement("div", "review-card-header", [createElement("strong", "", `Pregunta ${String(answer.question_order).padStart(2, "0")}`), createElement("span", "review-incorrect", "✕ Incorrecta")]),
@@ -91,6 +91,13 @@ function createReviewCard(answer) {
         createReviewField("💡 Para reforzar", answer.explanation || `Repasa el tema “${moduleName}” antes de presentar nuevamente el simulacro.`, "review-tip")
     );
     return card;
+}
+
+function sourceFor(answer) {
+    const legal = [answer.legal_source, answer.legal_article, answer.legal_reference].filter(Boolean);
+    const technical = [answer.technical_source, answer.source_note].filter(Boolean);
+    const sources = [...legal, ...technical];
+    return sources.length ? sources.join(" · ") : "Fuente no registrada para esta pregunta.";
 }
 
 function createReviewField(label, value, className = "") {

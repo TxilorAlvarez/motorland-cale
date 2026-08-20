@@ -36,6 +36,8 @@ Ejecuta estos archivos en el SQL Editor, en este orden:
 
 Si el navegador muestra `Could not find the function public.save_exam_answer`, ejecuta adicionalmente `supabase/hotfix_save_exam_answer.sql`. El archivo recrea la función que guarda respuestas y solicita a PostgREST recargar su caché de esquema.
 
+Las migraciones incrementales están en `supabase/migrations/`. Para que un `git push` a `main` las aplique también al proyecto remoto, configura en GitHub Actions los secretos `SUPABASE_ACCESS_TOKEN` y `SUPABASE_PROJECT_REF`. El flujo **Deploy Supabase migrations** ejecutará `supabase db push` y desplegará la función de correo cuando cambie una migración o una función. La primera que debe aplicarse para mostrar correcciones y fuentes es `0002_expose_review_sources.sql`.
+
 `examen_bank.sql` carga 210 preguntas pedagógicas de preparación. No reproduce ni afirma ser el banco oficial del CALE. Los scripts anteriores `preguntas_a2.sql` y `examen_seed.sql` se conservan como material histórico y no deben ejecutarse junto con el banco consolidado.
 
 Para regenerar el banco desde los PDF extraídos a texto:

@@ -76,9 +76,16 @@ async function buildPdf(detail: any) {
     paragraph(`Respuesta marcada: ${selected}`);
     paragraph(`Corrección: ${correct}`, { bold: true });
     if (answer.explanation) paragraph(`Explicación: ${answer.explanation}`);
+    paragraph(`Fuente: ${sourceFor(answer)}`);
     y -= 4;
   }
   return await pdf.save();
+}
+
+function sourceFor(answer: Record<string, unknown>) {
+  const parts = [answer.legal_source, answer.legal_article, answer.legal_reference, answer.technical_source, answer.source_note]
+    .filter((value) => typeof value === "string" && value.trim()) as string[];
+  return parts.length ? parts.join(" · ") : "Fuente no registrada para esta pregunta.";
 }
 
 function bytesToBase64(bytes: Uint8Array) {

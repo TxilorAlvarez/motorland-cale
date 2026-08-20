@@ -120,6 +120,7 @@ function downloadAttemptPdf() {
             write(`Respuesta marcada: ${selected}`);
             write(`Corrección: ${correct}`, { bold: true });
             if (item.explanation) write(`Explicación: ${item.explanation}`);
+            write(`Fuente: ${sourceFor(item)}`);
             y += 2;
         });
         pdf.save(`resumen-correcciones-${fullName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.pdf`);
@@ -313,12 +314,6 @@ function renderWrong(items) {
     list.replaceChildren();
     if (!items.length) return list.append(el("p", "", "No se registraron respuestas incorrectas."));
 
-    const isGenericSource = txt => {
-        if (!txt) return false;
-        const t = String(txt).toLowerCase();
-        return /motorland|banco de 200|200 preguntas|material pedag[oó]gico|prep(araci)?on|cea motorland/.test(t);
-    };
-
     const pedagogicalFallback = (itm) => {
         // Provide a short, generic pedagogical/technical explanation without inventing legal citations.
         const mod = DETAIL_MODULES[itm.module] || itm.module || 'este tema';
@@ -336,7 +331,8 @@ function renderWrong(items) {
         // Build explanation and foundation
         const rawExplanation = item.explanation ? String(item.explanation).trim() : '';
         const legalParts = [item.legal_source, item.legal_article, item.legal_reference].filter(Boolean).map(String);
-        const hasLegal = legalParts.length > 0 && !legalParts.some(isGenericSource);
+        const technicalParts = [item.technical_source, item.source_note].filter(Boolean).map(String);
+        const hasLegal = legalParts.length > 0;
 
         let whyText = rawExplanation;
         let foundationText = '';
@@ -355,11 +351,10 @@ function renderWrong(items) {
         } else {
             // If there's no valid legal reference, show pedagogical/technical foundation only
             foundationText = 'Fundamento pedagógico/técnico:\n' + pedagogicalFallback(item);
-            // If there are legal fields but they are generic (eg. banco de preguntas), do not present them as juridical source
-            if (legalParts.length > 0 && !hasLegal) {
-                sourceText = legalParts.join(' · '); // keep as source but not as juridical foundation
-            }
+            sourceText = technicalParts.join(' · ');
         }
+
+        sourceText = sourceFor(item);
 
         // Build DOM
         card.append(
@@ -406,21 +401,21 @@ function renderWrong(items) {
         foundationNode.textContent = foundationText;
         card.append(foundationNode);
 
-        // Source - only if exists; if it's generic, still show but labeled as 'Fuente (material de preparación)'
-        if (sourceText) {
-            const src = document.createElement('small');
-            if (hasLegal) {
-                src.textContent = 'Fuente: ' + sourceText;
-            } else {
-                src.textContent = 'Fuente (material de preparación): ' + sourceText;
-            }
-            src.style.display = 'block';
-            src.style.marginTop = '6px';
-            card.append(src);
-        }
+        const src = document.createElement('small');
+        src.textContent = 'Fuente: ' + sourceText;
+        src.style.display = 'block';
+        src.style.marginTop = '6px';
+        card.append(src);
 
         list.append(card);
     });
+}
+
+function sourceFor(item) {
+    const parts = [item.legal_source, item.legal_article, item.legal_reference, item.technical_source, item.source_note]
+        .filter(value => value && String(value).trim())
+        .map(value => String(value).trim());
+    return parts.length ? parts.join(' · ') : 'Fuente no registrada para esta pregunta.';
 }
 
 function option(item, letter) {

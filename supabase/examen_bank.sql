@@ -9,7 +9,7 @@ VALUES
 
 -- 1. [A2] Frenado de Emergencia
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   '[A2] Durante un frenado de emergencia en motocicleta a velocidad de carretera, ¿cuál es la distribución de frenado recomendada para evitar la pérdida de control?',
   '100% en el freno trasero para evitar el vuelco.',
@@ -26,7 +26,7 @@ VALUES
 
 -- 2. [A2] Uso del Casco (Protección)
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'traffic_rules',
   '[A2] Además de la certificación técnica del casco, ¿cuál es una obligación legal insustituible para el conductor de motocicleta según la regulación vigente de uso?',
   'Llevar el visor levantado en todo momento.',
@@ -43,7 +43,7 @@ VALUES
 
 -- 3. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica la siguiente señal reglamentaria identificada con el código SR-01?',
   'Prohibido seguir adelante.',
@@ -60,7 +60,7 @@ VALUES
 
 -- 4. [B1] Adelantamiento
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   '[B1] De acuerdo con la Ley 769 de 2002, ¿por cuál lado se debe efectuar por regla general el adelantamiento de otro vehículo en una vía de doble sentido?',
   'Por la derecha en todos los casos.',
@@ -77,7 +77,7 @@ VALUES
 
 -- 5. [B1] Distancia de Seguridad (CORREGIDA BAJO LEY JULIÁN ESTEBAN)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   '[B1] De acuerdo con los criterios modernos de seguridad vial de la ANSV y la Ley Julián Esteban, ¿cómo debe calcularse la distancia segura con el vehículo que antecede en carretera?',
   'Manteniendo una distancia fija de 10 metros sin importar la velocidad.',
@@ -94,7 +94,7 @@ VALUES
 
 -- 6. [C1] Licencia de Conducción
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '[C1] ¿Cuál es la vigencia de la licencia de conducción categoría C1 para conductores menores de 60 años?',
   '10 años.',
@@ -111,7 +111,7 @@ VALUES
 
 -- 7. [C1] Kit de Carretera y Equipo de Prevención
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'vehicle',
   '[C1] Además de los elementos básicos de carretera, ¿qué elemento de prevención contra incendios debe portar obligatoriamente un vehículo de servicio público C1?',
   'Extintor de agua a presión de 5 galones.',
@@ -128,7 +128,7 @@ VALUES
 
 -- 8. [SEÑALIZACIÓN - GENERAL] Señal Preventiva
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Cuál es la función principal de las señales de tránsito de color amarillo con símbolos negros (Señales Preventivas)?',
   'Notificar limitaciones, prohibiciones o restricciones legales.',
@@ -145,7 +145,7 @@ VALUES
 
 -- 9. [ACTITUDES - GENERAL] Alcohol y Conducción
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   '¿Cuál es la consecuencia legal inmediata ante la negativa de un conductor a someterse a las pruebas de alcoholemia u otra sustancia psicoactiva?',
   'Una amonestación verbal y la orden de parquear el vehículo durante dos horas.',
@@ -162,7 +162,7 @@ VALUES
 
 -- 10. [C1] Control Operacional de Servicio Público
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '[C1] ¿Qué documento específico y obligatorio, adicional a los de un vehículo particular, debe portar el conductor de un vehículo de servicio público colectivo o individual?',
   'La tarjeta de control vigente expedida por la empresa afiliadora, ubicada en un lugar visible.',
@@ -179,7 +179,7 @@ VALUES
 
 -- 11. [GENERAL] Límites de Velocidad Urbanos (Ley Julián Esteban)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'De acuerdo con la Ley 2251 de 2022 (Ley Julián Esteban), ¿cuál es el límite máximo de velocidad permitido para vehículos particulares en vías urbanas, salvo señalización en contrario?',
   '60 km/h.',
@@ -196,7 +196,7 @@ VALUES
 
 -- 12. [GENERAL] Velocidad en Zonas Escolares y Residenciales
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cuál es el límite máximo de velocidad permitido en zonas escolares, residenciales y de proximidad a intersecciones según la regulación vigente?',
   '40 km/h.',
@@ -213,7 +213,7 @@ VALUES
 
 -- 13. [A2] Prenda Reflectiva en Motocicletas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'traffic_rules',
   '¿En qué horario es obligatorio para los conductores de motocicleta y sus acompañantes el uso de chaleco o prenda reflectiva según la reglamentación nacional?',
   'Únicamente cuando esté lloviendo intensamente.',
@@ -230,7 +230,7 @@ VALUES
 
 -- 14. [A2] Tránsito por Pasos Peatonales y Bermas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'attitudes',
   '¿Está permitido que un motociclista circule por las aceras, ciclorrutas o bermas para adelantar el tráfico congestionado?',
   'Sí, siempre que no s upere los 20 km/h.',
@@ -247,7 +247,7 @@ VALUES
 
 -- 15. [B1] Uso del Cinturón de Seguridad
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   'En un vehículo particular (B1), ¿quiénes tienen la obligación legal de utilizar el cinturón de seguridad durante la marcha?',
   'Únicamente el conductor.',
@@ -264,7 +264,7 @@ VALUES
 
 -- 16. [B1] Sistemas de Retención Infantil (SRI)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   'De acuerdo con las recomendaciones de seguridad vial y la normativa de tránsito, ¿dónde y cómo deben viajar los niños menores de 10 años en un automóvil particular?',
   'En el asiento delantero usando el cinturón para adultos.',
@@ -281,7 +281,7 @@ VALUES
 
 -- 17. [C1] Inspección Preoperativa
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'vehicle',
   '¿Cuál es el objetivo principal de la revisión o inspección preoperativa diaria que debe ejecutar el conductor de servicio público C1?',
   'Verificar la limpieza exterior de la carrocería para mejorar la imagen institucional.',
@@ -298,7 +298,7 @@ VALUES
 
 -- 18. [C1] Horas de Conducción y Descanso
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'attitudes',
   'Para evitar la fatiga y el microsueño en la conducción de servicio público C1, ¿cuál es el tiempo máximo de conducción continua recomendado antes de realizar una pausa activa?',
   '8 horas seguidas sin parar.',
@@ -315,7 +315,7 @@ VALUES
 
 -- 19. [SEÑALIZACIÓN - GENERAL] Demarcación Vial (Línea Amarilla Continua)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué significado tiene una línea longitudinal central continua de color amarillo trazada sobre la calzada?',
   'Indica que el flujo vehicular va en el mismo sentido y se puede cambiar de carril.',
@@ -332,7 +332,7 @@ VALUES
 
 -- 20. [SEÑALIZACIÓN - GENERAL] Señal Informativa (SI)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Cuál es el color predominante del fondo en las señales que brindan información de servicios en la vía (hospitales, estaciones de servicio, restaurantes)?',
   'Amarillo.',
@@ -349,7 +349,7 @@ VALUES
 
 -- 21. [A2] Frenado Combinado y ABS
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'vehicle',
   '¿Qué beneficio principal aporta el sistema de frenos antibloqueo (ABS) en una motocicleta durante un frenado brusco?',
   'Aumenta la velocidad máxima de la motocicleta.',
@@ -366,7 +366,7 @@ VALUES
 
 -- 22. [A2] Transporte de Carga en Motocicletas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'traffic_rules',
   '¿Cuál es la norma que rige el transporte de carga o paquetes en una motocicleta?',
   'Se puede transportar cualquier carga sin importar la dimensión.',
@@ -383,7 +383,7 @@ VALUES
 
 -- 23. [B1] Fallo de Frenos en Bajada
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   'Si experimenta una pérdida repentina de frenos por sobrecalentamiento mientras desciende una pendiente prolongada en automóvil, ¿cuál es la primera acción de control?',
   'Apagar el motor de inmediato y retirar la llave.',
@@ -400,7 +400,7 @@ VALUES
 
 -- 24. [B1] Hidroplaneamiento (Aquaplaning)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   '¿Qué es el fenómeno de hidroplaneamiento o aquaplaning y cómo debe reaccionarse ante él?',
   'Es cuando los frenos se mojan; se debe acelerar para secarlos.',
@@ -417,7 +417,7 @@ VALUES
 
 -- 25. [C1] Prelación en Intersecciones no Señalizadas
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   'En una intersección sin señalización ni semáforos, ¿cuál vehículo tiene la prioridad de paso de acuerdo con las reglas de prelación?',
   'El vehículo que vaya a mayor velocidad.',
@@ -434,7 +434,7 @@ VALUES
 
 -- 26. [C1] Planillas y Documentación de Carga/Pasajeros
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Qué sanción aplica cuando un vehículo de servicio público C1 presta el servicio sin portar los documentos que sustentan la operación legal (como el extracto de contrato o tarjeta de operación)?',
   'Llamado de atención escrito.',
@@ -451,7 +451,7 @@ VALUES
 
 -- 27. [GENERAL] Rotondas o Glorietas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Quién tiene la prelación de paso al ingresar a una glorieta o rotonda de un solo carril si no hay señalización que indique lo contrario?',
   'El vehículo que va a ingresar a la glorieta.',
@@ -468,7 +468,7 @@ VALUES
 
 -- 28. [GENERAL] Luces Direccionales y Antelación
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Con qué distancia mínima de anticipación debe un conductor accionar la luz direccional antes de realizar un giro o cambio de carril en zona urbana?',
   '5 metros antes.',
@@ -485,7 +485,7 @@ VALUES
 
 -- 29. [A2] Uso de Luces en Motocicletas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'traffic_rules',
   '¿Cuál es la obligación respecto al uso de la luz delantera en las motocicletas durante su circulación en el territorio nacional?',
   'Encenderla únicamente entre las 18:00 y las 06:00 horas.',
@@ -502,7 +502,7 @@ VALUES
 
 -- 30. [A2] Superficies Deslizantes y Frenado
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'Al cruzar sobre demarcaciones pintadas en el suelo (pasos cebra) o tapas de alcantarillado en días lluviosos, ¿qué precaución principal debe tomar un motociclista?',
   'Acelerar fuertemente para pasar rápido.',
@@ -519,7 +519,7 @@ VALUES
 
 -- 31. [B1] Luces Altas y Deslumbramiento
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   'Al cruzar con otro vehículo que circula en sentido contrario durante la noche en carretera, ¿a qué distancia se deben cambiar las luces altas por luces bajas para evitar encandilar al otro conductor?',
   '50 metros antes.',
@@ -536,7 +536,7 @@ VALUES
 
 -- 32. [B1] Mantenimiento Preventivo de Llantas
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'vehicle',
   '¿Cuál es la profundidad mínima permitida del labrado (huella) de un neumático para garantizar un agarre seguro en piso húmedo antes de considerarse desgastada o lisa?',
   '0.5 mm.',
@@ -553,7 +553,7 @@ VALUES
 
 -- 33. [C1] Transporte de Pasajeros de Pie
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   'En vehículos de servicio público C1 tipo automóvil, campero o camioneta de pasajeros, ¿está permitido llevar pasajeros de pie?',
   'Sí, siempre que se sostengan de los pasamanos.',
@@ -570,7 +570,7 @@ VALUES
 
 -- 34. [C1] Puertas en Movimiento
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Cuál es la prohibición expresa respecto a la apertura de puertas en vehículos de servicio público durante la prestación del servicio?',
   'Se pueden abrir para ventilar el vehículo.',
@@ -587,7 +587,7 @@ VALUES
 
 -- 35. [SEÑALIZACIÓN - GENERAL] Señal Obligatoria de Ceda el Paso
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Cuál es la forma geométrica y significado de la señal reglamentaria SR-02 (Ceda el Paso)?',
   'Un círculo rojo que indica detención obligatoria.',
@@ -604,7 +604,7 @@ VALUES
 
 -- 36. [GENERAL] Distancia al Adelantar Ciclistas (Ley Julián Esteban)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'De acuerdo con la Ley 2251 de 2022 (Ley Julián Esteban), ¿cuál es la distancia lateral mínima que debe guardar cualquier vehículo motorizado al adelantar a un ciclista en la vía?',
   '0.5 metros.',
@@ -621,7 +621,7 @@ VALUES
 
 -- 37. [A2] Puntos Ciegos de Vehículos Pesados
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   '¿Por qué razón un motociclista nunca debe transitar pegado a los costados o justo detrás de un tractocamión o autobús de transporte de pasajeros?',
   'Porque el humo del escape puede dañar la pintura de la motocicleta.',
@@ -638,7 +638,7 @@ VALUES
 
 -- 38. [A2] Frenado en Curva
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'Si una motocicleta necesita reducir la velocidad mientras toma una curva, ¿cuál es la técnica de conducción más segura para evitar la pérdida de adherencia?',
   'Presionar fuertemente el freno delantero manteniendo la moto inclinada al máximo.',
@@ -655,7 +655,7 @@ VALUES
 
 -- 39. [B1] Uso de Luces Exploradoras
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   '¿Bajo qué condiciones está permitido el uso de luces exploradoras delanteras en un vehículo particular B1?',
   'En todo momento dentro de la ciudad para iluminar mejor las calles.',
@@ -672,7 +672,7 @@ VALUES
 
 -- 40. [B1] Frenado con ABS en Automóviles
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'vehicle',
   'Cuando se realiza un frenado a fondo en un automóvil equipado con sistema de frenos ABS y se siente una vibración o pulsación en el pedal, ¿qué debe hacer el conductor?',
   'Soltar el pedal de inmediato pensando que los frenos fallaron.',
@@ -689,7 +689,7 @@ VALUES
 
 -- 41. [C1] Tolerancia Cero de Alcohol en Servicio Público
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'attitudes',
   '¿Cuál es el nivel máximo de alcohol en sangre permitido para un conductor de vehículo de servicio público C1 según la legislación colombiana?',
   '0.20 gramos de etanol / 100 ml de sangre.',
@@ -706,7 +706,7 @@ VALUES
 
 -- 42. [C1] Periodicidad de la Revisión Técnico-Mecánica
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'vehicle',
   '¿A partir de qué año contado desde su fecha de matrícula debe realizar la primera Revisión Técnico-Mecánica y de emisiones contaminantes un vehículo de servicio público C1?',
   'Al sexto (6°) año.',
@@ -723,7 +723,7 @@ VALUES
 
 -- 43. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria de Prohibición de Giro
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica la señal reglamentaria identificada con la figura de una flecha curvada a la izquierda atravesada por una franja diagonal roja (SR-06)?',
   'Giro a la izquierda obligatorio.',
@@ -740,7 +740,7 @@ VALUES
 
 -- 44. [SEÑALIZACIÓN - GENERAL] Demarcación de Zona de Bloqueo (Malla Amarilla)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué significa la demarcación en retícula o malla de líneas amarillas diagonales pintada en el centro de una intersección (Zona de No Bloquear)?',
   'Zona reservada para el parqueo de taxis.',
@@ -757,7 +757,7 @@ VALUES
 
 -- 45. [A2] Visor del Casco en Conducción Nocturna o Lluvia
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'De acuerdo con las buenas prácticas y reglamentación, ¿por qué está prohibido el uso de visores oscuros o polarizados en los cascos de motociclista durante la conducción nocturna?',
   'Porque el polarizado raya el casco fácilmente.',
@@ -774,7 +774,7 @@ VALUES
 
 -- 46. [A2] Sistema de Escape y Emisión de Ruidos
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'vehicle',
   '¿Está permitido modificar el sistema de escape de una motocicleta instalando resonadores o retirando el silenciador original (DB Killer)?',
   'Sí, siempre que no afecte la velocidad.',
@@ -791,7 +791,7 @@ VALUES
 
 -- 47. [B1] Adelantamiento en Puentes y Curvas
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   '¿En cuál de los siguientes lugares está rotundamente prohibido realizar maniobras de adelantamiento a otros vehículos?',
   'En rectas con visibilidad superior a 500 metros.',
@@ -808,7 +808,7 @@ VALUES
 
 -- 48. [B1] Uso de Luces Estacionarias (Parqueo)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   '¿Cuál es el uso legal correcto de las luces estacionarias (intermitentes de parqueo)?',
   'Para circular en exceso de velocidad en caso de afán.',
@@ -825,7 +825,7 @@ VALUES
 
 -- 49. [C1] Transporte de Mercancías Peligrosas o Químicos en Microbuses
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Es legal transportar bombonas de gas propano, gasolina en pimpinas o sustancias inflamables dentro del compartimento de pasajeros de un microbús o colectivo de servicio público?',
   'Sí, si van amarradas en la parte trasera.',
@@ -842,7 +842,7 @@ VALUES
 
 -- 50. [C1] Capacidad Máxima de Pasajeros
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Dónde se encuentra registrada legalmente la capacidad máxima de pasajeros sentados que puede transportar un vehículo C1?',
   'En la factura de compra del vehículo.',
@@ -859,7 +859,7 @@ VALUES
 
 -- 51. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Curva Peligrosa
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué advierte la señal preventiva con símbolo de flecha en ángulo pronunciado hacia la derecha (SP-01)?',
   'La obligación de girar a la derecha inmediatamente.',
@@ -876,7 +876,7 @@ VALUES
 
 -- 52. [SEÑALIZACIÓN - GENERAL] Señal Informativa de Primeros Auxilios
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué servicio indica la señal informativa con fondo azul y el ícono de una cruz blanca o roja sobre un fondo cuadrado (SI-16)?',
   'Un puesto de control policial.',
@@ -893,7 +893,7 @@ VALUES
 
 -- 53. [A2] Técnica de Mirada en Conducción de Motocicletas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   '¿Hacia dónde debe dirigir la mirada un motociclista al momento de efectuar un giro o tomar una curva de radio cerrado?',
   'Fijamente hacia la rueda delantera de la moto.',
@@ -910,7 +910,7 @@ VALUES
 
 -- 54. [A2] Inspección de la Cadena de Transmisión
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'vehicle',
   '¿Cuál es el riesgo mecánico y de seguridad vial de transitar con la cadena de transmisión de la motocicleta demasiado holgada (destensada)?',
   'Aumentar la potencia del motor en subidas.',
@@ -927,7 +927,7 @@ VALUES
 
 -- 55. [B1] Uso Correcto del Apoyacabezas (Asientos)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   '¿Cuál es la función principal de seguridad pasiva del apoyacabezas instalado en las sillas de un automóvil?',
   'Servir como cojín para descansar o dormir durante viajes largos.',
@@ -944,7 +944,7 @@ VALUES
 
 -- 56. [B1] Encendido del Motor y Emisiones
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'attitudes',
   '¿Por qué se debe evitar mantener el motor encendido en espacios cerrados o garajes sin ventilación?',
   'Porque el motor consume más aceite de lo normal.',
@@ -961,7 +961,7 @@ VALUES
 
 -- 57. [C1] Tarjeta de Operación de Servicio Público
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Qué entidad o autoridad emite la Tarjeta de Operación para un vehículo de servicio público que presta servicio en una ruta legalmente habilitada?',
   'La Alcaldía Municipal o el Ministerio de Transporte a través de la empresa de transporte a la cual está afiliado el vehículo.',
@@ -978,7 +978,7 @@ VALUES
 
 -- 58. [C1] Estacionamiento de Servicio Público en Vía
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Está permitido que un microbús de servicio público C1 se detenga a recoger o dejar pasajeros en la mitad de la calle o sobre el carril central?',
   'Sí, siempre que coloque las luces estacionarias.',
@@ -995,7 +995,7 @@ VALUES
 
 -- 59. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria de Velocidad Máxima
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué ordena una señal circular de borde rojo con el número 50 en el centro (SR-30 con texto 50)?',
   'Mínimo de velocidad permitido a 50 km/h.',
@@ -1012,7 +1012,7 @@ VALUES
 
 -- 60. [SEÑALIZACIÓN - GENERAL] Demarcación de Flechas de Dirección
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indicación sobre la calzada representan las flechas blancas de color reflectivo pintadas dentro de un carril?',
   'La velocidad recomendada para ese carril.',
@@ -1029,7 +1029,7 @@ VALUES
 
 -- 61. [A2] Uso del Calzado Adecuado para Motociclistas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'attitudes',
   '¿Por qué razón técnica y de seguridad no se debe conducir una motocicleta utilizando sandalias, chancletas o calzado destalonado?',
   'Porque el viento refresca demasiado los pies.',
@@ -1046,7 +1046,7 @@ VALUES
 
 -- 62. [A2] Reacción ante Presencia de Aceite en la Calzada
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'Si al transitar en motocicleta observa una mancha brillante o irisada de combustible/aceite sobre la vía mojada, ¿cómo debe proceder?',
   'Girar fuertemente para esquivarla a última hora.',
@@ -1063,7 +1063,7 @@ VALUES
 
 -- 63. [B1] Espejos Retrovisores y Ajuste Correcto
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   '¿Cómo se deben ajustar los espejos retrovisores laterales de un automóvil para minimizar los puntos ciegos?',
   'Ajustarlos de modo que el costado del propio vehículo ocupe la mitad del espejo.',
@@ -1080,7 +1080,7 @@ VALUES
 
 -- 64. [B1] Cambio de Llanta Pinchada en Vía Pública
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   'Al sufrir una pinchadura en vía pública que obligue a cambiar la rueda, ¿a qué distancia mínima del vehículo se deben colocar los triángulos o conos de señalización de peligro?',
   'A 1 metro.',
@@ -1097,7 +1097,7 @@ VALUES
 
 -- 65. [C1] Extintor de Incendios en Servicio Público
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'vehicle',
   '¿Cuál es la verificación mínima requerida sobre el extintor de incendios de un vehículo de servicio público C1 durante la revisión preoperativa?',
   'Verificar únicamente que el color de la botella sea rojo.',
@@ -1114,7 +1114,7 @@ VALUES
 
 -- 66. [C1] Estado de los Neumáticos en Servicio Público
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'vehicle',
   '¿Está permitido el uso de llantas regrabadas (reacondicionadas manualmente en la banda de rodamiento sin proceso industrial) en el eje delantero de un vehículo de servicio público?',
   'Sí, porque ahorra costos a la empresa.',
@@ -1131,7 +1131,7 @@ VALUES
 
 -- 67. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria de Altura Máxima Permitida
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué restricción impone una señal circular reglamentaria que muestra dos triángulos apuntando verticalmente hacia un número como "4.1 m" (SR-32)?',
   'Velocidad máxima de 4.1 km/h.',
@@ -1148,7 +1148,7 @@ VALUES
 
 -- 68. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Resalto o Reductor de Velocidad
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué condición sobre la vía advierte la señal preventiva de código SP-25 (con una elevación en la silueta)?',
   'Un hueco o bache en el asfalto.',
@@ -1165,7 +1165,7 @@ VALUES
 
 -- 69. [A2] Uso del Freno Trasero en Suelo Húmedo
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   '¿Por qué se debe incrementar la sensibilidad y suavidad sobre el freno trasero de la motocicleta al conducir sobre pavimento mojado?',
   'Porque el pedal se rompe si se presiona fuerte.',
@@ -1182,7 +1182,7 @@ VALUES
 
 -- 70. [GENERAL] Vías de Un Solo Sentido y Giros
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Al circular por una calzada de un solo sentido con tres carriles, ¿desde cuál carril se debe efectuar correctamente un giro a la izquierda?',
   'Desde el carril derecho cruzando transversalmente los demás.',
@@ -1197,9 +1197,110 @@ VALUES
   '/assets/images/illustrations/posicion_giro_izquierda.jpg'
 );
 
+/* CONTROL DE CALIDAD DEL BANCO — bloque reubicado al final del archivo.
+-- Fuente normativa de señalización: Manual de Señalización Vial de Colombia,
+-- adoptado por la Resolución 20243040045005 de 2024. La Resolución 20253040037925
+-- de 2025 expidió la fe de erratas del Manual. Transiteca puede usarse como apoyo
+-- pedagógico para consultar las señales, pero nunca sustituye la fuente oficial.
+--
+-- Las preguntas de esta lista duplican el mismo resultado de aprendizaje de otra
+-- pregunta que permanece activa. Se conservan como trazabilidad histórica, pero
+-- se desactivan para que no vuelvan a salir en un simulacro.
+update public.exam_questions
+set active = false
+where question_text ilike any (ARRAY['%distribución recomendada de frenado entre la rueda delantera y la trasera%',
+  '%efectuar una frenada en motocicleta bajo condiciones normales%',
+  '%límite máximo de velocidad permitido para cualquier tipo de vehículo al transitar por zonas escolares%',
+  '%límite máximo de velocidad permitido en zonas escolares, residenciales y de proximidad%',
+  '%horario es obligatorio para los conductores de motocicleta y sus acompañantes el uso de chaleco%',
+  '%horario deben usar obligatoriamente chaleco o prenda reflectiva%',
+  '%fenómeno de hidroplaneamiento o aquaplaning y cómo debe reaccionarse%',
+  '%capa de agua se acumula entre la calzada y las llantas%',
+  '%intersección sin señalización ni semáforos, ¿cuál vehículo tiene la prioridad%',
+  '%intersección sin semáforo ni señalización de prioridad%',
+  '%señal octagonal de fondo rojo (SR-01)%',
+  '%doble línea continua de color amarillo pintada en el centro%',
+  '%distancia mínima al adelantar ciclistas%',
+  '%señal preventiva de código SP-01%',
+  '%señal reglamentaria SR-02%',
+  '%señal informativa de servicio médico (SI-01)%',
+  '%inspección preoperacional preventiva de un vehículo automotor%',
+  '%función específica del sistema antibloqueo de frenos (ABS)%',
+  '%al tomar una curva en motocicleta, ¿hacia dónde debe dirigir la mirada%',
+  '%demarcaciones de pintura sobre la calzada%',
+  '%anticipación mínima se debe indicar una maniobra de giro o cambio de carril%',
+  '%luces de estacionamiento o parqueo%',
+  '%carriles de uso exclusivo (SITP / TransMilenio)%',
+  '%vehículos de servicio público y las motocicletas inscritas en el RUNT%',
+  '%intersección tipo glorieta o rotonda, ¿quién tiene la prioridad%',
+  '%sillas infantiles (SRI) en lugar de llevar a los bebés%',
+  '%señal preventiva con líneas que se estrechan en el centro o hacia un costado%',
+  '%flecha en forma de curva descendente tachada por una diagonal roja (SR-06)%',
+  '%flechas verticales apuntando hacia arriba y abajo (SR-28)%',
+  '%marcación en forma de cuadrícula o red de líneas amarillas diagonales%',
+  '%flechas blancas pintadas dentro de un carril de circulación%',
+  '%Qué se entiende por "punto ciego"%',
+  '%Comparados con los automóviles particulares, los puntos ciegos%']::text[]);
+
+-- Corrige rutas que no existen. Cuando no hay una imagen pertinente disponible,
+-- se usa NULL para presentar la pregunta como texto, sin mostrar una imagen rota.
+update public.exam_questions
+set image_url = case image_url
+  when '/assets/images/signals/SR-01.png' then '/assets/images/signals/SR-01.jpg'
+  when '/assets/images/signals/SR-30_50.png' then '/assets/images/signals/SR-30_50.jpeg'
+  when '/assets/images/signals/SR-30_30.png' then '/assets/images/signals/SR-30_30.jpeg'
+  when '/assets/images/illustrations/a2_prenda_reflectiva.png' then '/assets/images/illustrations/a2_chaleco_reflectivo_horario.jpeg'
+  when '/assets/images/illustrations/b1_cinturon_ocupantes.png' then '/assets/images/illustrations/b1_cinturon_ocupantes.jpg'
+  when '/assets/images/signals/demarcacion_amarilla_continua.lpeg' then '/assets/images/signals/demarcacion_amarilla_continua.jpeg'
+  when '/assets/images/illustrations/a2_tecnica_mirada_curva.png' then '/assets/images/illustrations/a2_tecnica_mirada_curva.jpg'
+  when '/assets/images/illustrations/a2_reaccion_aceite.jpg' then '/assets/images/signals/a2_reaccion_aceite.jpg'
+  when '/assets/images/signals/prohibicion_carril_exclusivo.png' then '/assets/images/signals/prohibicion_carril_exclusivo.jpg'
+  when '/assets/images/signals/SI_escudo_ruta_45.png' then '/assets/images/signals/SI_escudo_ruta_45.jpeg'
+  when '/assets/images/illustrations/a2_rines_reflectivos.png' then '/assets/images/illustrations/a2_rines_reflectivos.jpeg'
+  when '/assets/images/signals/demarcacion_linea_berma.png' then '/assets/images/signals/demarcacion_linea_berma.jpeg'
+  when '/assets/images/signals/SP-44.png' then '/assets/images/signals/P-44.png'
+  else null
+end
+where image_url in (
+  '/assets/images/signals/SR-01.png', '/assets/images/signals/SR-30_50.png', '/assets/images/signals/SR-30_30.png',
+  '/assets/images/illustrations/a2_prenda_reflectiva.png', '/assets/images/illustrations/b1_cinturon_ocupantes.png',
+  '/assets/images/signals/demarcacion_amarilla_continua.lpeg', '/assets/images/illustrations/prohibicion_adelantar_puente.jpeg',
+  '/assets/images/illustrations/a2_tecnica_mirada_curva.png', '/assets/images/illustrations/a2_calzado_proteccion.png',
+  '/assets/images/illustrations/a2_reaccion_aceite.jpg', '/assets/images/signals/prohibicion_carril_exclusivo.png',
+  '/assets/images/signals/SI_escudo_ruta_45.png', '/assets/images/illustrations/a2_rines_reflectivos.png',
+  '/assets/images/signals/demarcacion_linea_berma.png', '/assets/images/illustrations/paso_peatonal_cebra.png',
+  '/assets/images/illustrations/prelacion_glorieta.png', '/assets/images/signals/SP-52.png', '/assets/images/signals/SP-44.png',
+  '/assets/images/signals/SP-15.png', '/assets/images/signals/SR-28.png', '/assets/images/signals/linea_detencion.png',
+  '/assets/images/signals/cuadricula_amarilla.png', '/assets/images/illustrations/testigo_temperatura.png',
+  '/assets/images/illustrations/testigo_aceite.png', '/assets/images/illustrations/puntos_ciegos_vehiculo.png',
+  '/assets/images/illustrations/puntos_ciegos_camion.png'
+);
+
+-- Todas las preguntas de señalización se remiten al Manual vigente, no al texto
+-- sustituido de 2022. La referencia específica de cada señal se mantiene en
+-- legal_article para facilitar la verificación.
+update public.exam_questions
+set legal_reference = 'Resolución 20243040045005 de 2024; fe de erratas, Resolución 20253040037925 de 2025'
+where legal_source = 'Manual de Señalización Vial'; -- bloque inactivo
+
+-- Reejecutar este archivo no debe duplicar preguntas disponibles. Se conserva
+-- una sola versión activa de cada enunciado y no se eliminan filas históricas
+-- que puedan estar vinculadas a intentos ya presentados.
+with repetidas as (
+  select id,
+         row_number() over (partition by question_text order by created_at desc, id desc) as posicion
+  from public.exam_questions
+)
+update public.exam_questions q
+set active = false
+from repetidas r
+where r.id = q.id
+  and r.posicion > 1;
+*/
+
 -- 71. [GENERAL] Límite de Velocidad en Zonas Escolares y Residenciales (Ley 2251)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Según la Ley 2251 de 2022, ¿cuál es el límite máximo de velocidad permitido para cualquier tipo de vehículo al transitar por zonas escolares, residenciales o de concentración peatonal?',
   '50 km/h.',
@@ -1216,7 +1317,7 @@ VALUES
 
 -- 72. [A2] Horario Obligatorio para Prendas Reflectivas en Motocicletas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'traffic_rules',
   'De acuerdo con el Código Nacional de Tránsito, ¿en qué horario deben usar obligatoriamente chaleco o prenda reflectiva tanto el conductor de motocicleta como su acompañante?',
   'Únicamente cuando esté lloviendo.',
@@ -1233,7 +1334,7 @@ VALUES
 
 -- 73. [A2] Reparto Eficiente de Frenado en Motocicleta
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'En condiciones normales de pavimento seco, ¿cuál es la proporción recomendada de distribución de fuerza de frenado entre la rueda delantera y la trasera?',
   '100% freno trasero para no irse de cabeza.',
@@ -1250,7 +1351,7 @@ VALUES
 
 -- 74. [B1] Uso de Cintas Reflectivas en Vehículos (Resolución 20223040045295)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'vehicle',
   '¿Cuál es el color y posición normativa de las cintas retrorreflectivas requeridas en la parte posterior de los vehículos automotores obligados a llevarlas?',
   'Blanco en la parte trasera y rojo en los lados.',
@@ -1267,7 +1368,7 @@ VALUES
 
 -- 75. [B1] Reacción ante Aquaplaning (Hidroplaneo)
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   'Si al transitar en un automóvil sobre charcos o lluvia intensa siente que la dirección pierde firmeza y el vehículo "flota" (aquaplaning), ¿qué acción debe tomar?',
   'Pisar fuertemente el freno y girar el volante con rapidez.',
@@ -1284,7 +1385,7 @@ VALUES
 
 -- 76. [C1] Documento FUEC para Transporte Especial
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Qué significa la sigla FUEC y para qué tipo de servicio público C1 es exigible de forma obligatoria durante cada recorrido?',
   'Fórmula Única de Evaluación del Conductor / Servicio Individual Taxis.',
@@ -1301,7 +1402,7 @@ VALUES
 
 -- 77. [C1] Prelación de Paso en Intersecciones no Señalizadas
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   'Cuando dos vehículos llegan simultáneamente a una intersección en ángulo recto sin ningún tipo de señal ni semáforo, ¿quién tiene la prelación de paso?',
   'El vehículo de mayor tamaño.',
@@ -1318,7 +1419,7 @@ VALUES
 
 -- 78. [SEÑALIZACIÓN - GENERAL] Señal Reglamentaria de Prohibido Parquear y Detenerse
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué diferencia existe entre la señal SR-28 de una sola franja diagonal roja sobre fondo azul (Prohibido Parquear) y la señal con una "X" roja sobre fondo azul (SR-28A)?',
   'No hay diferencia, ambas significan lo mismo.',
@@ -1335,7 +1436,7 @@ VALUES
 
 -- 79. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Zona Escolar
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué advierte la señal preventiva amarilla con la silueta de dos niños caminando con bultos o morrales (SP-47)?',
   'Proximidad de un parque de atracciones.',
@@ -1352,7 +1453,7 @@ VALUES
 
 -- 80. [A2] Conducción con Pasajero (Parrillero)
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   '¿Cómo afecta el peso adicional de un acompañante (parrillero) en la respuesta dinámica de la motocicleta?',
   'Mejora el frenado y reduce la distancia de detención.',
@@ -1369,7 +1470,7 @@ VALUES
 
 -- 81. [A2] Circulación por Carriles Exclusivos (Metro / TransMilenio)
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'traffic_rules',
   '¿Tienen permitido los motociclistas transitar por los carriles exclusivos de sistemas de transporte masivo (BRT) para adelantar trancones?',
   'Sí, en horas pico.',
@@ -1386,7 +1487,7 @@ VALUES
 
 -- 82. [B1] Uso del Cinturón de Seguridad de Tres Puntos
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   '¿Cuál es la posición correcta de la cinta superior (torácica) del cinturón de seguridad en el cuerpo del ocupante?',
   'Pasando por debajo del brazo o por detrás de la espalda.',
@@ -1403,7 +1504,7 @@ VALUES
 
 -- 83. [B1] Conducción bajo Niebla Densa
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'safe_mobility',
   'Al encontrarse con un tramo de carretera cubierto por niebla densa, ¿por qué NO se deben encender las luces altas (plenas)?',
   'Porque descargan la batería del carro más rápido.',
@@ -1420,7 +1521,7 @@ VALUES
 
 -- 84. [C1] Kit o Equipo de Carretera Obligatorio
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'vehicle',
   '¿Cuál de los siguientes elementos forma parte del equipo de carretera obligatorio que debe portar todo vehículo C1 según el Artículo 30 de la Ley 769 de 2002?',
   'Un televisor portátil.',
@@ -1435,26 +1536,9 @@ VALUES
   '/assets/images/illustrations/equipo_carretera_completo.jpg'
 ),
 
--- 85. [C1] Puertas del Vehículo durante la Marcha
-(
-  array['C1'],
-  'traffic_rules',
-  '¿Qué infracción comete el conductor de un colectivo o microbús de servicio público que transita con las puertas abiertas mientras lleva pasajeros?',
-  'Ninguna, si hace calor.',
-  'Comete infracción a las normas de tránsito por poner en riesgo inminente la integridad de los pasajeros ante caídas a la calzada.',
-  'Solo es falta si va a más de 80 km/h.',
-  'Una falta menor que no genera comparendo.',
-  'B',
-  'Llevar las puertas abiertas durante el recorrido expone a los usuarios a caer a la vía en giros o frenadas bruscas, constituyendo una grave violación a la seguridad del pasaje.',
-  'Código Nacional de Tránsito',
-  'Artículo 91 y 131 (Infracción C.22)',
-  'Ley 769 de 2002',
-  NULL
-),
-
 -- 86. [SEÑALIZACIÓN - GENERAL] Señal Informativa de Ruta Nacional
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué significado tiene una señal vertical con forma de escudo blanco y borde negro que contiene un número (ejemplo: 45)?',
   'El límite de velocidad de la curva.',
@@ -1471,7 +1555,7 @@ VALUES
 
 -- 87. [SEÑALIZACIÓN - GENERAL] Demarcación de Línea Amarilla Continua Doble
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica la presencia de una doble línea amarilla continua pintada en el centro de una calzada de doble sentido?',
   'Que ambos sentidos pueden adelantar libremente.',
@@ -1488,7 +1572,7 @@ VALUES
 
 -- 88. [A2] Uso de Elementos Reflectivos en las Llantas/Ruedas
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   '¿Qué utilidad práctica aportan las cintas o stickers reflectivos instalados en los rines de una motocicleta?',
   'Aumentan la velocidad máxima en un 5%.',
@@ -1505,7 +1589,7 @@ VALUES
 
 -- 89. [A2] Conducción con Lluvia y Visibilidad del Casco
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'Cuando la lluvia empaña la cara interna del visor del casco, ¿cuál es el dispositivo o accesorio homologado más efectivo para evitar este fenómeno sin abrir el visor?',
   'Limpiar el visor por dentro con la mano mientras se maneja.',
@@ -1522,7 +1606,7 @@ VALUES
 
 -- 90. [B1] Luces Bajas Obligatorias en Carretera
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'traffic_rules',
   'De acuerdo con la legislación colombiana (Ley 769 de 2002), ¿cuándo es obligatorio transitar con las luces bajas encendidas en carreteras nacionales o departamentales?',
   'Únicamente de noche.',
@@ -1539,7 +1623,7 @@ VALUES
 
 -- 91. [B1] Estado Físico del Conductor y Cansancio
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'attitudes',
   '¿Cuál es el efecto del cansancio o fatiga extrema en la capacidad de reacción de un conductor de automóvil?',
   'Mejora los reflejos y la concentración.',
@@ -1556,7 +1640,7 @@ VALUES
 
 -- 92. [C1] Transporte de Carga Sobresaliente en Microbuses
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Está permitido llevar bultos, equipajes o cargas que sobresalgan por los laterales o ventanas de un vehículo de servicio público C1?',
   'Sí, si van amarrados con lazos gruesos.',
@@ -1573,7 +1657,7 @@ VALUES
 
 -- 93. [C1] Plan Estratégico de Seguridad Vial (PESV)
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Qué empresas o entidades están obligadas a diseñar e implementar un Plan Estratégico de Seguridad Vial (PESV) según la Ley 2050 de 2020 y Resoluciones del Ministerio de Transporte?',
   'Únicamente las escuelas de automovilismo.',
@@ -1590,7 +1674,7 @@ VALUES
 
 -- 94. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Reducción de Calzada
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica la señal preventiva de código SP-28 (líneas que se estrechan en un costado)?',
   'Un aumento en el número de carriles disponibles.',
@@ -1607,7 +1691,7 @@ VALUES
 
 -- 95. [SEÑALIZACIÓN - GENERAL] Demarcación de Borde de Calzada (Línea Blanca Continua)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué función cumple la línea continua blanca demarcada longitudinalmente en el extremo derecho de una carretera (Línea de Berma)?',
   'Indica el carril exclusivo para motocicletas.',
@@ -1624,7 +1708,7 @@ VALUES
 
 -- 96. [A2] Técnica de Subida de Bordillos o Obstáculos Pequeños
 (
-  array['A2'],
+  ARRAY['A2']::text[],
   'safe_mobility',
   'Si en una maniobra inevitable a baja velocidad debe sobrepasar un pequeño obstáculo o resalto con la motocicleta, ¿cuál es la postura corporal adecuada?',
   'Inclinarse completamente hacia adelante y apretar el freno delantero.',
@@ -1641,7 +1725,7 @@ VALUES
 
 -- 97. [B1] Presión de Aire en Neumáticos y Ahorro de Combustible
 (
-  array['B1'],
+  ARRAY['B1']::text[],
   'vehicle',
   '¿Qué consecuencia tiene circular de forma continua con los neumáticos por debajo de la presión de inflado recomendada por el fabricante?',
   'Se reduce el consumo de gasolina y frena mejor.',
@@ -1658,7 +1742,7 @@ VALUES
 
 -- 98. [C1] Planilla de Viaje Ocasional
 (
-  array['C1'],
+  ARRAY['C1']::text[],
   'traffic_rules',
   '¿Cuándo debe portar un vehículo de servicio público C1 (ejemplo: taxi o colectivo urbano) la Planilla de Viaje Ocasional?',
   'Cuando transita dentro de su ruta urbana asignada.',
@@ -1675,7 +1759,7 @@ VALUES
 
 -- 99. [SEÑALIZACIÓN - GENERAL] Señal Preventiva de Pendiente Pronunciada
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué precaución exige la señal preventiva con la silueta de un camión descendiendo por una inclinación (SP-27)?',
   'Acelerar para aprovechar el impulso de la Bajada.',
@@ -1692,7 +1776,7 @@ VALUES
 
 -- 100. [GENERAL] Uso de Dispositivos Móviles al Conducir
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   '¿Bajo qué única circunstancia está permitido hablar por teléfono celular o manipular pantallas mientras se conduce un vehículo en marcha?',
   'Cuando se transita a menos de 20 km/h.',
@@ -1709,7 +1793,7 @@ VALUES
 
 -- 101. [GENERAL] Distancia de Frenado y Reacción
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Qué componentes integran la distancia total de detención de un vehículo en marcha?',
   'La distancia de aceleración sumada a la distancia de parqueo.',
@@ -1726,7 +1810,7 @@ VALUES
 
 -- 102. [GENERAL] Pérdida de Adherencia por Lluvia
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Qué fenómeno se produce cuando una capa de agua se acumula entre la calzada y las llantas haciendo perder el contacto directo con el suelo?',
   'Sobrecalentamiento del motor.',
@@ -1743,7 +1827,7 @@ VALUES
 
 -- 103. [GENERAL] Prioridad en Intersecciones Sin Señalizar
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'En una intersección sin semáforo ni señalización de prioridad, ¿quién tiene la prelación de paso?',
   'El vehículo que circula a mayor velocidad.',
@@ -1760,7 +1844,7 @@ VALUES
 
 -- 104. [GENERAL] Señal Reglamentaria de Detención Obligatoria
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué orden o restricción establece la señal octagonal de fondo rojo (SR-01)?',
   'Disminuir la velocidad únicamente si vienen peatones.',
@@ -1777,7 +1861,7 @@ VALUES
 
 -- 105. [GENERAL] Uso Obligatorio de Luces
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿En qué horario o circunstancia es obligatorio el uso de luces medias para vehículos automotores de cuatro o más ruedas en vías urbanas y carreteras?',
   'Solo cuando se transita en autopistas de alta velocidad.',
@@ -1794,7 +1878,7 @@ VALUES
 
 -- 106. [GENERAL] Función de la Seguridad Pasiva
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuál es el objetivo principal de los elementos de seguridad pasiva en un vehículo (ej. cinturón, cintas reflexivas, airbags)?',
   'Evitar que ocurra el siniestro o la colisión vial.',
@@ -1811,7 +1895,7 @@ VALUES
 
 -- 107. [MOTO] Técnica Adecuada de Frenado
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Al efectuar una frenada en motocicleta bajo condiciones normales, ¿cuál es la distribución recomendada del uso de los frenos?',
   'Usar un 100% el freno trasero para evitar perder la estabilidad.',
@@ -1823,12 +1907,12 @@ VALUES
   'Manual de Referencia ANSV',
   'Módulo 5 - Conducción de Motocicletas',
   'ANSV 2026',
-  '/assets/images/illustrations/frenado_motocicleta.png'
+  '/assets/images/illustrations/frenado_motocicleta..jpeg'
 ),
 
 -- 108. [GENERAL] Demarcaciones sobre la Calzada
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica una doble línea continua de color amarillo pintada en el centro de una vía bidireccional?',
   'Que ambos sentidos pueden adelantar si no vienen vehículos.',
@@ -1840,12 +1924,12 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 3 - Demarcaciones Longitudinales',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/demarcacion_doble_continua.png'
+  '/assets/images/signals/demarcacion_doble_continua.jpg'
 ),
 
 -- 109. [GENERAL] Distancia Mínima al Adelantar Ciclistas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Al realizar la maniobra de adelantamiento a un ciclista en la vía pública, ¿qué separación lateral mínima debe mantener el conductor?',
   '0.5 metros.',
@@ -1857,12 +1941,12 @@ VALUES
   'Código Nacional de Tránsito y Ley ProBici',
   'Artículo 60 - Distancia al Adelantar',
   'Ley 1811 de 2016',
-  '/assets/images/illustrations/distancia_lateral_ciclista.png'
+  '/assets/images/illustrations/distancia_ciclista_1.5m.jpg'
 ),
 
 -- 110. [GENERAL] Diagnóstico de Neumáticos por Desgaste
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   'Si al revisar la banda de rodadura de una llanta se observa un desgaste excesivo únicamente en el centro de la pista, ¿cuál es la causa principal?',
   'Rodar el neumático con presión de aire inferior a la recomendada.',
@@ -1879,7 +1963,7 @@ VALUES
 
 -- 111. [GENERAL] Principio Fundamental de Visión Cero
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   'Según el enfoque internacional de Visión Cero adoptado en la planificación vial, ¿cuál es el pilar ético fundamental sobre los siniestros de tránsito?',
   'Los siniestros son eventos inevitables derivados del progreso automotor.',
@@ -1896,7 +1980,7 @@ VALUES
 
 -- 112. [GENERAL] Protocolo de Emergencias PAS
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'En la cadena de atención a un siniestro vial, ¿qué significan las siglas del protocolo de actuación "PAS"?',
   'Prevenir, Alertar y Salvar.',
@@ -1913,7 +1997,7 @@ VALUES
 
 -- 113. [GENERAL] Primera Acción en Fase "Proteger" del PAS
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   'Al hacer presencia en la escena de un siniestro vial con heridos, ¿cuál debe ser la primera acción a ejecutar en la fase de "Proteger"?',
   'Mover inmediatamente a las víctimas hacia la acera.',
@@ -1930,7 +2014,7 @@ VALUES
 
 -- 114. [GENERAL] Línea Única de Emergencias Urbanas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'En el territorio colombiano, ¿cuál es el número de marcación gratuita unificado para solicitar auxilio médico o policial ante una emergencia urbana?',
   '123',
@@ -1947,7 +2031,7 @@ VALUES
 
 -- 115. [GENERAL] Línea de Atención en Carreteras Nacionales
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Para reportar un evento, accidente o solicitar asistencia de grúa/ambulancia en carreteras nacionales de Colombia, ¿qué número se marca desde el celular?',
   '#123',
@@ -1964,7 +2048,7 @@ VALUES
 
 -- 116. [GENERAL] Distancia de Seguridad hasta 30 km/h
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'De acuerdo con las guías pedagógicas de seguridad vial, ¿cuál es la distancia de separación mínima recomendada entre vehículos cuando se circula a velocidades de hasta 30 km/h?',
   '5 metros.',
@@ -1981,7 +2065,7 @@ VALUES
 
 -- 117. [GENERAL] Distancia de Seguridad entre 30 y 60 km/h
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Cuando un vehículo transita a una velocidad comprendida entre los 30 km/h y los 60 km/h, ¿qué distancia de separación debe guardar con el vehículo que lo antecede?',
   '10 metros.',
@@ -1998,7 +2082,7 @@ VALUES
 
 -- 118. [GENERAL] Distancia de Seguridad entre 60 y 80 km/h
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'En un rango de velocidad de circulación entre 60 km/h y 80 km/h, ¿cuál es la separación reglamentaria sugerida entre dos vehículos?',
   '15 metros.',
@@ -2015,7 +2099,7 @@ VALUES
 
 -- 119. [GENERAL] Distancia de Seguridad a más de 80 km/h
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'A velocidades iguales o superiores a 80 km/h, ¿qué distancia de separación debe mantenerse respecto al vehículo que marcha adelante?',
   '15 metros.',
@@ -2032,7 +2116,7 @@ VALUES
 
 -- 120. [GENERAL] Uso de Luces Altas y Niebla
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   '¿Por qué razón técnica está contraindicado el uso de luces altas (de carretera) al conducir en zonas con presencia de niebla densa?',
   'Porque el sistema eléctrico sufre sobrecalentamiento por el esfuerzo.',
@@ -2049,7 +2133,7 @@ VALUES
 
 -- 121. [GENERAL] Vientos Laterales Fuertes
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   'Al enfrentar ráfagas de viento lateral fuerte durante la conducción en carretera o puentes, ¿cuál es la técnica de control correcta?',
   'Incrementar rápidamente la velocidad para atravesar el flujo de aire.',
@@ -2066,7 +2150,7 @@ VALUES
 
 -- 122. [GENERAL] Encendido de Vehículos Modernos y Eficiencia
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Dentro de las pautas de conducción eficiente para vehículos de inyección electrónica modernos, ¿cómo se debe proceder al encender el motor?',
   'Pisar a fondo el acelerador mientras se da arranque.',
@@ -2083,7 +2167,7 @@ VALUES
 
 -- 123. [GENERAL] Infracción por Estacionar sobre el Andén
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Está permitido estacionar un vehículo automotor sobre las aceras, andenes o espacios destinados a peatones?',
   'Sí, siempre y cuando no se obstaculice más de la mitad del paso.',
@@ -2100,7 +2184,7 @@ VALUES
 
 -- 124. [GENERAL] Estacionamiento Urbano junto al Sardinel
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Al estacionar un vehículo en vías urbanas autorizadas, ¿a qué distancia máxima respecto al sardinel o bordillo de la acera debe quedar ubicado?',
   'No más de 0.30 metros (30 cm).',
@@ -2117,7 +2201,7 @@ VALUES
 
 -- 125. [GENERAL] Estacionamiento Frente a Hidrantes
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cuál es la norma de tránsito sobre estacionar frente a los hidrantes de agua para bomberos?',
   'Se puede estacionar si el conductor permanece dentro del vehículo.',
@@ -2134,7 +2218,7 @@ VALUES
 
 -- 126. [GENERAL] Estacionamiento en Curvas o Rampas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Es legal parquear un vehículo en curvas, cimas de pendientes o zonas de visibilidad reducida?',
   'Sí, usando los triángulos de señalización a 5 metros.',
@@ -2151,7 +2235,7 @@ VALUES
 
 -- 127. [GENERAL] Factor Humano en la Siniestralidad Vial
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'De acuerdo con las estadísticas de siniestralidad de la ANSV, ¿qué porcentaje aproximado de los siniestros viales está asociado directamente al factor humano (comportamiento)?',
   'Cerca del 30%.',
@@ -2168,7 +2252,7 @@ VALUES
 
 -- 128. [GENERAL] Pausas Activas en Conducción Prolongada
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'En viajes de larga distancia o conducción continua por más de 2 horas (o 200 km), ¿cuál es la pausa de descanso mínima aconsejada?',
   '5 minutos sin bajar del vehículo.',
@@ -2185,7 +2269,7 @@ VALUES
 
 -- 129. [GENERAL] Efecto Depresor del Alcohol
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Desde el punto de vista psicofísico, ¿cómo clasifican las autoridades de salud y tránsito a las bebidas alcohólicas al actuar en el organismo del conductor?',
   'Estimulantes del sistema nervioso que mejoran los reflejos.',
@@ -2202,7 +2286,7 @@ VALUES
 
 -- 130. [GENERAL] Política de Alcohol en Conducción en Colombia
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cuál es la política legal frente al nivel de alcoholemia permitido para conductores de vehículos en Colombia?',
   'Margen de tolerancia hasta Grado 1 siempre que no causen daños.',
@@ -2219,7 +2303,7 @@ VALUES
 
 -- 131. [GENERAL] Efectos del Consumo de Marihuana
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   '¿Cómo altera el consumo de cannabis/marihuana el desempeño psicomotor al conducir un vehículo?',
   'Incrementa el campo visual y acelera la toma de decisiones.',
@@ -2236,7 +2320,7 @@ VALUES
 
 -- 132. [GENERAL] Medicamentos Antihistamínicos y Conducción
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   '¿Qué precaución debe tener un conductor cuando le han formulado medicamentos antihistamínicos (para alergias o gripas)?',
   'Ninguna, al ser fármacos de venta libre no tienen incidencia.',
@@ -2253,7 +2337,7 @@ VALUES
 
 -- 133. [GENERAL] Relación entre Velocidad y Campo Visual
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿A qué fenómeno de la visión se expone un conductor a medida que incrementa notablemente la velocidad del vehículo?',
   'Aumento de la visión periférica o panorámica.',
@@ -2270,7 +2354,7 @@ VALUES
 
 -- 134. [GENERAL] Límite de Velocidad en Zonas Residenciales y Escolares
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Salvo que exista una señalización legal que indique un valor inferior, ¿cuál es el límite máximo de velocidad permitido en zonas escolares y residenciales?',
   '50 km/h',
@@ -2287,7 +2371,7 @@ VALUES
 
 -- 135. [GENERAL] Paso Peatonal Demarcado (Cebra)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'En un paso peatonal o cebra no regulado por semáforo, ¿quién goza de la prelación absoluta de paso?',
   'El vehículo que circula por la vía principal.',
@@ -2304,7 +2388,7 @@ VALUES
 
 -- 136. [GENERAL] Peatones con Condiciones Especiales
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Al detectar la presencia de un peatón usando bastón blanco/verde, un adulto mayor o un niño cerca a la calzada, ¿cuál es la conducta que debe adoptar el conductor?',
   'Tocar la corneta para que se apresuren en cruzar.',
@@ -2321,7 +2405,7 @@ VALUES
 
 -- 137. [GENERAL] Invasión de Infraestructura Ciclistica
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Puede un vehículo automotor particular o motocicleta transitar por una ciclobanda o ciclorruta argumentando que está desierta?',
   'Sí, en horarios nocturnos de baja movilidad.',
@@ -2338,7 +2422,7 @@ VALUES
 
 -- 138. [GENERAL] Clasificación de Señales Preventivas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Cuál es la función principal de la señalización vial preventiva o de advertencia?',
   'Imponer sanciones de tipo económico.',
@@ -2355,7 +2439,7 @@ VALUES
 
 -- 139. [GENERAL] Señal Preventiva Curva Peligrosa (SP-01)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué precaución exige la presencia de una señal preventiva con una flecha curvada (SP-01)?',
   'Mantener o aumentar la velocidad para tomar la curva con impulso.',
@@ -2372,7 +2456,7 @@ VALUES
 
 -- 140. [GENERAL] Señal Reglamentaria Ceda el Paso (SR-02)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué obligación impone la señal reglamentaria con forma de triángulo invertido (SR-02)?',
   'Detención obligatoria sin importar si vienen o no vehículos.',
@@ -2384,12 +2468,12 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 2 - Señal SR-02',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SR-02.png'
+  '/assets/images/signals/SR-02.jpeg'
 ),
 
 -- 141. [GENERAL] Señal Informativa de Servicio Médico (SI-01)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica una señal rectangular de fondo azul con el pictograma de una cruz blanca o roja?',
   'Obligación de someterse a prueba médica.',
@@ -2401,12 +2485,12 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 2 - Señal SI-01',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SI-01.png'
+  '/assets/images/signals/SI-01.jpg'
 ),
 
 -- 142. [GENERAL] Mensajes Variables en Vías
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Cuál es la ventaja funcional de los Paneles de Mensaje Variable (PMV) instalados en corredores viales?',
   'Sustituir de manera definitiva a los agentes de tránsito.',
@@ -2423,7 +2507,7 @@ VALUES
 
 -- 143. [GENERAL] Señalización Temporal de Obras
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿De qué color característico es el fondo de las señales viales de carácter temporal instaladas por ejecución de obras en la vía?',
   'Azul reflectivo.',
@@ -2435,12 +2519,12 @@ VALUES
   'Manual de Señalización Vial',
   'Capítulo 4 - Señalización de Obras',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/senal_obra_naranja.png'
+  '/assets/images/signals/senal_obra_naranja.jpg'
 ),
 
 -- 144. [GENERAL] Definición de Ciclobanda
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   'A diferencia de una ciclorruta segregada físicamente, ¿cómo se define una ciclobanda?',
   'Un camino exclusivo para bicicletas construido dentro de los parques.',
@@ -2457,7 +2541,7 @@ VALUES
 
 -- 145. [GENERAL] Revisión Preoperacional del Vehículo
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Con qué periodicidad debe llevarse a cabo la inspección preoperacional preventiva de un vehículo automotor?',
   'Únicamente cuando el vehículo vaya a ser vendido.',
@@ -2474,7 +2558,7 @@ VALUES
 
 -- 146. [GENERAL] Definición de Seguridad Activa
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué comprende el concepto de Seguridad Activa o Primaria en la ingeniería automotriz?',
   'Los elementos que protegen el cuerpo humano durante la colisión.',
@@ -2491,7 +2575,7 @@ VALUES
 
 -- 147. [GENERAL] Funcionamiento del Sistema ABS
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuál es la función específica del sistema antibloqueo de frenos (ABS) durante un frenado pánico?',
   'Bloquear firmemente las ruedas para arrastrar el vehículo en menor distancia.',
@@ -2508,7 +2592,7 @@ VALUES
 
 -- 148. [GENERAL] Freno de Estacionamiento (De Mano)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Sobre qué elemento mecánico actúa normalmente el freno de estacionamiento o de mano en los automóviles?',
   'Directamente sobre la transmisión o las ruedas traseras de forma mecánica o electrónica.',
@@ -2525,7 +2609,7 @@ VALUES
 
 -- 149. [GENERAL] Color de Luces Traseras de Frenado
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   'De acuerdo con las homologaciones técnicas, ¿de qué color obligatorio deben emitir luz los faros traseros al presionar el pedal de freno?',
   'Blanco intenso.',
@@ -2542,7 +2626,7 @@ VALUES
 
 -- 150. [GENERAL] Luz de Reversa o Retroceso
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿De qué color deben ser las luces traseras que se iluminan automáticamente al enganchar la marcha hacia atrás (reversa)?',
   'Rojo intermitente.',
@@ -2559,7 +2643,7 @@ VALUES
 
 -- 151. [GENERAL] Función de los Catadióptricos
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué es y qué función cumple un dispositivo catadióptrico o de retroreflexión instalado en los vehículos?',
   'Un bombillo halógeno de gran consumo.',
@@ -2576,7 +2660,7 @@ VALUES
 
 -- 152. [GENERAL] Lectura de Nomenclatura de Llantas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   'En la inscripción impresa sobre el costado de una llanta que marca "205/55 R16", ¿qué representa el número 205?',
   'El diámetro del rín en pulgadas.',
@@ -2588,12 +2672,12 @@ VALUES
   'Manual de Referencia ANSV',
   'Módulo 4 - Especificaciones de Neumáticos',
   'ANSV 2026',
-  '/assets/images/illustrations/nomenclatura_llanta.png'
+  '/assets/images/illustrations/nomenclatura_llanta..jpeg'
 ),
 
 -- 153. [GENERAL] Amortiguadores Deteriorados
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué consecuencia grave genera sobre la conducción el estado defectuoso o vencido de los amortiguadores del vehículo?',
   'Incremento apreciable en la distancia de frenado y pérdida de contacto de las llantas con el suelo en baches.',
@@ -2610,7 +2694,7 @@ VALUES
 
 -- 154. [GENERAL] Complementariedad de Airbag y Cinturón
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuál es la relación de funcionamiento entre las bolsas de aire (airbags) y el cinturón de seguridad?',
   'El airbag reemplaza el uso del cinturón en vías urbanas.',
@@ -2627,7 +2711,7 @@ VALUES
 
 -- 155. [GENERAL] Uso del Cinturón en Mujeres Embarazadas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuál es la instrucción correcta sobre el uso del cinturón de seguridad en mujeres gestantes?',
   'Están exentas de usar cinturón por riesgo de presión en el vientre.',
@@ -2639,12 +2723,12 @@ VALUES
   'Manual de Referencia ANSV',
   'Módulo 4 - Uso Correcto de Dispositivos',
   'ANSV 2026',
-  '/assets/images/illustrations/cinturon_embarazada.png'
+  '/assets/images/illustrations/cinturon_embarazada.jpeg'
 ),
 
 -- 156. [GENERAL] Equipo de Carretera Obligatorio - Gato
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   'De acuerdo con el Artículo 30 del CNT, ¿cuál de los siguientes elementos forma parte del kit o equipo reglamentario de carretera?',
   'Un gato hidráulico o mecánico con capacidad para elevar el vehículo.',
@@ -2661,7 +2745,7 @@ VALUES
 
 -- 157. [GENERAL] Equipo de Carretera Obligatorio - Señales
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuántas señales de peligro (triángulos reflectivos o conos) exige la norma portar dentro del equipo de carretera?',
   'Una sola señal.',
@@ -2678,7 +2762,7 @@ VALUES
 
 -- 158. [MOTO] Elemento de Protección Obligatorio
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Cuál es el elemento de protección personal exigido legalmente y de carácter obligatorio para conductores y acompañantes de motocicletas?',
   'Chaqueta de cuero con protecciones rígidas.',
@@ -2695,7 +2779,7 @@ VALUES
 
 -- 159. [MOTO] Ajuste del Sistema de Retención del Casco
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Al ponerse el casco de protección para transitar en motocicleta, ¿cómo debe posicionarse la correa de retención?',
   'Suelta para permitir el flujo de aire al cuello.',
@@ -2707,12 +2791,12 @@ VALUES
   'Resolución de Cascos ANSV',
   'Condiciones de Uso del Casco',
   'Resolución 23385 de 2020',
-  '/assets/images/illustrations/ajuste_casco_moto.png'
+  '/assets/images/illustrations/ajuste_casco_moto.jpeg'
 ),
 
 -- 160. [MOTO] Uso de Teléfonos Celulares dentro del Casco
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Está permitido ubicar el teléfono celular entre la cabeza y el casco de protección mientras se conduce una motocicleta?',
   'Sí, siempre que no entorpezca la visión frontal.',
@@ -2729,7 +2813,7 @@ VALUES
 
 -- 161. [MOTO] Circulación entre Carriles (Zizagüeado / Culebreo)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Cuál es la norma de tránsito sobre adelantar o zigzaguear entre vehículos que transitan en movimiento sobre sus respectivos carriles?',
   'Está permitido si se encienden las luces direccionales.',
@@ -2746,7 +2830,7 @@ VALUES
 
 -- 162. [MOTO] Uso de Chaqueta / Prenda Reflectiva Nocturna
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'En Colombia, ¿en qué horario es obligatorio para conductores y acompañantes de motocicleta vestir prenda o chaleco reflectivo?',
   'Solamente entre las 00:00 y las 04:00 horas.',
@@ -2758,12 +2842,12 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 94 - Visibilidad del Motociclista',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/chaleco_reflectivo_moto.png'
+  '/assets/images/illustrations/chaleco_reflectivo_moto.jpg'
 ),
 
 -- 163. [MOTO] Encendido Permanente de Luces en Motocicletas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Cuál es la exigencia legal sobre el uso de la luz frontal en motocicletas al circular durante el día?',
   'Deben encenderse únicamente en zonas rurales o carreteras.',
@@ -2780,7 +2864,7 @@ VALUES
 
 -- 164. [MOTO] Transporte de Cargas Prominentes en Moto
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Está permitido transportar en una motocicleta objetos o sobresaltos que sobresalgan por los laterales o entorpezcan la visibilidad y maniobrabilidad?',
   'Sí, siempre que se coloque una bandera roja en la punta.',
@@ -2797,7 +2881,7 @@ VALUES
 
 -- 165. [MOTO] Transporte de Menores de Edad en Motocicleta
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'De acuerdo con las regulaciones de movilidad y seguridad infantil, ¿a partir de qué condición/edad está prohibido o restringido el transporte de niños en moto?',
   'Se pueden llevar si acomodan los pies en los posapiés y sujetan al conductor, estando prohibido el traslado de menores de 10 años en varios municipios por decreto local.',
@@ -2814,7 +2898,7 @@ VALUES
 
 -- 166. [MOTO] Técnica de Mirada en Curvas para Motociclistas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Al tomar una curva en motocicleta, ¿hacia dónde debe dirigir la mirada el conductor para trazar el giro de forma segura?',
   'Hacia la llanta delantera para vigilar el terreno cercano.',
@@ -2831,7 +2915,7 @@ VALUES
 
 -- 167. [MOTO] Postura de los Pies sobre los Posapiés
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Cuál es la ubicación correcta de los pies del conductor mientras la motocicleta se encuentra en marcha?',
   'Con las puntas hacia afuera apuntando al piso por si requiere apoyarse.',
@@ -2848,7 +2932,7 @@ VALUES
 
 -- 168. [MOTO] Peligro de Pintura / Demarcaciones Mojadas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Por qué las demarcaciones de pintura sobre la calzada (cebras, flechas) representan un peligro severo para las motocicletas en días lluviosos?',
   'Porque la pintura disuelve el compuesto de caucho de las llantas.',
@@ -2865,7 +2949,7 @@ VALUES
 
 -- 169. [MOTO] Reemplazo de Casco tras un Impacto
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   'Si un casco de protección sufre una caída fuerte o se ve involucrado en un siniestro vial, ¿qué se debe hacer con él aunque no presente grietas visibles por fuera?',
   'Continuar usándolo si la pintura exterior está intacta.',
@@ -2882,7 +2966,7 @@ VALUES
 
 -- 170. [MOTO] Presión de Aire en Llantas de Moto
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'safe_mobility',
   '¿Qué ocurre si una motocicleta circula con las llantas por debajo de la presión (PSI) recomendada por el fabricante?',
   'Mejora la velocidad máxima del vehículo.',
@@ -2899,7 +2983,7 @@ VALUES
 
 -- 171. [GENERAL] Uso de Direccionales antes de un Giro
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Con qué anticipación mínima se debe indicar una maniobra de giro o cambio de carril mediante el uso de las luces direccionales en zonas urbanas?',
   'Al instante exacto de realizar el giro.',
@@ -2916,7 +3000,7 @@ VALUES
 
 -- 172. [GENERAL] Señal Manual de Giro a la Izquierda
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Si las luces direccionales del vehículo presentan una falla inesperada, ¿cuál es la señal manual reglamentaria para indicar un giro a la izquierda?',
   'Extender el brazo izquierdo de forma horizontal fuera del vehículo.',
@@ -2928,12 +3012,12 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 69 - Señales Manuales',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/senal_manual_izquierda.png'
+  '/assets/images/illustrations/senal_manual_izquierda.jpg'
 ),
 
 -- 173. [GENERAL] Señal Manual de Giro a la Derecha
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cómo debe indicarse manualmente la intención de girar hacia la derecha ante una avería del sistema eléctrico?',
   'Extender el brazo izquierdo en posición horizontal.',
@@ -2945,12 +3029,12 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 69 - Señales Manuales',
   'Ley 769 de 2002',
-  '/assets/images/illustrations/senal_manual_derecha.png'
+  '/assets/images/illustrations/senal_manual_derecha..jpg'
 ),
 
 -- 174. [GENERAL] Señal Manual para Disminuir la Velocidad
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cuál es el gesto manual normado para indicar a los conductores posteriores que se va a aminorar la marcha o detener el vehículo?',
   'Extender el brazo izquierdo hacia abajo con la palma de la mano orientada hacia atrás.',
@@ -2967,7 +3051,7 @@ VALUES
 
 -- 175. [GENERAL] Luces de Estacionamiento o Parqueo (Flashing)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿En qué situación específica deben accionarse las luces intermitentes de estacionamiento (luces de peligro)?',
   'Para adelantar rápidamente a otro vehículo en carretera.',
@@ -2984,7 +3068,7 @@ VALUES
 
 -- 176. [GENERAL] Tránsito por Carriles de Uso Exclusivo (SITP / TransMilenio)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Puede un vehículo particular o motocicleta invadir o circular por los carriles dedicados exclusivamente al transporte masivo?',
   'Sí, si el conductor paga la tarifa de peaje urbano.',
@@ -3001,7 +3085,7 @@ VALUES
 
 -- 177. [GENERAL] Uso de bocina / corneta / pito
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cuál es el uso legal y permitido del dispositivo sonoro (pito o corneta) en un vehículo?',
   'Para apresurar a los peatones en el cruce de cebra.',
@@ -3018,7 +3102,7 @@ VALUES
 
 -- 178. [GENERAL] Prohibición de Bocina cerca de Centros de Salud
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿En qué lugares está terminantemente prohibido hacer uso de la bocina o pito salvo emergencia extrema?',
   'En autopistas de alta velocidad.',
@@ -3030,12 +3114,12 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 104 - Zonas de Silencio',
   'Ley 769 de 2002',
-  '/assets/images/signals/SR-31.png'
+  '/assets/images/signals/SR-29.png'
 ),
 
 -- 179. [GENERAL] Infracción por Transitar sin SOAT Vigente
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Qué sanción aplica la autoridad de tránsito al constatar que un vehículo circula sin la póliza SOAT vigente?',
   'Amonestación escrita y llamado de atención.',
@@ -3052,7 +3136,7 @@ VALUES
 
 -- 180. [GENERAL] Caducidad y Vigencia de la RTM
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'En un vehículo particular nuevo, ¿a partir de qué año contado desde su fecha de matrícula debe comenzar a realizarse la Revisión Técnico-Mecánica (RTM) anual?',
   'Al finalizar el primer año.',
@@ -3069,7 +3153,7 @@ VALUES
 
 -- 181. [GENERAL] Periodicidad RTM en Servicio Público y Motos
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Cuándo deben realizar la primera Revisión Técnico-Mecánica los vehículos de servicio público y las motocicletas inscritas en el RUNT?',
   'A los 5 años de matriculados.',
@@ -3086,7 +3170,7 @@ VALUES
 
 -- 182. [GENERAL] Definición de Glorieta / Rotonda
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'En una intersección tipo glorieta o rotonda, ¿quién tiene la prioridad o prelación de paso legal?',
   'El vehículo que se dispone a ingresar a la glorieta.',
@@ -3103,7 +3187,7 @@ VALUES
 
 -- 183. [GENERAL] Salida de la Glorieta
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Para abandonar una glorieta de múltiples carriles de forma correcta, el conductor debe:',
   'Girar bruscamente desde el carril interno hacia la salida.',
@@ -3120,7 +3204,7 @@ VALUES
 
 -- 184. [GENERAL] Adelantamiento en Puentes o Viaductos
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Está permitido realizar maniobras de adelantamiento a otros vehículos cuando se transita sobre puentes, túneles o pasajes subterráneos?',
   'Sí, siempre que se superen los 60 km/h.',
@@ -3137,7 +3221,7 @@ VALUES
 
 -- 185. [GENERAL] Cruce de Pasos a Nivel (Vía Férrea)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Al aproximarse a un cruce con la vía férrea (paso a nivel), ¿cuál es la conducta reglamentaria que debe realizar el conductor?',
   'Acelerar para cruzar antes de que aparezca el tren.',
@@ -3149,12 +3233,12 @@ VALUES
   'Código Nacional de Tránsito',
   'Artículo 77 - Pasos a Nivel',
   'Ley 769 de 2002',
-  '/assets/images/signals/SP-28.png'
+  '/assets/images/signals/SP-52.png'
 ),
 
 -- 186. [GENERAL] Prelación de Vehículos de Emergencia
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'Al percibir las señales lumínicas (módulos estroboscópicos) y auditivas (sirena) de una ambulancia o vehículo de bomberos, ¿qué deben hacer los demás conductores?',
   'Aumentar la velocidad para abrirles paso adelante.',
@@ -3171,7 +3255,7 @@ VALUES
 
 -- 187. [GENERAL] Transporte de Niños en Asientos Delanteros
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   'De acuerdo con las disposiciones de seguridad vial, ¿cuál es la edad mínima reglamentaria para que un menor pueda viajar en el asiento delantero de un automóvil?',
   '5 años.',
@@ -3188,7 +3272,7 @@ VALUES
 
 -- 188. [GENERAL] Uso de Sistemas de Retención Infantil (SRI)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'traffic_rules',
   '¿Por qué se exige el uso de sillas infantiles (SRI) en lugar de llevar a los bebés cargados en los brazos de un adulto en el asiento trasero?',
   'Por comodidad de espacio en el baúl.',
@@ -3200,14 +3284,14 @@ VALUES
   'Manual de Referencia ANSV',
   'Módulo 4 - Sistemas de Retención Infantil',
   'ANSV 2026',
-  '/assets/images/illustrations/silla_infantil_sri.png'
+  '/assets/images/illustrations/silla_infantil_sri.jpg'
 ),
 
 -- 189. [GENERAL] Señal Preventiva Zona de Derrape (SP-23)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
-  '¿Qué advierte la señal preventiva que exhibe un automotor con trazos serpenteantes en sus llantas (SP-23)?',
+  '¿Qué advierte la señal preventiva que exhibe un automotor con trazos serpenteantes en sus llantas (SP-44)?',
   'Zona de venta de neumáticos.',
   'Proximidad a un tramo de calzada resbaladiza o con baja fricción.',
   'Inicio de zona de piques o carreras autorizadas.',
@@ -3215,14 +3299,14 @@ VALUES
   'B',
   'La señal advertencia de superficie resbaladiza alerta sobre pérdida de fricción imprevista por humedad, grasa o grava suelta en la calzada.',
   'Manual de Señalización Vial',
-  'Capítulo 2 - Señal SP-23',
+  'Capítulo 2 - Señal SP-44',
   'Resolución 20223040045295 de 2022',
-  '/assets/images/signals/SP-23.png'
+  '/assets/images/signals/SP-44.png'
 ),
 
 -- 190. [GENERAL] Señal Preventiva Reducción de Calzada (SP-15)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indica una señal preventiva con líneas que se estrechan en el centro o hacia un costado (SP-15)?',
   'Aumento del número de carriles disponibles.',
@@ -3239,7 +3323,7 @@ VALUES
 
 -- 191. [GENERAL] Señal Reglamentaria Prohibido Girar en "U" (SR-06)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué maniobra prohíbe la señal reglamentaria con una flecha en forma de curva descendente tachada por una diagonal roja (SR-06)?',
   'El giro hacia la derecha en la intersección.',
@@ -3256,7 +3340,7 @@ VALUES
 
 -- 192. [GENERAL] Señal Reglamentaria Altura Máxima Permitida (SR-28)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué restricción comunica la señal circular con borde rojo que contiene una cifra acompañada de flechas verticales apuntando hacia arriba y abajo (SR-28)?',
   'El peso límite de los camiones por eje.',
@@ -3273,7 +3357,7 @@ VALUES
 
 -- 193. [GENERAL] Señal Reglamentaria Peso Máximo Total (SR-29)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   'Una señal reglamentaria que exhibe un número seguido de la letra "t" (toneladas) restringe:',
   'El número de pasajeros que pueden viajar.',
@@ -3290,7 +3374,7 @@ VALUES
 
 -- 194. [GENERAL] Demarcación de Línea de Detención (Línea de PARE)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Dónde debe detenerse exactamente un vehículo ante un semáforo en rojo o una señal de PARE?',
   'Sobre las rayas del paso peatonal (cebra).',
@@ -3307,7 +3391,7 @@ VALUES
 
 -- 195. [GENERAL] Marcación en Cuadrícula Amarilla (Zona Bloqueo de Cruce)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué indicación expresa la demarcación en forma de cuadrícula o red de líneas amarillas diagonales en una intersección (M-13)?',
   'Zona habilitada para el parqueo de taxis.',
@@ -3324,7 +3408,7 @@ VALUES
 
 -- 196. [GENERAL] Marcas Viales de Flechas de Dirección
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Qué función cumplen las flechas blancas pintadas dentro de un carril de circulación?',
   'Decorar la calzada en zonas urbanas.',
@@ -3341,7 +3425,7 @@ VALUES
 
 -- 197. [GENERAL] Delineadores Estoperoles / Estacas (Ojos de Buey)
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'signage_infrastructure',
   '¿Cuál es la finalidad de los dispositivos retroreflectivos adheridos al pavimento (tachas, estoperoles u "ojos de gato")?',
   'Servir de reducedores de velocidad permanentes.',
@@ -3358,7 +3442,7 @@ VALUES
 
 -- 198. [GENERAL] Indicador de Temperatura del Motor
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   'Si durante la marcha el indicador de temperatura del motor en el tablero se eleva hasta la zona roja o se enciende el testigo correspondiente, el conductor debe:',
   'Aumentar la velocidad para que el aire enfríe el radiador.',
@@ -3375,7 +3459,7 @@ VALUES
 
 -- 199. [GENERAL] Presión del Aceite de Motor
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué riesgo crítico anuncia el testigo luminoso con forma de aceitera encendido en el tablero mientras se conduce?',
   'Que el nivel de combustible está bajo.',
@@ -3392,7 +3476,7 @@ VALUES
 
 -- 200. [GENERAL] Función del Filtro de Aire del Motor
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuál es el cometido principal del filtro de aire instalado en el motor del vehículo?',
   'Purificar el aire que ingresa a la cabina para los pasajeros.',
@@ -3409,7 +3493,7 @@ VALUES
 
 -- 201. [GENERAL] Estado del Líquido de Frenos
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Por qué se debe sustituir periódicamente el líquido de frenos según las recomendaciones del fabricante?',
   'Porque pierde color y mancha los depósitos.',
@@ -3426,7 +3510,7 @@ VALUES
 
 -- 202. [GENERAL] Alineación y Balanceo de las Ruedas
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué síntomas manifiestan las ruedas cuando el vehículo requiere un servicio de balanceo?',
   'Olor a quemado al acelerar en pendientes.',
@@ -3443,7 +3527,7 @@ VALUES
 
 -- 203. [GENERAL] Extintor de Incendios en el Vehículo
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   'Respecto al extintor de incendios incluido en el kit de carretera, la norma exige que este deba estar:',
   'Guardado en el fondo del baúl bajo la llanta de repuesto.',
@@ -3460,7 +3544,7 @@ VALUES
 
 -- 204. [GENERAL] Tipo de Extintor según Normativa
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué tipo de agente extintor es el recomendado para combatir los fuegos que potencialmente se presentan en vehículos (Líquidos inflamables y sistemas eléctricos)?',
   'Agua a presión únicamente.',
@@ -3477,7 +3561,7 @@ VALUES
 
 -- 205. [GENERAL] Botiquín de Primeros Auxilios Obligatorio
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Cuál de los siguientes insumos es indispensable dentro del botiquín de primeros auxilios exigido en el kit de carretera?',
   'Antibióticos e inyectables de uso especializado.',
@@ -3494,7 +3578,7 @@ VALUES
 
 -- 206. [GENERAL] Estado de la Llanta de Repuesto
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'vehicle',
   '¿Qué requisito de mantenimiento debe cumplir la llanta de repuesto portada en el vehículo?',
   'Tener menor tamaño que las llantas principales.',
@@ -3511,7 +3595,7 @@ VALUES
 
 -- 207. [GENERAL] Definición de Punto Ciego o Ciego Visual
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   '¿Qué se entiende por "punto ciego" en el contexto de la conducción de vehículos?',
   'Una zona del camino donde no hay alumbrado público.',
@@ -3528,7 +3612,7 @@ VALUES
 
 -- 208. [GENERAL] Puntos Ciegos en Vehículos Pesados
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   'Comparados con los automóviles particulares, los puntos ciegos en tractocamiones, buses y camiones de gran tonelaje son:',
   'Mucho menores debido a la altura de la cabina.',
@@ -3545,7 +3629,7 @@ VALUES
 
 -- 209. [GENERAL] Uso de Pantallas o GPS durante la Marcha
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   'Para programar una ruta en el navegador GPS o aplicación de mapas mientras se conduce, la acción correcta es:',
   'Digitar la dirección con una mano mientras se sostiene el volante con la otra.',
@@ -3562,7 +3646,7 @@ VALUES
 
 -- 210. [GENERAL] Conducción Agresiva e Ira al Volante
 (
-  array['A2', 'B1', 'C1', 'GENERAL'],
+  ARRAY['A2', 'B1', 'C1', 'GENERAL']::text[],
   'attitudes',
   'Ante una provocación, reclamo o maniobra imprudente por parte de otro conductor en la vía, la respuesta adecuada en conducción preventiva es:',
   'Responder con la bocina e insultos para hacerse respetar.',
@@ -3576,3 +3660,98 @@ VALUES
   'ANSV 2026',
   NULL
 );
+
+-- =============================================================================
+-- CONTROL DE CALIDAD DEL BANCO
+-- =============================================================================
+-- La fuente vigente de señalización es el Manual de Señalización Vial de
+-- Colombia, adoptado por la Resolución 20243040045005 de 2024 y corregido por
+-- la Resolución 20253040037925 de 2025. Transiteca es apoyo pedagógico, no una
+-- fuente jurídica sustituta.
+
+-- Desactiva preguntas que evalúan el mismo resultado de aprendizaje de otra
+-- pregunta activa. Se conservan para trazabilidad de intentos históricos.
+update public.exam_questions
+set active = false
+where question_text ilike any (ARRAY['%distribución recomendada de frenado entre la rueda delantera y la trasera%',
+  '%efectuar una frenada en motocicleta bajo condiciones normales%',
+  '%límite máximo de velocidad permitido para cualquier tipo de vehículo al transitar por zonas escolares%',
+  '%límite máximo de velocidad permitido en zonas escolares, residenciales y de proximidad%',
+  '%horario es obligatorio para los conductores de motocicleta y sus acompañantes el uso de chaleco%',
+  '%horario deben usar obligatoriamente chaleco o prenda reflectiva%',
+  '%fenómeno de hidroplaneamiento o aquaplaning y cómo debe reaccionarse%',
+  '%capa de agua se acumula entre la calzada y las llantas%',
+  '%intersección sin señalización ni semáforos, ¿cuál vehículo tiene la prioridad%',
+  '%intersección sin semáforo ni señalización de prioridad%',
+  '%señal octagonal de fondo rojo (SR-01)%',
+  '%doble línea continua de color amarillo pintada en el centro%',
+  '%distancia mínima al adelantar ciclistas%',
+  '%señal preventiva de código SP-01%',
+  '%señal reglamentaria SR-02%',
+  '%señal informativa de servicio médico (SI-01)%',
+  '%inspección preoperacional preventiva de un vehículo automotor%',
+  '%función específica del sistema antibloqueo de frenos (ABS)%',
+  '%al tomar una curva en motocicleta, ¿hacia dónde debe dirigir la mirada%',
+  '%demarcaciones de pintura sobre la calzada%',
+  '%anticipación mínima se debe indicar una maniobra de giro o cambio de carril%',
+  '%luces de estacionamiento o parqueo%',
+  '%carriles de uso exclusivo (SITP / TransMilenio)%',
+  '%vehículos de servicio público y las motocicletas inscritas en el RUNT%',
+  '%intersección tipo glorieta o rotonda, ¿quién tiene la prioridad%',
+  '%sillas infantiles (SRI) en lugar de llevar a los bebés%',
+  '%señal preventiva con líneas que se estrechan en el centro o hacia un costado%',
+  '%marcación en forma de cuadrícula o red de líneas amarillas diagonales%',
+  '%flechas blancas pintadas dentro de un carril de circulación%',
+  '%Qué se entiende por "punto ciego"%',
+  '%Comparados con los automóviles particulares, los puntos ciegos%']::text[]);
+
+-- Usa exclusivamente imágenes disponibles y pertinentes; el resto se entrega
+-- como pregunta de texto para no mostrar imágenes rotas o ajenas al enunciado.
+update public.exam_questions
+set image_url = case image_url
+  when '/assets/images/signals/SR-01.png' then '/assets/images/signals/SR-01.jpg'
+  when '/assets/images/signals/SR-30_50.png' then '/assets/images/signals/SR-30_50.jpeg'
+  when '/assets/images/signals/SR-30_30.png' then '/assets/images/signals/SR-30_30.jpeg'
+  when '/assets/images/illustrations/a2_prenda_reflectiva.png' then '/assets/images/illustrations/a2_chaleco_reflectivo_horario.jpeg'
+  when '/assets/images/illustrations/b1_cinturon_ocupantes.png' then '/assets/images/illustrations/b1_cinturon_ocupantes.jpg'
+  when '/assets/images/signals/demarcacion_amarilla_continua.lpeg' then '/assets/images/signals/demarcacion_amarilla_continua.jpeg'
+  when '/assets/images/illustrations/a2_tecnica_mirada_curva.png' then '/assets/images/illustrations/a2_tecnica_mirada_curva.jpg'
+  when '/assets/images/illustrations/a2_reaccion_aceite.jpg' then '/assets/images/signals/a2_reaccion_aceite.jpg'
+  when '/assets/images/signals/prohibicion_carril_exclusivo.png' then '/assets/images/signals/prohibicion_carril_exclusivo.jpg'
+  when '/assets/images/signals/SI_escudo_ruta_45.png' then '/assets/images/signals/SI_escudo_ruta_45.jpeg'
+  when '/assets/images/illustrations/a2_rines_reflectivos.png' then '/assets/images/illustrations/a2_rines_reflectivos.jpeg'
+  when '/assets/images/signals/demarcacion_linea_berma.png' then '/assets/images/signals/demarcacion_linea_berma.jpeg'
+  when '/assets/images/signals/SP-44.png' then '/assets/images/signals/P-44.png'
+  else null
+end
+where image_url in (
+  '/assets/images/signals/SR-01.png', '/assets/images/signals/SR-30_50.png', '/assets/images/signals/SR-30_30.png',
+  '/assets/images/illustrations/a2_prenda_reflectiva.png', '/assets/images/illustrations/b1_cinturon_ocupantes.png',
+  '/assets/images/signals/demarcacion_amarilla_continua.lpeg', '/assets/images/illustrations/prohibicion_adelantar_puente.jpeg',
+  '/assets/images/illustrations/a2_tecnica_mirada_curva.png', '/assets/images/illustrations/a2_calzado_proteccion.png',
+  '/assets/images/illustrations/a2_reaccion_aceite.jpg', '/assets/images/signals/prohibicion_carril_exclusivo.png',
+  '/assets/images/signals/SI_escudo_ruta_45.png', '/assets/images/illustrations/a2_rines_reflectivos.png',
+  '/assets/images/signals/demarcacion_linea_berma.png', '/assets/images/illustrations/paso_peatonal_cebra.png',
+  '/assets/images/illustrations/prelacion_glorieta.png', '/assets/images/signals/SP-52.png', '/assets/images/signals/SP-44.png',
+  '/assets/images/signals/SP-15.png', '/assets/images/signals/SR-28.png', '/assets/images/signals/linea_detencion.png',
+  '/assets/images/signals/cuadricula_amarilla.png', '/assets/images/illustrations/testigo_temperatura.png',
+  '/assets/images/illustrations/testigo_aceite.png', '/assets/images/illustrations/puntos_ciegos_vehiculo.png',
+  '/assets/images/illustrations/puntos_ciegos_camion.png'
+);
+
+update public.exam_questions
+set legal_reference = 'Resolución 20243040045005 de 2024; fe de erratas, Resolución 20253040037925 de 2025'
+where legal_source = 'Manual de Señalización Vial';
+
+-- Evita que una recarga accidental del banco deje dos copias activas del mismo
+-- enunciado. No se eliminan filas para no afectar intentos históricos.
+with repetidas as (
+  select id,
+         row_number() over (partition by question_text order by created_at desc, id desc) as posicion
+  from public.exam_questions
+)
+update public.exam_questions q
+set active = false
+from repetidas r
+where r.id = q.id
+  and r.posicion > 1;

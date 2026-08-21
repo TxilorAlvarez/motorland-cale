@@ -48,7 +48,7 @@ create table if not exists public.exam_questions (
     category text[] not null
         check (
             cardinality(category) > 0
-            and category <@ array['A2','B1','C1']::text[]
+            and category <@ array['A2','B1','C1','GENERAL']::text[]
         ),
 
     difficulty text not null default 'medium'
@@ -1161,3 +1161,106 @@ where n.nspname = 'public'
       'finish_exam_attempt'
   )
 order by p.proname;
+
+
+-- Ejecutar una vez en Supabase SQL Editor después de actualizar examen.sql.
+-- Cancela únicamente intentos vencidos que nunca tuvieron respuesta; no borra
+-- datos ni altera resultados finalizados o intentos que sí fueron respondidos.
+
+update public.exam_attempts a
+   set status = 'cancelled',
+       finished_at = coalesce(a.finished_at, now()),
+       duration_seconds = coalesce(
+           a.duration_seconds,
+           greatest(0, extract(epoch from now() - a.started_at)::integer)
+       )
+ where a.status = 'in_progress'
+   and a.started_at <= now() - interval '40 minutes'
+   and not exists (
+       select 1
+       from public.exam_attempt_questions aq
+       where aq.attempt_id = a.id
+         and aq.selected_option is not null
+   );
+
+-- Revisión: los intentos cancelados no cuentan contra el límite de tres.
+select status, count(*) as total
+from public.exam_attempts
+group by status
+order by status;
+
+-- =========================================================
+-- LIMPIEZA: eliminar frases pedagógicas de campo explanation
+-- y asegurar que cada pregunta tenga su soporte legal.
+--
+-- Este bloque es idempotente y seguro para ejecutarse en staging.
+-- Pasos que realiza:
+--   1) PREVIEW: muestra las filas que contienen la frase para revisión.
+--   2) Backups: copia las filas afectadas en tablas de respaldo dentro de la BD.
+--   3) UPDATE: pone explanation = NULL cuando contiene la frase indeseada
+--      y normaliza legal_source/legal_reference SOLO si están vacíos o
+--      contienen la referencia pedagógica de Motorland.
+--   4) Resultado: devuelve contadores para verificar el cambio.
+-- =========================================================
+
+-- PREVIEW: revisar antes de ejecutar los cambios (no modifica nada)
+-- SELECT id, question_text, explanation, legal_source, legal_article, legal_reference
+-- FROM public.exam_questions
+-- WHERE explanation ILIKE '%Respuesta de preparación incluida en el material pedagógico de Motorland%'
+-- ORDER BY id
+-- LIMIT 200;
+
+-- BEGIN actualización: descomenta y ejecuta cuando estés listo
+-- BEGIN;
+
+-- Crear tablas de respaldo (una sola vez por entorno)
+create table if not exists public.exam_explanation_fix_backup_questions (like public.exam_questions including all);
+
+-- Insertar en backup únicamente las filas que coinciden (evita duplicados por re-ejecución)
+insert into public.exam_explanation_fix_backup_questions
+select *
+from public.exam_questions q
+where q.explanation ilike '%Respuesta de preparación incluida en el material pedagógico de Motorland%'
+on conflict do nothing;
+
+-- Valor estándar recomendado para referencia legal si alguna pregunta no tuviera soporte propio.
+-- Ajusta la redacción si prefieres otra formulación oficial.
+with standard as (
+  select 'Manual de referencia para la conducción de vehículos — Agencia Nacional de Seguridad Vial (ANSV)'::text as ansv_ref
+)
+update public.exam_questions q
+set
+  explanation = NULL,
+  legal_source = case
+    when (q.legal_source is null or q.legal_source = '' or q.legal_source ilike '%Motorland%' or q.legal_source ilike '%material pedag%') then standard.ansv_ref
+    else q.legal_source
+  end,
+  legal_reference = case
+    when (q.legal_reference is null or q.legal_reference = '' or q.legal_reference ilike '%Motorland%' or q.legal_reference ilike '%material pedag%') then standard.ansv_ref
+    else q.legal_reference
+  end
+from standard
+where q.explanation ilike '%Respuesta de preparación incluida en el material pedagógico de Motorland%';
+
+-- Opcional: si hay vistas o tablas que materializan explanation/refs derivados de exam_questions,
+-- se verán reflejados automáticamente. La vista public.exam_attempt_review toma los campos
+-- directamente de public.exam_questions, por lo que no requiere actualización adicional.
+
+-- Mostrar resumen de cambios
+select
+  (select count(*) from public.exam_explanation_fix_backup_questions) as backed_up_questions,
+  (select count(*) from public.exam_questions where explanation is null and (legal_reference ilike '%ANSV%' or legal_source ilike '%ANSV%')) as questions_now_with_ansv_ref,
+  (select count(*) from public.exam_questions where explanation ilike '%Respuesta de preparación incluida en el material pedagógico de Motorland%') as remaining_with_pedagogy_phrase;
+
+-- COMMIT;
+
+-- Nota de seguridad: si necesitas revertir, restaura desde public.exam_explanation_fix_backup_questions:
+-- update public.exam_questions q set
+--   explanation = b.explanation,
+--   legal_source = b.legal_source,
+--   legal_article = b.legal_article,
+--   legal_reference = b.legal_reference
+-- from public.exam_explanation_fix_backup_questions b
+-- where q.id = b.id;
+
+-- Fin del bloque de limpieza (ejecutar manualmente en staging).

@@ -82,13 +82,17 @@ function createReviewCard(answer) {
     const moduleName = nombreModulo(answer.module);
     const source = sourceFor(answer);
     const card = createElement("article", "review-card");
+    const explanationText = (answer.explanation || "").includes("Respuesta de preparación incluida en el material pedagógico de Motorland")
+        ? `Fundamento jurídico: ${sourceFor(answer)}`
+        : (answer.explanation || `Repasa el tema “${moduleName}” antes de presentar nuevamente el simulacro.`);
+
     card.append(
         createElement("div", "review-card-header", [createElement("strong", "", `Pregunta ${String(answer.question_order).padStart(2, "0")}`), createElement("span", "review-incorrect", "✕ Incorrecta")]),
         createReviewField("Tu respuesta", optionLabel(answer, answer.selected_option)),
         createReviewField("Respuesta correcta", optionLabel(answer, answer.correct_option), "review-correct"),
         createReviewField("Tema", moduleName),
         createReviewField("Fuente", source),
-        createReviewField("💡 Para reforzar", answer.explanation || `Repasa el tema “${moduleName}” antes de presentar nuevamente el simulacro.`, "review-tip")
+        createReviewField("💡 Para reforzar", explanationText, "review-tip")
     );
     return card;
 }
